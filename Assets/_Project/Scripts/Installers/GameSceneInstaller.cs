@@ -7,6 +7,6 @@ public class GameSceneInstaller : MonoInstaller
     {
         Container.Bind<PlayerInput>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerInputHandler>().AsSingle();
-
+        Container.Bind<PlayerShip>().FromComponentInHierarchy().AsSingle();
     }
 }
