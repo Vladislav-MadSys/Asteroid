@@ -43,5 +43,8 @@ public class PlayerMovmentController : MonoBehaviour
             _rb.angularVelocity,
             angularDirection * rotationSpeed,
             rotationSpeed / rotationInertia * Time.deltaTime);
+
+        GameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
+        GameEvents.ChangePlayerRotation(_transform.rotation.z*180);
     }
 }

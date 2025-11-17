@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
                 deathObject.transform.parent = transform.parent;
             }
         }
+        GameEvents.KillEnemy(pointsForKill);
         Destroy(gameObject);
     }
 }

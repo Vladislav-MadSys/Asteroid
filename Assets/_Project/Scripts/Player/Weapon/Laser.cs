@@ -10,7 +10,7 @@ public class Laser : MonoBehaviour
     [SerializeField] private float range = 10;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private float _maxCharges = 3;
-    private float _curCharges = 0;
+    private int _curCharges = 0;
 
     //Fire
     [SerializeField] private float _shootingDelay = 2f;
@@ -47,6 +47,7 @@ public class Laser : MonoBehaviour
                 {
                     Fire();
                     _curCharges -= 1;
+                    GameEvents.ChangeLaserCharges(_curCharges);
                     _canFire = false;
                     _shootingTimer = 0;
                 }
@@ -75,12 +76,14 @@ public class Laser : MonoBehaviour
             if(_chargeTimer >= _chargeDelay)
             {
                 _curCharges++;
+                GameEvents.ChangeLaserCharges(_curCharges);
                 _chargeTimer = 0;
             }
             else
             {
                 _chargeTimer += Time.deltaTime;
             }
+            GameEvents.ChangeLaserTime(_chargeTimer);
         }
 
     }
