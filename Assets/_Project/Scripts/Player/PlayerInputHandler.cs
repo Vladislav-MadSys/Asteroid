@@ -4,6 +4,8 @@ using Zenject;
 public class PlayerInputHandler : ITickable, IInitializable
 {
     public Vector2 JoyInput { get; private set; }
+    public bool isFireButtonPressed { get; private set; }
+    public bool isFire2ButtonPressed { get; private set; }
 
     private PlayerInput _playerInput;
 
@@ -24,5 +26,7 @@ public class PlayerInputHandler : ITickable, IInitializable
     public void Tick()
     {
         JoyInput = _playerInput.Player.Move.ReadValue<Vector2>();
+        isFireButtonPressed = _playerInput.Player.Attack.IsPressed();
+        isFire2ButtonPressed = _playerInput.Player.Attack_2.IsPressed();
     }
 }

@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4939316534704000036}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: ee8261317c1ff734daa9da91d24312b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f3a720ed8c07f14ea6b92d6fefc8c0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 6247095252710494829}
   - component: {fileID: 3135018543850076840}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: PartOfAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f974c66a14c0f74b9af8e184438a0b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
-  minRotationOffset: -30
-  maxRotationOffset: 30
+  _speed: 2
+  minRotationOffset: -180
+  maxRotationOffset: 180
 --- !u!60 &5877198608575630395
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -219,10 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <pointsForKill>k__BackingField: 1
-  objectsToSpawnOnDeath:
-  - {fileID: 1963186718700902391, guid: b9dad22b1a8976247b9378bf3bf1b41f, type: 3}
-  - {fileID: 1963186718700902391, guid: b9dad22b1a8976247b9378bf3bf1b41f, type: 3}
-  - {fileID: 1963186718700902391, guid: b9dad22b1a8976247b9378bf3bf1b41f, type: 3}
+  objectsToSpawnOnDeath: []
 --- !u!114 &3135018543850076840
 MonoBehaviour:
   m_ObjectHideFlags: 0
