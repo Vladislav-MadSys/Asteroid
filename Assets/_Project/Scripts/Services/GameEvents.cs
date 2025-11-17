@@ -5,6 +5,8 @@ public class GameEvents
 {
     public static Action<int> OnEnemyKilled;
 
+    public static Action OnPlayerKilled;
+
     public static Action<int> OnPointsChanged;
     public static Action<Vector2> OnPlayerPositionChanged;
     public static Action<float> OnPlayerRotationChanged;
@@ -12,6 +14,9 @@ public class GameEvents
     public static Action<float> OnLaserTimeChangedChanged;
 
     public static void KillEnemy(int points) => OnEnemyKilled?.Invoke(points);
+
+    public static void KillPlayer() => OnPlayerKilled?.Invoke();    
+
     public static void ChangePoints(int curPoints) => OnPointsChanged?.Invoke(curPoints);
     public static void ChangePlayerPosition(Vector3 newPosition) => OnPlayerPositionChanged?.Invoke(newPosition);
     public static void ChangePlayerRotation(float newRotation) => OnPlayerRotationChanged?.Invoke(newRotation);

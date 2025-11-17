@@ -11,9 +11,14 @@ public class UfoMovment : MonoBehaviour
     private void Awake()
     {
         _transform = transform;
+
         //Know that it's vary bad practiece, but here is no any reason to find a way to make it 
         //fast and clear throw zenject
-        _target = FindFirstObjectByType<PlayerShip>().transform;
+        PlayerShip player = FindFirstObjectByType<PlayerShip>();
+        if (player != null)
+        {
+            _target = player.transform;
+        }
     }
 
     private void Update()

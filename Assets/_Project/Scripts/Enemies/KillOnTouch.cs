@@ -6,7 +6,7 @@ public class KillOnTouch : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<PlayerShip>(out PlayerShip playerShip))
         {
-            Debug.Log("Lose");
+            playerShip.KillPlayer();
         }
     }
 }

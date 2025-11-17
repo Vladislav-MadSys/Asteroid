@@ -47,4 +47,10 @@ public class PlayerMovmentController : MonoBehaviour
         GameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
         GameEvents.ChangePlayerRotation(_transform.rotation.z*180);
     }
+
+    //Hack
+    private void OnDestroy()
+    {
+        _playerInputHandler.Dispose();
+    }
 }

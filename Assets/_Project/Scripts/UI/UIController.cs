@@ -1,13 +1,27 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    [Header("Texts With Data")]
     [SerializeField] private TextMeshProUGUI _pointsText;
     [SerializeField] private TextMeshProUGUI _playerCoordinatesText;
     [SerializeField] private TextMeshProUGUI _playerAngleText;
     [SerializeField] private TextMeshProUGUI _laserChargesText;
     [SerializeField] private TextMeshProUGUI _laserReloadTimeText;
+
+    [Header("Final Panel")]
+    [SerializeField] private GameObject _losePanel;
+    [SerializeField] private Button _restartButton;
+
+    private void Awake()
+    {
+        _restartButton.onClick.AddListener(() => { 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); //Little hack
+        });
+    }
 
     private void OnEnable()
     {
@@ -16,6 +30,8 @@ public class UIController : MonoBehaviour
         GameEvents.OnPlayerRotationChanged += ChangePlayerAngleText;
         GameEvents.OnLaserChargesChanged += ChangeLaserChargeText;
         GameEvents.OnLaserTimeChangedChanged += ChangeLaserReloadText;
+
+        GameEvents.OnPlayerKilled += ShowLosePanel;
     }
 
     private void OnDisable()
@@ -25,6 +41,8 @@ public class UIController : MonoBehaviour
         GameEvents.OnPlayerRotationChanged -= ChangePlayerAngleText;
         GameEvents.OnLaserChargesChanged -= ChangeLaserChargeText;
         GameEvents.OnLaserTimeChangedChanged -= ChangeLaserReloadText;
+
+        GameEvents.OnPlayerKilled -= ShowLosePanel;
     }
 
     void ChangePointsText(int points)
@@ -60,5 +78,10 @@ public class UIController : MonoBehaviour
         if (_laserReloadTimeText == null) return;
 
         _laserReloadTimeText.text = "Laser reload: " + timer;
+    }
+
+    void ShowLosePanel()
+    {
+        _losePanel.SetActive(true);
     }
 }

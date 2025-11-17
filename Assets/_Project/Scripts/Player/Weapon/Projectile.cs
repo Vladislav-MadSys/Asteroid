@@ -21,7 +21,6 @@ public class Projectile : MonoBehaviour
         if(other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             enemy.Kill();
-            // Don't forget points for win
 
             Destroy(gameObject);
             //In general, we can use SetActive instead of Destroing for optimization perfomance in moment, 

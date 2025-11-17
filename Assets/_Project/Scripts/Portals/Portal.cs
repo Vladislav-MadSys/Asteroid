@@ -22,6 +22,8 @@ public class Portal : MonoBehaviour
 
     void LateUpdate()
     {
+        if (_playerTransform == null) return;
+
         Vector3 viewportPos = _mainCamera.WorldToViewportPoint(_playerTransform.position);
         Vector3 newPosition = _playerTransform.position;
         Vector3 cachedPos = newPosition;
