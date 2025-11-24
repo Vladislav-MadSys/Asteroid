@@ -21,10 +21,7 @@ public class UIController : MonoBehaviour
         _restartButton.onClick.AddListener(() => { 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); //Little hack
         });
-    }
-
-    private void OnEnable()
-    {
+        
         GameEvents.OnPointsChanged += ChangePointsText;
         GameEvents.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
         GameEvents.OnPlayerRotationChanged += ChangePlayerAngleText;
@@ -34,7 +31,7 @@ public class UIController : MonoBehaviour
         GameEvents.OnPlayerKilled += ShowLosePanel;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         GameEvents.OnPointsChanged -= ChangePointsText;
         GameEvents.OnPlayerPositionChanged -= ChangePlayerCoordinatesText;

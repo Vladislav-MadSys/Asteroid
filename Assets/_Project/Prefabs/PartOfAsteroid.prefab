@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 2
-  minRotationOffset: -180
-  maxRotationOffset: 180
+  _minRotationOffset: -180
+  _maxRotationOffset: 180
 --- !u!60 &5877198608575630395
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e14a6d56aee1643a40849a593ff270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <pointsForKill>k__BackingField: 1
-  objectsToSpawnOnDeath: []
+  _pointsForKill: 0
+  _objectsToSpawnOnDeath: []
 --- !u!114 &3135018543850076840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,4 +232,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3003c0c669f6767469ed7b5d988293dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 30
+  _timeToDestroy: 30

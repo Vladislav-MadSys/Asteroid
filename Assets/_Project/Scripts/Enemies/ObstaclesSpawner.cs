@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class ObstaclesSpawner : MonoBehaviour
 {
+    [SerializeField] protected GameObject _prefab;
+    [SerializeField] protected float _timeToSpawn = 1;
     
     private Camera _mainCamera;
-
-    [SerializeField] protected GameObject _prefab;
-
-    [SerializeField] protected float _timeToSpawn = 1;
     private float _timer;
 
     private void Awake()

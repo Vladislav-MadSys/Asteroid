@@ -22,7 +22,7 @@ public class Portal : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_playerTransform == null) return;
+        if (!_playerTransform) return;
 
         Vector3 viewportPos = _mainCamera.WorldToViewportPoint(_playerTransform.position);
         Vector3 newPosition = _playerTransform.position;

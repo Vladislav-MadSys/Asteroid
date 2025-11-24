@@ -747,10 +747,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338e3770dfc0bae4685209ec60902eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 90
-  movmentInertia: 2
-  rotationInertia: 5
+  _speed: 5
+  _rotationSpeed: 90
+  _movmentInertia: 2
+  _rotationInertia: 5
 --- !u!50 &577493454
 Rigidbody2D:
   serializedVersion: 5
@@ -1326,7 +1326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bd987d2d33af04bba0090b4171ca08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
   _lineRenderer: {fileID: 1006794973}
   _maxCharges: 3
   _shootingDelay: 2

@@ -4,27 +4,24 @@ using Zenject.SpaceFighter;
 
 public class Laser : MonoBehaviour
 {
+    private const float RANGE = 10;
+    
+    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private float _shootingDelay = 2f;
+    [SerializeField] private float _maxCharges = 3;
+    [SerializeField] private float _chargeDelay = 5f;
+    
     private Transform _transform;
     private PlayerInputHandler _playerInputHandler;
-
-    [SerializeField] private float range = 10;
-    [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] private float _maxCharges = 3;
-    private int _curCharges = 0;
-
+    
     //Fire
-    [SerializeField] private float _shootingDelay = 2f;
     private float _shootingTimer;
 
-
     //Charges
-    [SerializeField] private float _chargeDelay = 5f;
+    private int _curCharges = 0;
     private float _chargeTimer;
-
     private bool _canFire = false;
-
     
-
     [Inject]
     void Inject(PlayerInputHandler playerInputHandler)
     {
@@ -36,8 +33,6 @@ public class Laser : MonoBehaviour
     }
     private void Update()
     {
-        
-
         //Shooting
         if (_canFire)
         {
@@ -58,7 +53,7 @@ public class Laser : MonoBehaviour
             if (_shootingTimer >= _shootingDelay)
             {
                 _canFire = true;
-                if (_lineRenderer != null)
+                if (!_lineRenderer)
                 {
                     _lineRenderer.SetPosition(0, _transform.position);
                     _lineRenderer.SetPosition(1, _transform.position);
@@ -91,9 +86,9 @@ public class Laser : MonoBehaviour
     void Fire()
     {
         Vector2 startPoint = transform.position;
-        Vector2 endPoint = startPoint + (Vector2)_transform.up * range;
+        Vector2 endPoint = startPoint + (Vector2)_transform.up * RANGE;
 
-        if (_lineRenderer != null)
+        if (!_lineRenderer)
         {
             _lineRenderer.SetPosition(0, startPoint);
             _lineRenderer.SetPosition(1, endPoint);

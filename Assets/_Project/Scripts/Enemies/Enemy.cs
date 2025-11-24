@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [field: SerializeField] public int pointsForKill { get; private set; }
+    [SerializeField] private int _pointsForKill;
 
-    [SerializeField] private GameObject[] objectsToSpawnOnDeath;
+    [SerializeField] private GameObject[] _objectsToSpawnOnDeath;
 
     public void Kill()
     {
-        if(objectsToSpawnOnDeath.Length > 0)
+        if(_objectsToSpawnOnDeath.Length > 0)
         {
-            foreach(GameObject deathObjectPrefab in objectsToSpawnOnDeath)
+            foreach(GameObject deathObjectPrefab in _objectsToSpawnOnDeath)
             {
                 GameObject deathObject = Instantiate(deathObjectPrefab, transform);
                 deathObject.transform.parent = transform.parent;
             }
         }
-        GameEvents.KillEnemy(pointsForKill);
+        GameEvents.KillEnemy(_pointsForKill);
         Destroy(gameObject);
     }
 }

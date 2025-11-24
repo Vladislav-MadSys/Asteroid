@@ -6,10 +6,10 @@ using Zenject.SpaceFighter;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovmentController : MonoBehaviour
 {
-    [field: SerializeField] private float speed = 1;
-    [field: SerializeField] private float rotationSpeed = 15;
-    [field: SerializeField] private float movmentInertia = 1;
-    [field: SerializeField] private float rotationInertia = 1;
+    [field: SerializeField] private float _speed = 1;
+    [field: SerializeField] private float _rotationSpeed = 15;
+    [field: SerializeField] private float _movmentInertia = 1;
+    [field: SerializeField] private float _rotationInertia = 1;
 
 
     private PlayerInputHandler _playerInputHandler;
@@ -36,19 +36,18 @@ public class PlayerMovmentController : MonoBehaviour
 
         _rb.linearVelocity = Vector2.Lerp(
             _rb.linearVelocity,
-            _transform.up * speed * forceInput,
-            speed / movmentInertia * Time.deltaTime);
+            _transform.up * (_speed * forceInput),
+            _speed / _movmentInertia * Time.deltaTime);
 
         _rb.angularVelocity = Mathf.Lerp(
             _rb.angularVelocity,
-            angularDirection * rotationSpeed,
-            rotationSpeed / rotationInertia * Time.deltaTime);
+            angularDirection * _rotationSpeed,
+            _rotationSpeed / _rotationInertia * Time.deltaTime);
 
         GameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
         GameEvents.ChangePlayerRotation(_transform.rotation.z*180);
     }
-
-    //Hack
+    
     private void OnDestroy()
     {
         _playerInputHandler.Dispose();

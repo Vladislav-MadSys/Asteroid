@@ -4,23 +4,24 @@ using Zenject.SpaceFighter;
 
 public class MachinegunWeapon : MonoBehaviour
 {
+    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] private float _shootingDelay = 0.5f;
+    
     private Transform _transform;
     private PlayerInputHandler _playerInputHandler;
 
-    [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private float _shootingDelay = 0.5f;
     private float _timer;
     private bool _canFire = false;
-
-    private void Awake()
-    {
-        _transform = transform;
-    }
 
     [Inject]
     void Inject(PlayerInputHandler playerInputHandler)
     {
         _playerInputHandler = playerInputHandler;
+    }
+    
+    private void Awake()
+    {
+        _transform = transform;
     }
 
     private void Update()

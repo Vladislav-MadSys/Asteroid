@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private float _speed;
+    
     private Transform _transform;
 
-    [SerializeField] private float _speed;
+    
     
     private void Awake()
     {
@@ -13,7 +15,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        _transform.Translate(_transform.up * _speed * Time.deltaTime, Space.World);
+        _transform.Translate(_transform.up * (_speed * Time.deltaTime), Space.World);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,7 +25,7 @@ public class Projectile : MonoBehaviour
             enemy.Kill();
 
             Destroy(gameObject);
-            //In general, we can use SetActive instead of Destroing for optimization perfomance in moment, 
+            //In general, we can use SetActive instead of Destroying for optimization performance in moment, 
             //but I think it can lead to troubles with GC
         }
     }
