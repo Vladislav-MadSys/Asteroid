@@ -18,18 +18,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button _restartButton;
 
     private GameEvents _gameEvents;
+    private SceneController _sceneController;
 
     [Inject]
-    void Inject(GameEvents gameEvents)
+    void Inject(GameEvents gameEvents, SceneController sceneController)
     {
         _gameEvents = gameEvents;
+        _sceneController = sceneController;
     }
     
     
     private void Awake()
     {
         _restartButton.onClick.AddListener(() => { 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); //Little hack
+             _sceneController.ReloadCurrentScene();
         });
         
         _gameEvents.OnPointsChanged += ChangePointsText;
