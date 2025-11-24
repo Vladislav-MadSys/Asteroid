@@ -1,23 +1,32 @@
 using UnityEngine;
+using Zenject;
 
 public class GameSessionData : MonoBehaviour
 {
-    //Data
     public int Points { get; private set; } = 0;
+    
+    private GameEvents _gameEvents;   
 
+    [Inject]
+    void Inject(GameEvents gameEvents)
+    {
+        _gameEvents = gameEvents;
+    }
+    
+    
     private void Awake()
     {
-        GameEvents.OnEnemyKilled += ChangePoints;
+        _gameEvents.OnEnemyKilled += ChangePoints;
     }
 
     private void OnDestroy()
     {
-        GameEvents.OnEnemyKilled -= ChangePoints;
+        _gameEvents.OnEnemyKilled -= ChangePoints;
     }
 
     void ChangePoints(int deltaPoints)
     {
         Points += deltaPoints;
-        GameEvents.ChangePoints(Points);
+        _gameEvents.ChangePoints(Points);
     }
 }

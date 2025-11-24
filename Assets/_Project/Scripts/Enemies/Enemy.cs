@@ -3,9 +3,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _pointsForKill;
-
     [SerializeField] private GameObject[] _objectsToSpawnOnDeath;
 
+    private GameEvents _gameEvents;
+
+    public void Initialize(GameEvents gameEvents)
+    {
+        _gameEvents = gameEvents;
+    }
+    
+    
     public void Kill()
     {
         if(_objectsToSpawnOnDeath.Length > 0)
@@ -14,9 +21,14 @@ public class Enemy : MonoBehaviour
             {
                 GameObject deathObject = Instantiate(deathObjectPrefab, transform);
                 deathObject.transform.parent = transform.parent;
+                if (deathObject.TryGetComponent(out Enemy enemy))
+                {
+                    enemy.Initialize(_gameEvents);
+                }
+                
             }
         }
-        GameEvents.KillEnemy(_pointsForKill);
+        _gameEvents.KillEnemy(_pointsForKill);
         Destroy(gameObject);
     }
 }

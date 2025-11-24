@@ -4,7 +4,7 @@ using Zenject;
 using Zenject.SpaceFighter;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovmentController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     [field: SerializeField] private float _speed = 1;
     [field: SerializeField] private float _rotationSpeed = 15;
@@ -13,14 +13,16 @@ public class PlayerMovmentController : MonoBehaviour
 
 
     private PlayerInputHandler _playerInputHandler;
+    private GameEvents _gameEvents;
 
     private Rigidbody2D _rb;
     private Transform _transform;
 
     [Inject]
-    void Inject(PlayerInputHandler playerInputHandler)
+    void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
     {
         _playerInputHandler = playerInputHandler;
+        _gameEvents = gameEvents;
     }
 
     private void Awake()
@@ -28,7 +30,12 @@ public class PlayerMovmentController : MonoBehaviour
         _transform = transform;
         _rb = GetComponent<Rigidbody2D>();
     }
-
+    
+    private void OnDestroy()
+    {
+        _playerInputHandler.Dispose();
+    }
+    
     private void Update()
     {
         float angularDirection = -_playerInputHandler.JoyInput.x;
@@ -44,12 +51,9 @@ public class PlayerMovmentController : MonoBehaviour
             angularDirection * _rotationSpeed,
             _rotationSpeed / _rotationInertia * Time.deltaTime);
 
-        GameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
-        GameEvents.ChangePlayerRotation(_transform.rotation.z*180);
+        _gameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
+        _gameEvents.ChangePlayerRotation(_transform.rotation.z*180);
     }
     
-    private void OnDestroy()
-    {
-        _playerInputHandler.Dispose();
-    }
+    
 }

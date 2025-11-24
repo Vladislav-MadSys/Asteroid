@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class ObstaclesSpawner : MonoBehaviour
 {
@@ -7,8 +8,16 @@ public class ObstaclesSpawner : MonoBehaviour
     [SerializeField] protected float _timeToSpawn = 1;
     
     private Camera _mainCamera;
+    protected GameEvents _gameEvents;
     private float _timer;
 
+    [Inject]
+    void Inject(GameEvents gameEvents)
+    {
+        _gameEvents = gameEvents;
+    }
+    
+    
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -62,5 +71,10 @@ public class ObstaclesSpawner : MonoBehaviour
     {
         Vector3 spawnPosition = GetPositionOutsideScreen();
         GameObject obstacle = Instantiate(_prefab, spawnPosition, Quaternion.identity);
+        if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
+        {
+            enemy.Initialize(_gameEvents);
+        }
+        
     }
 }

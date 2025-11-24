@@ -13,6 +13,7 @@ public class Laser : MonoBehaviour
     
     private Transform _transform;
     private PlayerInputHandler _playerInputHandler;
+    private GameEvents _gameEvents;
     
     //Fire
     private float _shootingTimer;
@@ -23,9 +24,10 @@ public class Laser : MonoBehaviour
     private bool _canFire = false;
     
     [Inject]
-    void Inject(PlayerInputHandler playerInputHandler)
+    void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
     {
         _playerInputHandler = playerInputHandler;
+        _gameEvents = gameEvents;
     }
     private void Awake()
     {
@@ -42,7 +44,7 @@ public class Laser : MonoBehaviour
                 {
                     Fire();
                     _curCharges -= 1;
-                    GameEvents.ChangeLaserCharges(_curCharges);
+                    _gameEvents.ChangeLaserCharges(_curCharges);
                     _canFire = false;
                     _shootingTimer = 0;
                 }
@@ -53,7 +55,7 @@ public class Laser : MonoBehaviour
             if (_shootingTimer >= _shootingDelay)
             {
                 _canFire = true;
-                if (!_lineRenderer)
+                if (_lineRenderer)
                 {
                     _lineRenderer.SetPosition(0, _transform.position);
                     _lineRenderer.SetPosition(1, _transform.position);
@@ -71,14 +73,14 @@ public class Laser : MonoBehaviour
             if(_chargeTimer >= _chargeDelay)
             {
                 _curCharges++;
-                GameEvents.ChangeLaserCharges(_curCharges);
+                _gameEvents.ChangeLaserCharges(_curCharges);
                 _chargeTimer = 0;
             }
             else
             {
                 _chargeTimer += Time.deltaTime;
             }
-            GameEvents.ChangeLaserTime(_chargeTimer);
+            _gameEvents.ChangeLaserTime(_chargeTimer);
         }
 
     }
@@ -88,7 +90,7 @@ public class Laser : MonoBehaviour
         Vector2 startPoint = transform.position;
         Vector2 endPoint = startPoint + (Vector2)_transform.up * RANGE;
 
-        if (!_lineRenderer)
+        if (_lineRenderer)
         {
             _lineRenderer.SetPosition(0, startPoint);
             _lineRenderer.SetPosition(1, endPoint);
