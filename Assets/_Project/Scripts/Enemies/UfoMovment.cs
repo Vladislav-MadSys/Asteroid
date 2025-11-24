@@ -12,18 +12,24 @@ public class UfoMovment : MonoBehaviour
     {
         _transform = transform;
 
-        //Know that it's vary bad practiece, but here is no any reason to find a way to make it 
+        //Know that it's very bad practice, but here is no any reason to find a way to make it 
         //fast and clear throw zenject
-        PlayerShip player = FindFirstObjectByType<PlayerShip>();
-        if (player != null)
+        //PlayerShip player = FindFirstObjectByType<PlayerShip>();
+        
+    }
+
+    public void Initialize(PlayerShip player)
+    {
+        if (player)
         {
             _target = player.transform;
         }
     }
+    
 
     private void Update()
     {
-        if (_target != null)
+        if (_target)
         {
             _transform.position = Vector3.MoveTowards(_transform.position, _target.position, Time.deltaTime * _speed);
         }

@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class DestroyOnTimer : MonoBehaviour
 {
-    [SerializeField] private float timeToDestroy = 30;
+    [SerializeField] private float _timeToDestroy = 30;
 
     private void Awake()
     {
-        Destroy(gameObject, timeToDestroy);
+        Destroy(gameObject, _timeToDestroy);
     }
 }

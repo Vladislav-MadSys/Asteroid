@@ -6,9 +6,9 @@ public class ObstaclesSpawner : MonoBehaviour
     
     private Camera _mainCamera;
 
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] protected GameObject _prefab;
 
-    [SerializeField] private float _timeToSpawn = 1;
+    [SerializeField] protected float _timeToSpawn = 1;
     private float _timer;
 
     private void Awake()
@@ -16,7 +16,7 @@ public class ObstaclesSpawner : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
-    private void Update()
+    void Update()
     {
         if(_timer >= _timeToSpawn)
         {
@@ -29,7 +29,7 @@ public class ObstaclesSpawner : MonoBehaviour
         }
     }
 
-    Vector3 GetPositionOutsideScreen()
+    protected Vector3 GetPositionOutsideScreen()
     {
         Vector3 viewportPos = Vector3.zero;
         Vector3 worldPos = Vector3.zero;
@@ -60,7 +60,7 @@ public class ObstaclesSpawner : MonoBehaviour
         return worldPos;
     }
 
-    void Spawn()
+    protected virtual void Spawn()
     {
         Vector3 spawnPosition = GetPositionOutsideScreen();
         GameObject obstacle = Instantiate(_prefab, spawnPosition, Quaternion.identity);
