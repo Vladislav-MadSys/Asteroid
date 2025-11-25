@@ -1403,8 +1403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 686eb6322031f1a48889c3551140dd03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1963186718700902391, guid: 77bcbb0ea2cfe0a468aaca26f678723d, type: 3}
-  _timeToSpawn: 1
+  Prefab: {fileID: 1963186718700902391, guid: 77bcbb0ea2cfe0a468aaca26f678723d, type: 3}
+  TimeToSpawn: 1
 --- !u!4 &1056381977
 Transform:
   m_ObjectHideFlags: 0
@@ -2538,8 +2538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80803bc3112fa43418ecb1eb159e31a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 3283534207927173240, guid: 2b1844452e40ed84391dbbfc6eddd363, type: 3}
-  _timeToSpawn: 5
+  Prefab: {fileID: 3283534207927173240, guid: 2b1844452e40ed84391dbbfc6eddd363, type: 3}
+  TimeToSpawn: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

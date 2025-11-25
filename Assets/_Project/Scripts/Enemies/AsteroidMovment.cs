@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject.Asteroids;
 
 public class AsteroidMovment : MonoBehaviour
 {
@@ -22,5 +21,4 @@ public class AsteroidMovment : MonoBehaviour
     {
         _transform.Translate(_transform.up * (_speed * Time.deltaTime), Space.World);
     }
-
 }

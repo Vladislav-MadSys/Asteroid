@@ -3,7 +3,7 @@ using Zenject;
 
 public class GameSessionData : MonoBehaviour
 {
-    public int Points { get; private set; } = 0;
+    [field: SerializeField] public int Points { get; private set; } = 0;
     
     private GameEvents _gameEvents;   
 
@@ -12,7 +12,6 @@ public class GameSessionData : MonoBehaviour
     {
         _gameEvents = gameEvents;
     }
-    
     
     private void Awake()
     {

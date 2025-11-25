@@ -27,7 +27,6 @@ public class UIController : MonoBehaviour
         _sceneController = sceneController;
     }
     
-    
     private void Awake()
     {
         _restartButton.onClick.AddListener(() => { 

@@ -29,10 +29,12 @@ public class Laser : MonoBehaviour
         _playerInputHandler = playerInputHandler;
         _gameEvents = gameEvents;
     }
+    
     private void Awake()
     {
         _transform = transform;
     }
+    
     private void Update()
     {
         //Shooting
@@ -84,7 +86,7 @@ public class Laser : MonoBehaviour
         }
 
     }
-
+    
     void Fire()
     {
         Vector2 startPoint = transform.position;

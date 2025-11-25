@@ -10,8 +10,7 @@ public class PlayerMovementController : MonoBehaviour
     [field: SerializeField] private float _rotationSpeed = 15;
     [field: SerializeField] private float _movmentInertia = 1;
     [field: SerializeField] private float _rotationInertia = 1;
-
-
+    
     private PlayerInputHandler _playerInputHandler;
     private GameEvents _gameEvents;
 
@@ -54,6 +53,4 @@ public class PlayerMovementController : MonoBehaviour
         _gameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
         _gameEvents.ChangePlayerRotation(_transform.rotation.z*180);
     }
-    
-    
 }

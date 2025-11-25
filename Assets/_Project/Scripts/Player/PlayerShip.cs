@@ -11,7 +11,6 @@ public class PlayerShip : MonoBehaviour
         _gameEvents = gameEvents;     
     }
     
-    
     public void KillPlayer()
     {
         _gameEvents.KillPlayer();

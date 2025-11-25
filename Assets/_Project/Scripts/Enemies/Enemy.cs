@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
         _gameEvents = gameEvents;
     }
     
-    
     public void Kill()
     {
         if(_objectsToSpawnOnDeath.Length > 0)

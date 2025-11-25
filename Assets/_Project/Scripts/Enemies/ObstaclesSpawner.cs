@@ -4,19 +4,19 @@ using Zenject;
 
 public class ObstaclesSpawner : MonoBehaviour
 {
-    [SerializeField] protected GameObject _prefab;
-    [SerializeField] protected float _timeToSpawn = 1;
+    [SerializeField] protected GameObject Prefab;
+    [SerializeField] protected float TimeToSpawn = 1;
+    
+    protected GameEvents GameEvents;
     
     private Camera _mainCamera;
-    protected GameEvents _gameEvents;
     private float _timer;
 
     [Inject]
     void Inject(GameEvents gameEvents)
     {
-        _gameEvents = gameEvents;
+        GameEvents = gameEvents;
     }
-    
     
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class ObstaclesSpawner : MonoBehaviour
 
     void Update()
     {
-        if(_timer >= _timeToSpawn)
+        if(_timer >= TimeToSpawn)
         {
             _timer = 0;
             Spawn();
@@ -70,10 +70,10 @@ public class ObstaclesSpawner : MonoBehaviour
     protected virtual void Spawn()
     {
         Vector3 spawnPosition = GetPositionOutsideScreen();
-        GameObject obstacle = Instantiate(_prefab, spawnPosition, Quaternion.identity);
+        GameObject obstacle = Instantiate(Prefab, spawnPosition, Quaternion.identity);
         if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            enemy.Initialize(_gameEvents);
+            enemy.Initialize(GameEvents);
         }
         
     }

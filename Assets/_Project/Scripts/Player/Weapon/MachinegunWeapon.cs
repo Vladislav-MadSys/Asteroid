@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
 
 public class MachinegunWeapon : MonoBehaviour
 {

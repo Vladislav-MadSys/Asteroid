@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e14a6d56aee1643a40849a593ff270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsForKill: 0
+  _pointsForKill: 1
   _objectsToSpawnOnDeath: []
 --- !u!114 &3135018543850076840
 MonoBehaviour:
