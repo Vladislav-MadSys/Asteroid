@@ -1,4 +1,7 @@
+using System;
+using System.Threading;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace AsteroidGame
 {
@@ -6,15 +9,31 @@ namespace AsteroidGame
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private float _speed;
-
+        [SerializeField] private int _lifeTimeMs = 10000;
+        
         private Transform _transform;
         private Rigidbody2D _rigidbody;
         private ObjectPooler _objectPooler;
-        
+
+        private CancellationTokenSource _cancellationTokenSource;
         private void Awake()
         {
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody2D>();
+        }
+
+        private async void OnEnable()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            try
+            {
+                await UniTask.Delay(_lifeTimeMs, cancellationToken: _cancellationTokenSource.Token);
+                OnEndLifetime();
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
         }
 
         public void SetPooler(ObjectPooler pooler)
@@ -32,15 +51,19 @@ namespace AsteroidGame
             if (other.TryGetComponent(out Enemy enemy))
             {
                 enemy.Kill();
-
-                if (_objectPooler != null)
-                {
-                    _objectPooler.ReturnObject(gameObject);
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
+                OnEndLifetime();
+            }
+        }
+        void OnEndLifetime()
+        {
+            _cancellationTokenSource.Cancel();
+            if (_objectPooler != null)
+            {
+                _objectPooler.ReturnObject(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
     }

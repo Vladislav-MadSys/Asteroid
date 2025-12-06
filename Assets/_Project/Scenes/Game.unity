@@ -854,51 +854,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.35, y: 0.6568442}
   m_EdgeRadius: 0
---- !u!1 &708819783
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 708819785}
-  - component: {fileID: 708819784}
-  m_Layer: 0
-  m_Name: GameSession
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &708819784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708819783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a005018d7d43e458a3bbc5a5dc801b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Points>k__BackingField: 0
---- !u!4 &708819785
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708819783}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1048.6589, y: 673.6342, z: -12.002148}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &792952849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,6 +1343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123188768}
   - component: {fileID: 1123188769}
+  - component: {fileID: 1123188770}
   m_Layer: 0
   m_Name: Machinegun
   m_TagString: Untagged
@@ -1424,6 +1380,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 100000, guid: 5e4cf9a2612df484cb52ab81ca520076, type: 3}
   _shootingDelay: 0.25
+--- !u!114 &1123188770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123188767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a22abb793270a742a9bb55e2f706699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1228054432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,7 +2472,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 473487297}
-  - {fileID: 708819785}
   - {fileID: 27664528}
   - {fileID: 1698030332}
   - {fileID: 963194228}

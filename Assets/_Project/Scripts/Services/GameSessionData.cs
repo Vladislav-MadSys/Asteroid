@@ -5,7 +5,7 @@ namespace AsteroidGame
 {
     public class GameSessionData
     {
-        [field: SerializeField] public int Points { get; private set; } = 0;
+        public int Points { get; private set; } = 0;
 
         private GameEvents _gameEvents;
 
