@@ -6,7 +6,7 @@ public class PlayerShip : MonoBehaviour
     private GameEvents _gameEvents;
     
     [Inject]
-    void Inject(GameEvents gameEvents)
+    private void Inject(GameEvents gameEvents)
     {
         _gameEvents = gameEvents;     
     }

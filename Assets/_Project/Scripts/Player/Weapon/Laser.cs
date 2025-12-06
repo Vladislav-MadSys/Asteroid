@@ -5,6 +5,7 @@ using Zenject.SpaceFighter;
 public class Laser : MonoBehaviour
 {
     private const float RANGE = 10;
+    private const int LASER_BUFFER_SIZE = 50;
     
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private float _shootingDelay = 2f;
@@ -17,14 +18,18 @@ public class Laser : MonoBehaviour
     
     //Fire
     private float _shootingTimer;
+    private RaycastHit2D[] _hitsBuffer = new RaycastHit2D[LASER_BUFFER_SIZE];
 
     //Charges
     private int _curCharges = 0;
     private float _chargeTimer;
     private bool _canFire = false;
     
+    
+    
+    
     [Inject]
-    void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
+    private void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
     {
         _playerInputHandler = playerInputHandler;
         _gameEvents = gameEvents;
@@ -87,7 +92,7 @@ public class Laser : MonoBehaviour
 
     }
     
-    void Fire()
+    protected void Fire()
     {
         Vector2 startPoint = transform.position;
         Vector2 endPoint = startPoint + (Vector2)_transform.up * RANGE;
@@ -98,10 +103,11 @@ public class Laser : MonoBehaviour
             _lineRenderer.SetPosition(1, endPoint);
         }
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(startPoint, endPoint);
-
-        foreach (RaycastHit2D hit in hits)
+        int hitsCount = Physics2D.RaycastNonAlloc(startPoint, endPoint, _hitsBuffer);
+        
+        for(int i = 0; i < hitsCount; i++)
         {
+            RaycastHit2D hit =  _hitsBuffer[i];
             if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.Kill();

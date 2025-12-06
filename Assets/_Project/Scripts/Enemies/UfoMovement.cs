@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class UfoMovment : MonoBehaviour
+public class UfoMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 5;
     

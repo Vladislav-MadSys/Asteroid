@@ -5,22 +5,23 @@ public class Portal : MonoBehaviour
 {
     private Camera _mainCamera;
     private Transform _playerTransform;
+    private float _offsetOutOfScreen = 0.05f;
 
     private Vector2 _cameraOffset;
 
     [Inject]
-    void Inject(PlayerShip playerShip)
+    private void Inject(PlayerShip playerShip, Camera camera)
     {
         _playerTransform = playerShip.transform;
+        _mainCamera = camera;
     }
 
     public void Awake()
     {
-        _mainCamera = Camera.main;
         _cameraOffset = new Vector2(_mainCamera.transform.position.x, _mainCamera.transform.position.y);
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (!_playerTransform) return;
 
@@ -28,18 +29,18 @@ public class Portal : MonoBehaviour
         Vector3 newPosition = _playerTransform.position;
         Vector3 cachedPos = newPosition;
 
-        if (viewportPos.x > 1.05f || viewportPos.x < -0.05f ||
-            viewportPos.y > 1.05f || viewportPos.y < -0.05f)
+        if (viewportPos.x > 1 + _offsetOutOfScreen || viewportPos.x < -_offsetOutOfScreen ||
+            viewportPos.y > 1 + _offsetOutOfScreen || viewportPos.y < -_offsetOutOfScreen)
         {
-            if (viewportPos.x > 1.05f)
-                newPosition.x = -(newPosition.x - _cameraOffset.x) + _cameraOffset.x + 0.05f;
-            else if (viewportPos.x < -0.05f)
-                newPosition.x = -(newPosition.x - _cameraOffset.x) + _cameraOffset.x - 0.05f;
+            if (viewportPos.x > 1 + _offsetOutOfScreen)
+                newPosition.x = -(newPosition.x - _cameraOffset.x) + _cameraOffset.x + _offsetOutOfScreen;
+            else if (viewportPos.x < -_offsetOutOfScreen)
+                newPosition.x = -(newPosition.x - _cameraOffset.x) + _cameraOffset.x - _offsetOutOfScreen;
 
-            if (viewportPos.y > 1.05f)
-                newPosition.y = -(newPosition.y - _cameraOffset.y) + _cameraOffset.y + 0.05f;
-            else if (viewportPos.y < -0.05f)
-                newPosition.y = -(newPosition.y - _cameraOffset.y) + _cameraOffset.y - 0.05f;
+            if (viewportPos.y > 1 + _offsetOutOfScreen)
+                newPosition.y = -(newPosition.y - _cameraOffset.y) + _cameraOffset.y + _offsetOutOfScreen;
+            else if (viewportPos.y < -_offsetOutOfScreen)
+                newPosition.y = -(newPosition.y - _cameraOffset.y) + _cameraOffset.y - _offsetOutOfScreen;
 
             if (cachedPos != newPosition)
             {

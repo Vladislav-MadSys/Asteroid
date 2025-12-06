@@ -8,7 +8,7 @@ public class GameSessionData : MonoBehaviour
     private GameEvents _gameEvents;   
 
     [Inject]
-    void Inject(GameEvents gameEvents)
+    private void Inject(GameEvents gameEvents)
     {
         _gameEvents = gameEvents;
     }
@@ -23,7 +23,7 @@ public class GameSessionData : MonoBehaviour
         _gameEvents.OnEnemyKilled -= ChangePoints;
     }
 
-    void ChangePoints(int deltaPoints)
+    private void ChangePoints(int deltaPoints)
     {
         Points += deltaPoints;
         _gameEvents.ChangePoints(Points);

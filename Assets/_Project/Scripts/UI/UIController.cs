@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
     private SceneController _sceneController;
 
     [Inject]
-    void Inject(GameEvents gameEvents, SceneController sceneController)
+    private void Inject(GameEvents gameEvents, SceneController sceneController)
     {
         _gameEvents = gameEvents;
         _sceneController = sceneController;
@@ -53,42 +53,42 @@ public class UIController : MonoBehaviour
         _gameEvents.OnPlayerKilled -= ShowLosePanel;
     }
 
-    void ChangePointsText(int points)
+    private void ChangePointsText(int points)
     {
         if (!_pointsText ) return;
 
         _pointsText.text = points.ToString();
     }
 
-    void ChangePlayerCoordinatesText(Vector2 newCoordinates)
+    private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
     {
         if (!_playerCoordinatesText) return;
 
         _playerCoordinatesText.text = "Player pos: " + newCoordinates;
     }
 
-    void ChangePlayerAngleText(float newAngle)
+    private void ChangePlayerAngleText(float newAngle)
     {
         if (!_playerAngleText) return;
 
         _playerAngleText.text = "Player angle: " + newAngle;
     }
 
-    void ChangeLaserChargeText(int laserCharges)
+    private void ChangeLaserChargeText(int laserCharges)
     {
         if (!_laserChargesText) return;
 
         _laserChargesText.text = "Laser charges: " + laserCharges;
     }
 
-    void ChangeLaserReloadText(float timer)
+    private void ChangeLaserReloadText(float timer)
     {
         if (!_laserReloadTimeText) return;
 
         _laserReloadTimeText.text = "Laser reload: " + timer;
     }
 
-    void ShowLosePanel()
+    private void ShowLosePanel()
     {
         _losePanel.SetActive(true);
     }

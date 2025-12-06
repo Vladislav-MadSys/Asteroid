@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AsteroidMovment : MonoBehaviour
+public class AsteroidMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _minRotationOffset = -5;

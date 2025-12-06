@@ -6,6 +6,7 @@ public class ObstaclesSpawner : MonoBehaviour
 {
     [SerializeField] protected GameObject Prefab;
     [SerializeField] protected float TimeToSpawn = 1;
+    [SerializeField] protected float offsetOutOfScreen = 0.1f;
     
     protected GameEvents GameEvents;
     
@@ -13,7 +14,7 @@ public class ObstaclesSpawner : MonoBehaviour
     private float _timer;
 
     [Inject]
-    void Inject(GameEvents gameEvents)
+    private void Inject(GameEvents gameEvents)
     {
         GameEvents = gameEvents;
     }
@@ -23,7 +24,7 @@ public class ObstaclesSpawner : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
         if(_timer >= TimeToSpawn)
         {
@@ -41,23 +42,23 @@ public class ObstaclesSpawner : MonoBehaviour
         Vector3 viewportPos = Vector3.zero;
         Vector3 worldPos = Vector3.zero;
 
-        int side = Random.Range(0, 4);
+        int side = Random.Range(0, 4); // Sides
 
-        float randomOffset = Random.Range(0f, 0.1f);
+        float randomOffset = Random.Range(0f, offsetOutOfScreen);
 
         switch (side)
         {
             case 0: //left
-                viewportPos = new Vector3(-0.1f - randomOffset, Random.Range(0f, 1f), 0f);
+                viewportPos = new Vector3(-offsetOutOfScreen - randomOffset, Random.Range(0f, 1f), 0f);
                 break;
             case 1: //right
-                viewportPos = new Vector3(1.1f + randomOffset, Random.Range(0f, 1f), 0f);
+                viewportPos = new Vector3(1 + offsetOutOfScreen + randomOffset, Random.Range(0f, 1f), 0f);
                 break;
             case 2: //up
-                viewportPos = new Vector3(Random.Range(0f, 1f), 1.1f + randomOffset, 0f);
+                viewportPos = new Vector3(Random.Range(0f, 1f), 1 + offsetOutOfScreen + randomOffset, 0f);
                 break;
             case 3: //dawn
-                viewportPos = new Vector3(Random.Range(0f, 1f), -0.1f - randomOffset, 0f);
+                viewportPos = new Vector3(Random.Range(0f, 1f), -offsetOutOfScreen - randomOffset, 0f);
                 break;
         }
 

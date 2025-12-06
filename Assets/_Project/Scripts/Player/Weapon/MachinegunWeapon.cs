@@ -13,7 +13,7 @@ public class MachinegunWeapon : MonoBehaviour
     private bool _canFire = false;
 
     [Inject]
-    void Inject(PlayerInputHandler playerInputHandler)
+    private void Inject(PlayerInputHandler playerInputHandler)
     {
         _playerInputHandler = playerInputHandler;
     }
@@ -47,7 +47,7 @@ public class MachinegunWeapon : MonoBehaviour
         }
     }
 
-    void Fire()
+    private void Fire()
     {
         GameObject projectile = Instantiate(_projectilePrefab, _transform);
         projectile.transform.rotation = _transform.rotation;

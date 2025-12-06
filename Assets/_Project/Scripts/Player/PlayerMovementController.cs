@@ -18,7 +18,7 @@ public class PlayerMovementController : MonoBehaviour
     private Transform _transform;
 
     [Inject]
-    void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
+    private void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
     {
         _playerInputHandler = playerInputHandler;
         _gameEvents = gameEvents;

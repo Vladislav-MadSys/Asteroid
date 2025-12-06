@@ -6,7 +6,7 @@ public class UfoSpawner : ObstaclesSpawner
     private PlayerShip _playerShip;
     
     [Inject]
-    void Inject(PlayerShip playerShip, GameEvents gameEvents)
+    private void Inject(PlayerShip playerShip, GameEvents gameEvents)
     {
         _playerShip = playerShip;
         GameEvents = gameEvents;
@@ -20,7 +20,7 @@ public class UfoSpawner : ObstaclesSpawner
         {
             enemy.Initialize(GameEvents);
         }
-        if (obstacle.TryGetComponent(out UfoMovment ufoMovment))
+        if (obstacle.TryGetComponent(out UfoMovement ufoMovment))
         {
             ufoMovment.Initialize(_playerShip);
         }
