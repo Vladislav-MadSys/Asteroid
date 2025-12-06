@@ -1,24 +1,28 @@
 using UnityEngine;
 
-public class Asteroid : Enemy
+namespace AsteroidGame
 {
-    [SerializeField] private GameObject[] _objectsToSpawnOnDeath;
-
-    public override void Kill()
+    public class Asteroid : Enemy
     {
-        if(_objectsToSpawnOnDeath.Length > 0)
+        [SerializeField] private GameObject[] _objectsToSpawnOnDeath;
+
+        public override void Kill()
         {
-            foreach(GameObject deathObjectPrefab in _objectsToSpawnOnDeath)
+            if (_objectsToSpawnOnDeath.Length > 0)
             {
-                GameObject deathObject = Instantiate(deathObjectPrefab, transform);
-                deathObject.transform.parent = transform.parent;
-                if (deathObject.TryGetComponent(out Enemy enemy))
+                foreach (GameObject deathObjectPrefab in _objectsToSpawnOnDeath)
                 {
-                    enemy.Initialize(_gameEvents);
+                    GameObject deathObject = Instantiate(deathObjectPrefab, transform);
+                    deathObject.transform.parent = transform.parent;
+                    if (deathObject.TryGetComponent(out Enemy enemy))
+                    {
+                        enemy.Initialize(_gameEvents);
+                    }
+
                 }
-                
             }
+
+            base.Kill();
         }
-        base.Kill();    
     }
 }

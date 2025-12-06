@@ -1,56 +1,70 @@
 using UnityEngine;
 using Zenject;
 
-public class MachinegunWeapon : MonoBehaviour
+namespace AsteroidGame
 {
-    [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private float _shootingDelay = 0.5f;
-    
-    private Transform _transform;
-    private PlayerInputHandler _playerInputHandler;
-
-    private float _timer;
-    private bool _canFire = false;
-
-    [Inject]
-    private void Inject(PlayerInputHandler playerInputHandler)
+    [RequireComponent(typeof(ObjectPooler))]
+    public class MachinegunWeapon : MonoBehaviour
     {
-        _playerInputHandler = playerInputHandler;
-    }
-    
-    private void Awake()
-    {
-        _transform = transform;
-    }
+        [SerializeField] private GameObject _projectilePrefab;
+        [SerializeField] private float _shootingDelay = 0.5f;
 
-    private void Update()
-    {
-        if(_canFire)
+        private Transform _transform;
+        private PlayerInputHandler _playerInputHandler;
+        private ObjectPooler _objectPooler;
+        
+        private float _timer;
+        private bool _canFire = false;
+
+        [Inject]
+        private void Inject(PlayerInputHandler playerInputHandler)
         {
-            if(_playerInputHandler.isFireButtonPressed)
-            {
-                Fire();
-                _canFire = false;
-                _timer = 0;
-            }
+            _playerInputHandler = playerInputHandler;
         }
-        else
+
+        private void Awake()
         {
-            if (_timer >= _shootingDelay)
+            _transform = transform;
+            _objectPooler = GetComponent<ObjectPooler>();
+            _objectPooler.Initialize(_projectilePrefab);
+        }
+
+        private void Update()
+        {
+            if (_canFire)
             {
-                _canFire = true;
+                if (_playerInputHandler.isFireButtonPressed)
+                {
+                    Fire();
+                    _canFire = false;
+                    _timer = 0;
+                }
             }
             else
             {
-                _timer += Time.deltaTime;
+                if (_timer >= _shootingDelay)
+                {
+                    _canFire = true;
+                }
+                else
+                {
+                    _timer += Time.deltaTime;
+                }
             }
         }
-    }
 
-    private void Fire()
-    {
-        GameObject projectile = Instantiate(_projectilePrefab, _transform);
-        projectile.transform.rotation = _transform.rotation;
-        projectile.transform.parent = null;
+        private void Fire()
+        {
+            GameObject projectile = _objectPooler.GetObject();
+            Transform projectileTransform = projectile.transform;
+            projectileTransform.position = _transform.position;
+            projectileTransform.rotation = _transform.rotation;
+            projectileTransform.parent = null;
+            if (projectile.TryGetComponent(out Projectile projectileScript))
+            {
+                projectileScript.SetPooler(_objectPooler);
+            }
+            
+        }
     }
 }

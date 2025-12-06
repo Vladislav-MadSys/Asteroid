@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+namespace AsteroidGame
 {
-    [SerializeField] private int _pointsForKill;
-
-    protected GameEvents _gameEvents;
-
-    public void Initialize(GameEvents gameEvents)
+    public class Enemy : MonoBehaviour
     {
-        _gameEvents = gameEvents;
-    }
-    
-    public virtual void Kill()
-    {
-        _gameEvents.KillEnemy(_pointsForKill);
-        Destroy(gameObject);
+        [SerializeField] private int _pointsForKill;
+
+        protected GameEvents _gameEvents;
+
+        public void Initialize(GameEvents gameEvents)
+        {
+            _gameEvents = gameEvents;
+        }
+
+        public virtual void Kill()
+        {
+            _gameEvents.KillEnemy(_pointsForKill);
+            Destroy(gameObject);
+        }
     }
 }

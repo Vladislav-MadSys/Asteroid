@@ -1,16 +1,18 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour
+namespace AsteroidGame
 {
-    public void ReloadCurrentScene()
+    public class SceneController
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+        public void ReloadCurrentScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
-    public void LoadSceneWithKey(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
+        public void LoadSceneWithKey(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+
     }
-    
 }

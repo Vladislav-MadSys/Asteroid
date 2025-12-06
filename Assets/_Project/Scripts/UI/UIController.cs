@@ -1,95 +1,98 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using AsteroidGame;
 using UnityEngine.UI;
 using Zenject;
 
-public class UIController : MonoBehaviour
+namespace AsteroidGame
 {
-    [Header("Texts With Data")]
-    [SerializeField] private TextMeshProUGUI _pointsText;
-    [SerializeField] private TextMeshProUGUI _playerCoordinatesText;
-    [SerializeField] private TextMeshProUGUI _playerAngleText;
-    [SerializeField] private TextMeshProUGUI _laserChargesText;
-    [SerializeField] private TextMeshProUGUI _laserReloadTimeText;
-
-    [Header("Final Panel")]
-    [SerializeField] private GameObject _losePanel;
-    [SerializeField] private Button _restartButton;
-
-    private GameEvents _gameEvents;
-    private SceneController _sceneController;
-
-    [Inject]
-    private void Inject(GameEvents gameEvents, SceneController sceneController)
+    public class UIController : MonoBehaviour
     {
-        _gameEvents = gameEvents;
-        _sceneController = sceneController;
-    }
-    
-    private void Awake()
-    {
-        _restartButton.onClick.AddListener(() => { 
-             _sceneController.ReloadCurrentScene();
-        });
-        
-        _gameEvents.OnPointsChanged += ChangePointsText;
-        _gameEvents.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
-        _gameEvents.OnPlayerRotationChanged += ChangePlayerAngleText;
-        _gameEvents.OnLaserChargesChanged += ChangeLaserChargeText;
-        _gameEvents.OnLaserTimeChangedChanged += ChangeLaserReloadText;
+        [Header("Texts With Data")] [SerializeField]
+        private TextMeshProUGUI _pointsText;
 
-        _gameEvents.OnPlayerKilled += ShowLosePanel;
-    }
+        [SerializeField] private TextMeshProUGUI _playerCoordinatesText;
+        [SerializeField] private TextMeshProUGUI _playerAngleText;
+        [SerializeField] private TextMeshProUGUI _laserChargesText;
+        [SerializeField] private TextMeshProUGUI _laserReloadTimeText;
 
-    private void OnDestroy()
-    {
-        _gameEvents.OnPointsChanged -= ChangePointsText;
-        _gameEvents.OnPlayerPositionChanged -= ChangePlayerCoordinatesText;
-        _gameEvents.OnPlayerRotationChanged -= ChangePlayerAngleText;
-        _gameEvents.OnLaserChargesChanged -= ChangeLaserChargeText;
-        _gameEvents.OnLaserTimeChangedChanged -= ChangeLaserReloadText;
+        [Header("Final Panel")] [SerializeField]
+        private GameObject _losePanel;
 
-        _gameEvents.OnPlayerKilled -= ShowLosePanel;
-    }
+        [SerializeField] private Button _restartButton;
 
-    private void ChangePointsText(int points)
-    {
-        if (_pointsText == null) return;
+        private GameEvents _gameEvents;
+        private SceneController _sceneController;
 
-        _pointsText.text = points.ToString();
-    }
+        [Inject]
+        private void Inject(GameEvents gameEvents, SceneController sceneController)
+        {
+            _gameEvents = gameEvents;
+            _sceneController = sceneController;
+        }
 
-    private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
-    {
-        if (_playerCoordinatesText == null) return;
+        private void Awake()
+        {
+            _restartButton.onClick.AddListener(() => { _sceneController.ReloadCurrentScene(); });
 
-        _playerCoordinatesText.text = "Player pos: " + newCoordinates;
-    }
+            _gameEvents.OnPointsChanged += ChangePointsText;
+            _gameEvents.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
+            _gameEvents.OnPlayerRotationChanged += ChangePlayerAngleText;
+            _gameEvents.OnLaserChargesChanged += ChangeLaserChargeText;
+            _gameEvents.OnLaserTimeChangedChanged += ChangeLaserReloadText;
 
-    private void ChangePlayerAngleText(float newAngle)
-    {
-        if (_playerAngleText == null) return;
+            _gameEvents.OnPlayerKilled += ShowLosePanel;
+        }
 
-        _playerAngleText.text = "Player angle: " + newAngle;
-    }
+        private void OnDestroy()
+        {
+            _gameEvents.OnPointsChanged -= ChangePointsText;
+            _gameEvents.OnPlayerPositionChanged -= ChangePlayerCoordinatesText;
+            _gameEvents.OnPlayerRotationChanged -= ChangePlayerAngleText;
+            _gameEvents.OnLaserChargesChanged -= ChangeLaserChargeText;
+            _gameEvents.OnLaserTimeChangedChanged -= ChangeLaserReloadText;
 
-    private void ChangeLaserChargeText(int laserCharges)
-    {
-        if (_laserChargesText == null) return;
+            _gameEvents.OnPlayerKilled -= ShowLosePanel;
+        }
 
-        _laserChargesText.text = "Laser charges: " + laserCharges;
-    }
+        private void ChangePointsText(int points)
+        {
+            if (_pointsText == null) return;
 
-    private void ChangeLaserReloadText(float timer)
-    {
-        if (_laserReloadTimeText == null) return;
+            _pointsText.text = points.ToString();
+        }
 
-        _laserReloadTimeText.text = "Laser reload: " + timer;
-    }
+        private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
+        {
+            if (_playerCoordinatesText == null) return;
 
-    private void ShowLosePanel()
-    {
-        _losePanel.SetActive(true);
+            _playerCoordinatesText.text = "Player pos: " + newCoordinates;
+        }
+
+        private void ChangePlayerAngleText(float newAngle)
+        {
+            if (_playerAngleText == null) return;
+
+            _playerAngleText.text = "Player angle: " + newAngle;
+        }
+
+        private void ChangeLaserChargeText(int laserCharges)
+        {
+            if (_laserChargesText == null) return;
+
+            _laserChargesText.text = "Laser charges: " + laserCharges;
+        }
+
+        private void ChangeLaserReloadText(float timer)
+        {
+            if (_laserReloadTimeText == null) return;
+
+            _laserReloadTimeText.text = "Laser reload: " + timer;
+        }
+
+        private void ShowLosePanel()
+        {
+            _losePanel.SetActive(true);
+        }
     }
 }

@@ -1,31 +1,25 @@
 using UnityEngine;
 using Zenject;
 
-public class GameSessionData : MonoBehaviour
+namespace AsteroidGame
 {
-    [field: SerializeField] public int Points { get; private set; } = 0;
-    
-    private GameEvents _gameEvents;   
+    public class GameSessionData
+    {
+        [field: SerializeField] public int Points { get; private set; } = 0;
 
-    [Inject]
-    private void Inject(GameEvents gameEvents)
-    {
-        _gameEvents = gameEvents;
-    }
-    
-    private void Awake()
-    {
-        _gameEvents.OnEnemyKilled += ChangePoints;
-    }
+        private GameEvents _gameEvents;
 
-    private void OnDestroy()
-    {
-        _gameEvents.OnEnemyKilled -= ChangePoints;
-    }
+        [Inject]
+        private void Inject(GameEvents gameEvents)
+        {
+            _gameEvents = gameEvents;
+            _gameEvents.OnEnemyKilled += ChangePoints;
+        }
 
-    private void ChangePoints(int deltaPoints)
-    {
-        Points += deltaPoints;
-        _gameEvents.ChangePoints(Points);
+        private void ChangePoints(int deltaPoints)
+        {
+            Points += deltaPoints;
+            _gameEvents.ChangePoints(Points);
+        }
     }
 }

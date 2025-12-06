@@ -1,28 +1,32 @@
 using UnityEngine;
 using Zenject;
 
-public class UfoSpawner : ObstaclesSpawner
+namespace AsteroidGame
 {
-    private PlayerShip _playerShip;
-    
-    [Inject]
-    private void Inject(PlayerShip playerShip, GameEvents gameEvents)
+    public class UfoSpawner : ObstaclesSpawner
     {
-        _playerShip = playerShip;
-        GameEvents = gameEvents;
-    }
+        private PlayerShip _playerShip;
 
-    protected override void Spawn()
-    {
-        Vector3 spawnPosition = GetPositionOutsideScreen();
-        GameObject obstacle = Instantiate(Prefab, spawnPosition, Quaternion.identity);
-        if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
+        [Inject]
+        private void Inject(PlayerShip playerShip, GameEvents gameEvents)
         {
-            enemy.Initialize(GameEvents);
+            _playerShip = playerShip;
+            GameEvents = gameEvents;
         }
-        if (obstacle.TryGetComponent(out UfoMovement ufoMovment))
+
+        protected override void Spawn()
         {
-            ufoMovment.Initialize(_playerShip);
+            Vector3 spawnPosition = GetPositionOutsideScreen();
+            GameObject obstacle = Instantiate(Prefab, spawnPosition, Quaternion.identity);
+            if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                enemy.Initialize(GameEvents);
+            }
+
+            if (obstacle.TryGetComponent(out UfoMovement ufoMovment))
+            {
+                ufoMovment.Initialize(_playerShip);
+            }
         }
     }
 }

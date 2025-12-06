@@ -2,34 +2,37 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class PlayerInputHandler : ITickable, IInitializable, IDisposable
+namespace AsteroidGame
 {
-    public Vector2 JoyInput { get; private set; }
-    public bool isFireButtonPressed { get; private set; }
-    public bool isFire2ButtonPressed { get; private set; }
-
-    private PlayerInput _playerInput;
-
-    [Inject]
-    void Inject(PlayerInput playerInput)
+    public class PlayerInputHandler : ITickable, IInitializable, IDisposable
     {
-        _playerInput = playerInput;
-    }
+        public Vector2 JoyInput { get; private set; }
+        public bool isFireButtonPressed { get; private set; }
+        public bool isFire2ButtonPressed { get; private set; }
 
-    public void Initialize()
-    {
-        _playerInput.Enable();
-    }
+        private PlayerInput _playerInput;
 
-    public void Tick()
-    {
-        JoyInput = _playerInput.Player.Move.ReadValue<Vector2>();
-        isFireButtonPressed = _playerInput.Player.Attack.IsPressed();
-        isFire2ButtonPressed = _playerInput.Player.Attack_2.IsPressed();
-    }
+        [Inject]
+        void Inject(PlayerInput playerInput)
+        {
+            _playerInput = playerInput;
+        }
 
-    public void Dispose()
-    {
-        _playerInput.Disable();
+        public void Initialize()
+        {
+            _playerInput.Enable();
+        }
+
+        public void Tick()
+        {
+            JoyInput = _playerInput.Player.Move.ReadValue<Vector2>();
+            isFireButtonPressed = _playerInput.Player.Attack.IsPressed();
+            isFire2ButtonPressed = _playerInput.Player.Attack_2.IsPressed();
+        }
+
+        public void Dispose()
+        {
+            _playerInput.Disable();
+        }
     }
 }

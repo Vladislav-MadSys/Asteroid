@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using AsteroidGame;
 
 public class GameSceneInstaller : MonoInstaller
 {
@@ -8,7 +9,7 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<GameEvents>().AsSingle();
         Container.Bind<PlayerInput>().AsSingle();
         Container.Bind<Camera>().FromInstance(Camera.main).AsSingle().NonLazy();
-        Container.Bind<SceneController>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<SceneController>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerInputHandler>().AsSingle();
         Container.Bind<PlayerShip>().FromComponentInHierarchy().AsSingle();
     }

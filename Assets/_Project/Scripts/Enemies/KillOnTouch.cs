@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class KillOnTouch : MonoBehaviour
+namespace AsteroidGame
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class KillOnTouch : MonoBehaviour
     {
-        if(collision.gameObject.TryGetComponent<PlayerShip>(out PlayerShip playerShip))
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            playerShip.KillPlayer();
+            if (collision.gameObject.TryGetComponent<PlayerShip>(out PlayerShip playerShip))
+            {
+                playerShip.KillPlayer();
+            }
         }
     }
 }

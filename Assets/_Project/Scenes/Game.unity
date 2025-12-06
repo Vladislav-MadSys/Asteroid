@@ -883,6 +883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a005018d7d43e458a3bbc5a5dc801b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Points>k__BackingField: 0
 --- !u!4 &708819785
 Transform:
   m_ObjectHideFlags: 0
@@ -924,50 +925,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1048.6589, y: 673.6342, z: -12.002148}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &825740262
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 825740264}
-  - component: {fileID: 825740263}
-  m_Layer: 0
-  m_Name: SceneController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &825740263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825740262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a37b166c7ee1fcf4ea011bda2905ce66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &825740264
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825740262}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 791.4619, y: 502.1205, z: -17.930952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1405,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1963186718700902391, guid: 77bcbb0ea2cfe0a468aaca26f678723d, type: 3}
   TimeToSpawn: 1
+  offsetOutOfScreen: 0.1
 --- !u!4 &1056381977
 Transform:
   m_ObjectHideFlags: 0
@@ -2540,6 +2498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 3283534207927173240, guid: 2b1844452e40ed84391dbbfc6eddd363, type: 3}
   TimeToSpawn: 5
+  offsetOutOfScreen: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2547,7 +2506,6 @@ SceneRoots:
   - {fileID: 473487297}
   - {fileID: 708819785}
   - {fileID: 27664528}
-  - {fileID: 825740264}
   - {fileID: 1698030332}
   - {fileID: 963194228}
   - {fileID: 1315097640}
