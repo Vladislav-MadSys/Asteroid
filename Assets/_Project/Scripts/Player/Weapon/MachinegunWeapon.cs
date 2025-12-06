@@ -64,7 +64,6 @@ namespace AsteroidGame
             {
                 projectileScript.SetPooler(_objectPooler);
             }
-            
         }
     }
 }

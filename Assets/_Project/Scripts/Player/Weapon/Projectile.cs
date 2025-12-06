@@ -36,6 +36,11 @@ namespace AsteroidGame
             }
         }
 
+        private void OnDisable()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
         public void SetPooler(ObjectPooler pooler)
         {
             _objectPooler = pooler;
