@@ -3,17 +3,17 @@ using Zenject;
 
 namespace AsteroidGame
 {
-    public class UfoSpawner : ObstaclesSpawner
+    public class UfoSpawner : EnemySpawner
     {
         private PlayerShip _playerShip;
 
-        public void Initialize(PlayerShip playerShip, GameEvents gameEvents, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler)
+        public void Initialize(PlayerShip playerShip, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler, EnemyDeathListener enemyDeathListener)
         {
             _playerShip = playerShip;
             _objectPooler = objectPooler;
             _mainCamera = mainCamera;
             Settings = settings;
-            GameEvents = gameEvents;
+            _enemyDeathListener = enemyDeathListener;
         }
 
         protected override void Spawn()
@@ -21,16 +21,13 @@ namespace AsteroidGame
             Vector3 spawnPosition = GetPositionOutsideScreen();
             GameObject obstacle = _objectPooler.GetObject();
             obstacle.transform.position = spawnPosition;
-            obstacle.transform.rotation = Quaternion.identity;
-            if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
-            {
-                enemy.Initialize(_objectPooler);
-            }
-
-            if (obstacle.TryGetComponent(out UfoMovement ufoMovment))
-            {
-                ufoMovment.Initialize(_playerShip);
-            }
+            
+            Enemy enemy = obstacle.GetComponent<Enemy>();
+            enemy.Initialize(_objectPooler);
+            enemy.OnKill += _enemyDeathListener.OnEnemyDeath;
+            
+            UfoMovement ufoMovment = obstacle.GetComponent<UfoMovement>();
+            ufoMovment.Initialize(_playerShip);
         }
     }
 }

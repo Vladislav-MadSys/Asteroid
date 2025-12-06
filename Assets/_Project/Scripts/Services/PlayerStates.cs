@@ -4,17 +4,13 @@ using UnityEngine;
 namespace AsteroidGame
 {
 
-    public class GameEvents
+    public class PlayerStates
     {
-        public Action OnPlayerKilled;
-
-        public Action<Vector2> OnPlayerPositionChanged;
-        public Action<float> OnPlayerRotationChanged;
-        public Action<int> OnLaserChargesChanged;
-        public Action<float> OnLaserTimeChangedChanged;
-
-        public void KillPlayer() => OnPlayerKilled?.Invoke();
-
+        public event Action<Vector2> OnPlayerPositionChanged;
+        public event Action<float> OnPlayerRotationChanged;
+        public event Action<int> OnLaserChargesChanged;
+        public event Action<float> OnLaserTimeChangedChanged;
+        
         public void ChangePlayerPosition(Vector3 newPosition) => OnPlayerPositionChanged?.Invoke(newPosition);
         public void ChangePlayerRotation(float newRotation) => OnPlayerRotationChanged?.Invoke(newRotation);
         public void ChangeLaserCharges(int newCharges) => OnLaserChargesChanged?.Invoke(newCharges);

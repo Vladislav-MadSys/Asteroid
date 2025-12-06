@@ -6,6 +6,7 @@ namespace AsteroidGame
 {
     public class GameSessionData
     {
+        public event Action OnPlayerKilled;
         public event Action OnPointsChanged;
         
         public int Points { get; private set; } = 0;
@@ -14,6 +15,11 @@ namespace AsteroidGame
         {
             Points += deltaPoints;
             OnPointsChanged?.Invoke();
+        }
+
+        public void KillPlayer()
+        {
+            OnPlayerKilled?.Invoke();   
         }
     }
 }

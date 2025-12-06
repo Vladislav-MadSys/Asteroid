@@ -245,5 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d00156d4be702a40b86d000d99beabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PointsForKill>k__BackingField: 1
   _objectsToSpawnOnDeath: []
   _lifeTimeMs: 10000

@@ -21,15 +21,16 @@ namespace AsteroidGame
 
         [SerializeField] private Button _restartButton;
 
-        private GameEvents _gameEvents;
+        private PlayerStates _playerStates;
         private SceneController _sceneController;
         private GameSessionData _gameSessionData;
 
         [Inject]
-        private void Inject(GameEvents gameEvents, SceneController sceneController)
+        private void Inject(PlayerStates playerStates, SceneController sceneController, GameSessionData gameSessionData)
         {
-            _gameEvents = gameEvents;
+            _playerStates = playerStates;
             _sceneController = sceneController;
+            _gameSessionData = gameSessionData;
         }
 
         private void Awake()
@@ -37,23 +38,23 @@ namespace AsteroidGame
             _restartButton.onClick.AddListener(() => { _sceneController.ReloadCurrentScene(); });
 
             _gameSessionData.OnPointsChanged += ChangePointsText;
-            _gameEvents.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
-            _gameEvents.OnPlayerRotationChanged += ChangePlayerAngleText;
-            _gameEvents.OnLaserChargesChanged += ChangeLaserChargeText;
-            _gameEvents.OnLaserTimeChangedChanged += ChangeLaserReloadText;
+            _playerStates.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
+            _playerStates.OnPlayerRotationChanged += ChangePlayerAngleText;
+            _playerStates.OnLaserChargesChanged += ChangeLaserChargeText;
+            _playerStates.OnLaserTimeChangedChanged += ChangeLaserReloadText;
 
-            _gameEvents.OnPlayerKilled += ShowLosePanel;
+            _gameSessionData.OnPlayerKilled += ShowLosePanel;
         }
 
         private void OnDestroy()
         {
             _gameSessionData.OnPointsChanged -= ChangePointsText;
-            _gameEvents.OnPlayerPositionChanged -= ChangePlayerCoordinatesText;
-            _gameEvents.OnPlayerRotationChanged -= ChangePlayerAngleText;
-            _gameEvents.OnLaserChargesChanged -= ChangeLaserChargeText;
-            _gameEvents.OnLaserTimeChangedChanged -= ChangeLaserReloadText;
+            _playerStates.OnPlayerPositionChanged -= ChangePlayerCoordinatesText;
+            _playerStates.OnPlayerRotationChanged -= ChangePlayerAngleText;
+            _playerStates.OnLaserChargesChanged -= ChangeLaserChargeText;
+            _playerStates.OnLaserTimeChangedChanged -= ChangeLaserReloadText;
 
-            _gameEvents.OnPlayerKilled -= ShowLosePanel;
+            _gameSessionData.OnPlayerKilled -= ShowLosePanel;
         }
 
         private void ChangePointsText()

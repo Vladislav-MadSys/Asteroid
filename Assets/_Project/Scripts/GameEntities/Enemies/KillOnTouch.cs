@@ -6,7 +6,7 @@ namespace AsteroidGame
     {
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.TryGetComponent<PlayerShip>(out PlayerShip playerShip))
+            if (collision.gameObject.TryGetComponent(out PlayerShip playerShip))
             {
                 playerShip.KillPlayer();
             }

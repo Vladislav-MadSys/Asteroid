@@ -5,17 +5,17 @@ namespace AsteroidGame
 {
     public class PlayerShip : MonoBehaviour
     {
-        private GameEvents _gameEvents;
+        private GameSessionData _gameSessionData;
 
         [Inject]
-        private void Inject(GameEvents gameEvents)
+        private void Inject(GameSessionData gameSessionData)
         {
-            _gameEvents = gameEvents;
+            _gameSessionData = gameSessionData;
         }
 
         public void KillPlayer()
         {
-            _gameEvents.KillPlayer();
+            _gameSessionData.KillPlayer();
             Destroy(gameObject);
         }
     }

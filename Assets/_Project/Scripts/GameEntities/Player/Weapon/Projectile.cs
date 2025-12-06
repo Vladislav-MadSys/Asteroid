@@ -59,7 +59,7 @@ namespace AsteroidGame
                 OnEndLifetime();
             }
         }
-        void OnEndLifetime()
+        private void OnEndLifetime()
         {
             _cancellationTokenSource.Cancel();
             if (_objectPooler != null)

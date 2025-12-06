@@ -7,7 +7,7 @@ namespace AsteroidGame
     {
         public event Action<int> OnKill;
 
-        [dield: SerializeField] public int PointsForKill {get; private set; }
+        [field: SerializeField] public int PointsForKill {get; private set; }
 
         protected ObjectPooler _objectPooler; 
 

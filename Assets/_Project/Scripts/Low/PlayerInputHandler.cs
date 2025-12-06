@@ -13,7 +13,7 @@ namespace AsteroidGame
         private PlayerInput _playerInput;
 
         [Inject]
-        void Inject(PlayerInput playerInput)
+        private void Inject(PlayerInput playerInput)
         {
             _playerInput = playerInput;
         }

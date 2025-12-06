@@ -15,6 +15,7 @@ namespace AsteroidGame
         }
         public void OnEnemyDeath(int delta)
         {
+            
             _gameSessionData.ChangePoints(delta);
         }
     }

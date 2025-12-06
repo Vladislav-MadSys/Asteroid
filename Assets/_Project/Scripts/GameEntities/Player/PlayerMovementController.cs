@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Zenject;
-using Zenject.SpaceFighter;
 
 namespace AsteroidGame
 {
@@ -14,16 +12,16 @@ namespace AsteroidGame
         [field: SerializeField] private float _rotationInertia = 1;
 
         private PlayerInputHandler _playerInputHandler;
-        private GameEvents _gameEvents;
+        private PlayerStates _playerStates;
 
         private Rigidbody2D _rb;
         private Transform _transform;
 
         [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
+        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates)
         {
             _playerInputHandler = playerInputHandler;
-            _gameEvents = gameEvents;
+            _playerStates = playerStates;
         }
 
         private void Awake()
@@ -52,8 +50,8 @@ namespace AsteroidGame
                 angularDirection * _rotationSpeed,
                 _rotationSpeed / _rotationInertia * Time.deltaTime);
 
-            _gameEvents.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
-            _gameEvents.ChangePlayerRotation(_transform.rotation.z * 180);
+            _playerStates.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
+            _playerStates.ChangePlayerRotation(_transform.rotation.z * 180);
         }
     }
 }

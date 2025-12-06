@@ -16,13 +16,11 @@ namespace AsteroidGame
 
         private Transform _transform;
         private PlayerInputHandler _playerInputHandler;
-        private GameEvents _gameEvents;
+        private PlayerStates _playerStates;
 
-        //Fire
         private float _shootingTimer;
         private RaycastHit2D[] _hitsBuffer = new RaycastHit2D[LASER_BUFFER_SIZE];
 
-        //Charges
         private int _curCharges = 0;
         private float _chargeTimer;
         private bool _canFire = false;
@@ -31,10 +29,10 @@ namespace AsteroidGame
 
 
         [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, GameEvents gameEvents)
+        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates)
         {
             _playerInputHandler = playerInputHandler;
-            _gameEvents = gameEvents;
+            _playerStates = playerStates;
         }
 
         private void Awake()
@@ -44,7 +42,6 @@ namespace AsteroidGame
 
         private void Update()
         {
-            //Shooting
             if (_canFire)
             {
                 if (_curCharges > 0)
@@ -53,7 +50,7 @@ namespace AsteroidGame
                     {
                         Fire();
                         _curCharges -= 1;
-                        _gameEvents.ChangeLaserCharges(_curCharges);
+                        _playerStates.ChangeLaserCharges(_curCharges);
                         _canFire = false;
                         _shootingTimer = 0;
                     }
@@ -76,13 +73,12 @@ namespace AsteroidGame
                 }
             }
 
-            //Charges
             if (_curCharges < _maxCharges)
             {
                 if (_chargeTimer >= _chargeDelay)
                 {
                     _curCharges++;
-                    _gameEvents.ChangeLaserCharges(_curCharges);
+                    _playerStates.ChangeLaserCharges(_curCharges);
                     _chargeTimer = 0;
                 }
                 else
@@ -90,7 +86,7 @@ namespace AsteroidGame
                     _chargeTimer += Time.deltaTime;
                 }
 
-                _gameEvents.ChangeLaserTime(_chargeTimer);
+                _playerStates.ChangeLaserTime(_chargeTimer);
             }
         }
 

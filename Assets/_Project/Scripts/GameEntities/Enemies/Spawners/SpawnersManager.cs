@@ -8,20 +8,19 @@ namespace AsteroidGame
     {
         [SerializeField] private SpawnerSettings[] Settings;
         
-        protected GameEvents GameEvents;
+        protected PlayerStates PlayerStates;
         
         private Camera _mainCamera;
         private PlayerShip _playerShip;
         private float _timer;
         private EnemyDeathListener _enemyDeathListener;
         
-        private List<ObstaclesSpawner> _obstaclesSpawner = new List<ObstaclesSpawner>();
+        private List<EnemySpawner> _obstaclesSpawner = new List<EnemySpawner>();
         
         [Inject]
-        private void Inject(PlayerShip playerShip, GameEvents gameEvents, Camera mainCamera, EnemyDeathListener enemyDeathListener)
+        private void Inject(PlayerShip playerShip, Camera mainCamera, EnemyDeathListener enemyDeathListener)
         {
-            _playerShip = playerShip;;
-            GameEvents = gameEvents;
+            _playerShip = playerShip;
             _mainCamera = mainCamera;
             _enemyDeathListener = enemyDeathListener;
         }
@@ -36,12 +35,12 @@ namespace AsteroidGame
                 {
                     case SpawnerType.Asteroid:
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(GameEvents, _mainCamera,spawnerSettings, objectPooler, _enemyDeathListener);
+                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPooler, _enemyDeathListener);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:
                         UfoSpawner ufoSpawner = new UfoSpawner();
-                        ufoSpawner.Initialize(_playerShip, GameEvents, _mainCamera, spawnerSettings, objectPooler);
+                        ufoSpawner.Initialize(_playerShip, _mainCamera, spawnerSettings, objectPooler, _enemyDeathListener);
                         _obstaclesSpawner.Add(ufoSpawner);
                         break;
                 }

@@ -6,7 +6,7 @@ public class GameSceneInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<GameEvents>().AsSingle();
+        Container.Bind<PlayerStates>().AsSingle();
         Container.Bind<PlayerInput>().AsSingle();
         Container.Bind<GameSessionData>().AsSingle().NonLazy();
         Container.Bind<EnemyDeathListener>().AsSingle();
