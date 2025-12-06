@@ -29,6 +29,5 @@ public class AsteroidMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _rigidbody.position = _transform.position + _transform.up * (_speed * Time.fixedDeltaTime);
-        //_transform.Translate(_transform.up * (_speed * Time.deltaTime), Space.World);
     }
 }
