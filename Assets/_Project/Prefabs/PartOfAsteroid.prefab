@@ -99,9 +99,8 @@ GameObject:
   - component: {fileID: 3370500050283388384}
   - component: {fileID: 5877198608575630395}
   - component: {fileID: 2032175759442597449}
-  - component: {fileID: 6247095252710494829}
-  - component: {fileID: 3135018543850076840}
   - component: {fileID: 9141178038064295475}
+  - component: {fileID: 7802951913448273974}
   m_Layer: 0
   m_Name: PartOfAsteroid
   m_TagString: Untagged
@@ -207,32 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d2c3b7247ee5e47a4f61ac6188af96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6247095252710494829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963186718700902391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e14a6d56aee1643a40849a593ff270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointsForKill: 1
---- !u!114 &3135018543850076840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963186718700902391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3003c0c669f6767469ed7b5d988293dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeToDestroy: 30
 --- !u!50 &9141178038064295475
 Rigidbody2D:
   serializedVersion: 5
@@ -260,3 +233,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7802951913448273974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963186718700902391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d00156d4be702a40b86d000d99beabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectsToSpawnOnDeath: []
+  _lifeTimeMs: 10000

@@ -23,6 +23,7 @@ namespace AsteroidGame
 
         private GameEvents _gameEvents;
         private SceneController _sceneController;
+        private GameSessionData _gameSessionData;
 
         [Inject]
         private void Inject(GameEvents gameEvents, SceneController sceneController)
@@ -35,7 +36,7 @@ namespace AsteroidGame
         {
             _restartButton.onClick.AddListener(() => { _sceneController.ReloadCurrentScene(); });
 
-            _gameEvents.OnPointsChanged += ChangePointsText;
+            _gameSessionData.OnPointsChanged += ChangePointsText;
             _gameEvents.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
             _gameEvents.OnPlayerRotationChanged += ChangePlayerAngleText;
             _gameEvents.OnLaserChargesChanged += ChangeLaserChargeText;
@@ -46,7 +47,7 @@ namespace AsteroidGame
 
         private void OnDestroy()
         {
-            _gameEvents.OnPointsChanged -= ChangePointsText;
+            _gameSessionData.OnPointsChanged -= ChangePointsText;
             _gameEvents.OnPlayerPositionChanged -= ChangePlayerCoordinatesText;
             _gameEvents.OnPlayerRotationChanged -= ChangePlayerAngleText;
             _gameEvents.OnLaserChargesChanged -= ChangeLaserChargeText;
@@ -55,11 +56,11 @@ namespace AsteroidGame
             _gameEvents.OnPlayerKilled -= ShowLosePanel;
         }
 
-        private void ChangePointsText(int points)
+        private void ChangePointsText()
         {
             if (_pointsText == null) return;
 
-            _pointsText.text = points.ToString();
+            _pointsText.text = _gameSessionData.Points.ToString();
         }
 
         private void ChangePlayerCoordinatesText(Vector2 newCoordinates)

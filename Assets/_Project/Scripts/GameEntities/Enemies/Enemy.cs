@@ -1,22 +1,33 @@
+using System;
 using UnityEngine;
 
 namespace AsteroidGame
 {
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private int _pointsForKill;
+        public event Action<int> OnKill;
 
-        protected GameEvents _gameEvents;
+        [dield: SerializeField] public int PointsForKill {get; private set; }
 
-        public void Initialize(GameEvents gameEvents)
+        protected ObjectPooler _objectPooler; 
+
+        public void Initialize(ObjectPooler objectPooler)
         {
-            _gameEvents = gameEvents;
+            _objectPooler = objectPooler;
         }
 
         public virtual void Kill()
         {
-            _gameEvents.KillEnemy(_pointsForKill);
-            Destroy(gameObject);
+            OnKill?.Invoke(PointsForKill);
+
+            if (_objectPooler != null)
+            {
+                _objectPooler.ReturnObject(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

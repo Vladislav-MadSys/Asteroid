@@ -24,7 +24,7 @@ namespace AsteroidGame
             obstacle.transform.rotation = Quaternion.identity;
             if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
             {
-                enemy.Initialize(GameEvents);
+                enemy.Initialize(_objectPooler);
             }
 
             if (obstacle.TryGetComponent(out UfoMovement ufoMovment))

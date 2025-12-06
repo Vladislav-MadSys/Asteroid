@@ -13,16 +13,23 @@ namespace AsteroidGame
         protected GameEvents GameEvents;
         protected ObjectPooler _objectPooler;
         protected Camera _mainCamera;
+        protected EnemyDeathListener _enemyDeathListener;
         
         private float _timer;
        
         
-        public void Initialize(GameEvents gameEvents, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler)
+        public void Initialize(
+            GameEvents gameEvents,
+            Camera mainCamera,
+            SpawnerSettings settings,
+            ObjectPooler objectPooler,
+            EnemyDeathListener enemyDeathListener)
         {
             GameEvents = gameEvents;
             _mainCamera = mainCamera;
             Settings = settings;
             _objectPooler = objectPooler;
+            _enemyDeathListener = enemyDeathListener;
         }
         
         public void Tick()
@@ -76,7 +83,8 @@ namespace AsteroidGame
             obstacle.transform.position = spawnPosition;
             if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
             {
-                enemy.Initialize(GameEvents);
+                enemy.Initialize(_objectPooler);
+                enemy.OnKill += _enemyDeathListener.OnEnemyDeath;
             }
 
         }

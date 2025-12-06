@@ -11,9 +11,9 @@ namespace AsteroidGame
             Vector3 spawnPosition = GetPositionOutsideScreen();
             GameObject obstacle = _objectPooler.GetObject();
             obstacle.transform.position = spawnPosition;
-            if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
+            if (obstacle.TryGetComponent(out Enemy enemy))
             {
-                enemy.Initialize(GameEvents);
+                enemy.Initialize(_objectPooler);
             }
 
             if (obstacle.TryGetComponent(out AsteroidMovement asteroidMovement))

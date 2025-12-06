@@ -13,15 +13,17 @@ namespace AsteroidGame
         private Camera _mainCamera;
         private PlayerShip _playerShip;
         private float _timer;
+        private EnemyDeathListener _enemyDeathListener;
         
         private List<ObstaclesSpawner> _obstaclesSpawner = new List<ObstaclesSpawner>();
         
         [Inject]
-        private void Inject(PlayerShip playerShip, GameEvents gameEvents, Camera mainCamera)
+        private void Inject(PlayerShip playerShip, GameEvents gameEvents, Camera mainCamera, EnemyDeathListener enemyDeathListener)
         {
             _playerShip = playerShip;;
             GameEvents = gameEvents;
             _mainCamera = mainCamera;
+            _enemyDeathListener = enemyDeathListener;
         }
 
         private void Awake()
@@ -34,7 +36,7 @@ namespace AsteroidGame
                 {
                     case SpawnerType.Asteroid:
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(GameEvents, _mainCamera,spawnerSettings, objectPooler);
+                        asteroidSpawner.Initialize(GameEvents, _mainCamera,spawnerSettings, objectPooler, _enemyDeathListener);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:
