@@ -3,7 +3,7 @@ using Zenject;
 
 namespace AsteroidGame
 {
-    public class Portal : MonoBehaviour
+    public class Portal : ILateTickable, IInitializable
     {
         private Camera _mainCamera;
         private Transform _playerTransform;
@@ -16,14 +16,16 @@ namespace AsteroidGame
         {
             _playerTransform = playerShip.transform;
             _mainCamera = camera;
+            
+            Initialize();
         }
 
-        public void Awake()
+        public void Initialize()
         {
             _cameraOffset = new Vector2(_mainCamera.transform.position.x, _mainCamera.transform.position.y);
         }
 
-        private void LateUpdate()
+        public void LateTick()
         {
             if (!_playerTransform) return;
 

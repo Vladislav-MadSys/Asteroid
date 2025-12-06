@@ -8,6 +8,7 @@ public class GameSceneInstaller : MonoInstaller
     {
         Container.Bind<PlayerStates>().AsSingle();
         Container.Bind<PlayerInput>().AsSingle();
+        Container.BindInterfacesAndSelfTo<Portal>().AsSingle().NonLazy();
         Container.Bind<GameSessionData>().AsSingle().NonLazy();
         Container.Bind<EnemyDeathListener>().AsSingle();
         Container.Bind<SpawnersManager>().FromComponentInHierarchy().AsSingle().NonLazy();
