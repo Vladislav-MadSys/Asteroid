@@ -1,19 +1,22 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _speed;
     
     private Transform _transform;
+    private Rigidbody2D _rigidbody;
     
     private void Awake()
     {
         _transform = transform;
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _transform.Translate(_transform.up * (_speed * Time.deltaTime), Space.World);
+        _rigidbody.position = transform.position + transform.up * (_speed * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,8 +26,6 @@ public class Projectile : MonoBehaviour
             enemy.Kill();
 
             Destroy(gameObject);
-            //In general, we can use SetActive instead of Destroying for optimization performance in moment, 
-            //but I think it can lead to troubles with GC
         }
     }
 }

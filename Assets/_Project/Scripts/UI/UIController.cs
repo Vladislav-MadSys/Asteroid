@@ -55,35 +55,35 @@ public class UIController : MonoBehaviour
 
     private void ChangePointsText(int points)
     {
-        if (!_pointsText ) return;
+        if (_pointsText == null) return;
 
         _pointsText.text = points.ToString();
     }
 
     private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
     {
-        if (!_playerCoordinatesText) return;
+        if (_playerCoordinatesText == null) return;
 
         _playerCoordinatesText.text = "Player pos: " + newCoordinates;
     }
 
     private void ChangePlayerAngleText(float newAngle)
     {
-        if (!_playerAngleText) return;
+        if (_playerAngleText == null) return;
 
         _playerAngleText.text = "Player angle: " + newAngle;
     }
 
     private void ChangeLaserChargeText(int laserCharges)
     {
-        if (!_laserChargesText) return;
+        if (_laserChargesText == null) return;
 
         _laserChargesText.text = "Laser charges: " + laserCharges;
     }
 
     private void ChangeLaserReloadText(float timer)
     {
-        if (!_laserReloadTimeText) return;
+        if (_laserReloadTimeText == null) return;
 
         _laserReloadTimeText.text = "Laser reload: " + timer;
     }

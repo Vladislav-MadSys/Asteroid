@@ -89,7 +89,6 @@ public class Laser : MonoBehaviour
             }
             _gameEvents.ChangeLaserTime(_chargeTimer);
         }
-
     }
     
     protected void Fire()

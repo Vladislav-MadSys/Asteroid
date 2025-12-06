@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class AsteroidMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -7,7 +8,8 @@ public class AsteroidMovement : MonoBehaviour
     [SerializeField] private float _maxRotationOffset = 5;
     
     private Transform _transform;
-
+    private Rigidbody2D _rigidbody;
+    
     private void Awake()
     {
         _transform = transform;
@@ -15,10 +17,12 @@ public class AsteroidMovement : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         _transform.Rotate(0, 0, Random.Range(_minRotationOffset, _maxRotationOffset));
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _transform.Translate(_transform.up * (_speed * Time.deltaTime), Space.World);
+        _rigidbody.position = _transform.position + _transform.up * (_speed * Time.fixedDeltaTime);
+        //_transform.Translate(_transform.up * (_speed * Time.deltaTime), Space.World);
     }
 }

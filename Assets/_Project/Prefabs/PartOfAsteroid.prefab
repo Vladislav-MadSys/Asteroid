@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2032175759442597449}
   - component: {fileID: 6247095252710494829}
   - component: {fileID: 3135018543850076840}
+  - component: {fileID: 9141178038064295475}
   m_Layer: 0
   m_Name: PartOfAsteroid
   m_TagString: Untagged
@@ -219,7 +220,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pointsForKill: 1
-  _objectsToSpawnOnDeath: []
 --- !u!114 &3135018543850076840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,3 +233,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeToDestroy: 30
+--- !u!50 &9141178038064295475
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963186718700902391}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
