@@ -1,48 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class ObjectPooler : MonoBehaviour
+namespace AsteroidGame
 {
-    
-    private GameObject _prefab;
-    private int _startPoolSize = 50;
-    
-    private Queue<GameObject> _objectPool = new Queue<GameObject>();
+
+    public class ObjectPooler : IInitializable
+    {
+        private GameObjectFactory _factory;
+        private GameObject _prefab;
+        private int _startPoolSize = 50;
+
+        private Queue<GameObject> _objectPool = new Queue<GameObject>();
 
 
-    public void Initialize(GameObject prefab, int startPoolSize = 50)
-    {
-        _prefab =  prefab;
-        _startPoolSize = startPoolSize;
-    }
-    
-    private void Start()
-    {
-        for (int i = 0; i < _startPoolSize; i++)
+        public ObjectPooler(GameObject prefab, int startPoolSize = 50)
         {
-            GameObject obj = Instantiate(_prefab);
-            obj.SetActive(false);
-            _objectPool.Enqueue(obj);
-        }
-        
-    }
-
-    public GameObject GetObject()
-    {
-        if (_objectPool.Count > 0)
-        {
-            GameObject obj = _objectPool.Dequeue();
-            obj.SetActive(true);
-            return obj;
+            _prefab = prefab;
+            _startPoolSize = startPoolSize;
         }
 
-        return Instantiate(_prefab);
-    }
+        public void Initialize()
+        {
+            _factory = new GameObjectFactory(_prefab);
+            for (int i = 0; i < _startPoolSize; i++)
+            {
+                GameObject obj = _factory.Create();
+                obj.SetActive(false);
+                _objectPool.Enqueue(obj);
+            }
 
-    public void ReturnObject(GameObject gameObject)
-    {
-        gameObject.SetActive(false);
-        _objectPool.Enqueue(gameObject);
+        }
+
+        public GameObject GetObject()
+        {
+            if (_objectPool.Count > 0)
+            {
+                GameObject obj = _objectPool.Dequeue();
+                obj.SetActive(true);
+                return obj;
+            }
+
+            return _factory.Create();
+        }
+
+        public void ReturnObject(GameObject gameObject)
+        {
+            gameObject.SetActive(false);
+            _objectPool.Enqueue(gameObject);
+        }
     }
 }

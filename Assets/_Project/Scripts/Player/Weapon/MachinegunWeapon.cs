@@ -3,7 +3,6 @@ using Zenject;
 
 namespace AsteroidGame
 {
-    [RequireComponent(typeof(ObjectPooler))]
     public class MachinegunWeapon : MonoBehaviour
     {
         [SerializeField] private GameObject _projectilePrefab;
@@ -25,8 +24,8 @@ namespace AsteroidGame
         private void Awake()
         {
             _transform = transform;
-            _objectPooler = GetComponent<ObjectPooler>();
-            _objectPooler.Initialize(_projectilePrefab);
+            _objectPooler = new ObjectPooler(_projectilePrefab, 50);
+            _objectPooler.Initialize();
         }
 
         private void Update()

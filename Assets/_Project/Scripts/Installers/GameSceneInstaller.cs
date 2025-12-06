@@ -9,6 +9,7 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<GameEvents>().AsSingle();
         Container.Bind<PlayerInput>().AsSingle();
         Container.Bind<GameSessionData>().AsSingle().NonLazy();
+        Container.Bind<SpawnersManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<Camera>().FromInstance(Camera.main).AsSingle().NonLazy();
         Container.Bind<SceneController>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerInputHandler>().AsSingle();

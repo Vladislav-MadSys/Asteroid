@@ -1,30 +1,33 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace AsteroidGame
 {
-    public class ObstaclesSpawner : MonoBehaviour
+    public class ObstaclesSpawner : ITickable
     {
-        [SerializeField] protected GameObject Prefab;
-        [SerializeField] protected float TimeToSpawn = 1;
-        [SerializeField] protected float offsetOutOfScreen = 0.1f;
+        protected SpawnerSettings Settings;
 
         protected GameEvents GameEvents;
-
-        private Camera _mainCamera;
+        protected ObjectPooler _objectPooler;
+        protected Camera _mainCamera;
+        
         private float _timer;
-
-        [Inject]
-        private void Inject(GameEvents gameEvents, Camera mainCamera)
+       
+        
+        public void Initialize(GameEvents gameEvents, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler)
         {
             GameEvents = gameEvents;
             _mainCamera = mainCamera;
+            Settings = settings;
+            _objectPooler = objectPooler;
         }
         
-        private void Update()
+        public void Tick()
         {
-            if (_timer >= TimeToSpawn)
+            if (_timer >= Settings.TimeToSpawn)
             {
                 _timer = 0;
                 Spawn();
@@ -42,21 +45,21 @@ namespace AsteroidGame
 
             int side = Random.Range(0, 4); // Sides
 
-            float randomOffset = Random.Range(0f, offsetOutOfScreen);
+            float randomOffset = Random.Range(0f, Settings.OffsetOutOfScreen);
 
             switch (side)
             {
                 case 0: //left
-                    viewportPos = new Vector3(-offsetOutOfScreen - randomOffset, Random.Range(0f, 1f), 0f);
+                    viewportPos = new Vector3(-Settings.OffsetOutOfScreen - randomOffset, Random.Range(0f, 1f), 0f);
                     break;
                 case 1: //right
-                    viewportPos = new Vector3(1 + offsetOutOfScreen + randomOffset, Random.Range(0f, 1f), 0f);
+                    viewportPos = new Vector3(1 + Settings.OffsetOutOfScreen + randomOffset, Random.Range(0f, 1f), 0f);
                     break;
                 case 2: //up
-                    viewportPos = new Vector3(Random.Range(0f, 1f), 1 + offsetOutOfScreen + randomOffset, 0f);
+                    viewportPos = new Vector3(Random.Range(0f, 1f), 1 + Settings.OffsetOutOfScreen + randomOffset, 0f);
                     break;
                 case 3: //dawn
-                    viewportPos = new Vector3(Random.Range(0f, 1f), -offsetOutOfScreen - randomOffset, 0f);
+                    viewportPos = new Vector3(Random.Range(0f, 1f), -Settings.OffsetOutOfScreen - randomOffset, 0f);
                     break;
             }
 
@@ -69,7 +72,8 @@ namespace AsteroidGame
         protected virtual void Spawn()
         {
             Vector3 spawnPosition = GetPositionOutsideScreen();
-            GameObject obstacle = Instantiate(Prefab, spawnPosition, Quaternion.identity);
+            GameObject obstacle = _objectPooler.GetObject();
+            obstacle.transform.position = spawnPosition;
             if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.Initialize(GameEvents);

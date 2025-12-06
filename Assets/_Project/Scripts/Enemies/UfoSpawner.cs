@@ -7,17 +7,21 @@ namespace AsteroidGame
     {
         private PlayerShip _playerShip;
 
-        [Inject]
-        private void Inject(PlayerShip playerShip, GameEvents gameEvents)
+        public void Initialize(PlayerShip playerShip, GameEvents gameEvents, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler)
         {
             _playerShip = playerShip;
+            _objectPooler = objectPooler;
+            _mainCamera = mainCamera;
+            Settings = settings;
             GameEvents = gameEvents;
         }
 
         protected override void Spawn()
         {
             Vector3 spawnPosition = GetPositionOutsideScreen();
-            GameObject obstacle = Instantiate(Prefab, spawnPosition, Quaternion.identity);
+            GameObject obstacle = _objectPooler.GetObject();
+            obstacle.transform.position = spawnPosition;
+            obstacle.transform.rotation = Quaternion.identity;
             if (obstacle.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.Initialize(GameEvents);
