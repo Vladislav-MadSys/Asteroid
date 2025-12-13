@@ -1,10 +1,9 @@
 using System;
 using System.Threading;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
+using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies
 {
     public class Asteroid : Enemy
     {

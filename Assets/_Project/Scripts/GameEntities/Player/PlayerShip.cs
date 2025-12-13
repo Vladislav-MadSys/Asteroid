@@ -1,7 +1,8 @@
+using _Project.Scripts.Services;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Player
 {
     public class PlayerShip : MonoBehaviour
     {

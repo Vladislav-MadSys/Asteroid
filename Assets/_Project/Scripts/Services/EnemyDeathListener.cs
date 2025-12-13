@@ -1,8 +1,6 @@
-using AsteroidGame;
-using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Services
 {
     public class EnemyDeathListener
     {

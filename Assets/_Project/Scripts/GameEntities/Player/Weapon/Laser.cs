@@ -1,8 +1,10 @@
- using UnityEngine;
+using _Project.Scripts.GameEntities.Enemies;
+using _Project.Scripts.Services;
+using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
+using PlayerInputHandler = _Project.Scripts.Low.PlayerInputHandler;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Player.Weapon
 {
     public class Laser : MonoBehaviour
     {

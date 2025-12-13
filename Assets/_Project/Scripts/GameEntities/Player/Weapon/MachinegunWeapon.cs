@@ -1,7 +1,9 @@
+using _Project.Scripts.Low;
+using _Project.Scripts.Universal;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Player.Weapon
 {
     public class MachinegunWeapon : MonoBehaviour
     {

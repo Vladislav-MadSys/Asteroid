@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Low
 {
     public class SceneController
     {

@@ -1,13 +1,16 @@
 using System;
-using Unity.VisualScripting;
+using _Project.Scripts.Services;
+using _Project.Scripts.Universal;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
     public class EnemySpawner : ITickable
     {
+        private const float VIEWPORT_SCALE = 1f;
+        
         protected SpawnerSettings Settings;
 
         protected ObjectPooler _objectPooler;
@@ -47,23 +50,36 @@ namespace AsteroidGame
             Vector3 viewportPos = Vector3.zero;
             Vector3 worldPos = Vector3.zero;
 
-            int side = Random.Range(0, 4);
+            int sidesCount = Enum.GetValues(typeof(ScreenSide)).Length;
+            ScreenSide side = (ScreenSide)Random.Range(0,  sidesCount);
 
             float randomOffset = Random.Range(0f, Settings.OffsetOutOfScreen);
 
             switch (side)
             {
-                case 0:
-                    viewportPos = new Vector3(-Settings.OffsetOutOfScreen - randomOffset, Random.Range(0f, 1f), 0f);
+                case ScreenSide.Left:
+                    viewportPos = new Vector3(
+                        -Settings.OffsetOutOfScreen - randomOffset,
+                        Random.Range(0f, VIEWPORT_SCALE),
+                        0f);
                     break;
-                case 1:
-                    viewportPos = new Vector3(1 + Settings.OffsetOutOfScreen + randomOffset, Random.Range(0f, 1f), 0f);
+                case ScreenSide.Right:
+                    viewportPos = new Vector3(
+                        VIEWPORT_SCALE + Settings.OffsetOutOfScreen + randomOffset,
+                        Random.Range(0f, VIEWPORT_SCALE),
+                        0f);
                     break;
-                case 2:
-                    viewportPos = new Vector3(Random.Range(0f, 1f), 1 + Settings.OffsetOutOfScreen + randomOffset, 0f);
+                case ScreenSide.Top:
+                    viewportPos = new Vector3(
+                        Random.Range(0f, VIEWPORT_SCALE),
+                        VIEWPORT_SCALE + Settings.OffsetOutOfScreen + randomOffset,
+                        0f);
                     break;
-                case 3:
-                    viewportPos = new Vector3(Random.Range(0f, 1f), -Settings.OffsetOutOfScreen - randomOffset, 0f);
+                case ScreenSide.Bottom:
+                    viewportPos = new Vector3(
+                        Random.Range(0f, VIEWPORT_SCALE),
+                        -Settings.OffsetOutOfScreen - randomOffset,
+                        0f);
                     break;
             }
 

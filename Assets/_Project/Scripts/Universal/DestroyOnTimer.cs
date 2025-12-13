@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class DestroyOnTimer : MonoBehaviour
+namespace _Project.Scripts.Universal
 {
-    [SerializeField] private float _timeToDestroy = 30;
-
-    private void Awake()
+    public class DestroyOnTimer : MonoBehaviour
     {
-        Destroy(gameObject, _timeToDestroy);
+        [SerializeField] private float _timeToDestroy = 30;
+
+        private void Awake()
+        {
+            Destroy(gameObject, _timeToDestroy);
+        }
     }
 }

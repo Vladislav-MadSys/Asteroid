@@ -1,9 +1,11 @@
 using System;
 using System.Threading;
-using UnityEngine;
+using _Project.Scripts.GameEntities.Enemies;
+using _Project.Scripts.Universal;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Player.Weapon
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Projectile : MonoBehaviour

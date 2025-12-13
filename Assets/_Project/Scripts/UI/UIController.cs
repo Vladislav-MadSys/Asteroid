@@ -1,10 +1,11 @@
+using _Project.Scripts.Low;
+using _Project.Scripts.Services;
 using TMPro;
 using UnityEngine;
-using AsteroidGame;
 using UnityEngine.UI;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.UI
 {
     public class UIController : MonoBehaviour
     {

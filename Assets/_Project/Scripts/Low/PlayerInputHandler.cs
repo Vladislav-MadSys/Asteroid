@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Low
 {
     public class PlayerInputHandler : ITickable, IInitializable, IDisposable
     {

@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using _Project.Scripts.GameEntities.Player;
+using _Project.Scripts.Services;
+using _Project.Scripts.Universal;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
     public class SpawnersManager : MonoBehaviour
     {

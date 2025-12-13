@@ -1,9 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
+using _Project.Scripts.Factories;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Universal
 {
 
     public class ObjectPooler : IInitializable

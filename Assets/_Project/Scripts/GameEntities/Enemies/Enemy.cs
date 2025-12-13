@@ -1,7 +1,8 @@
 using System;
+using _Project.Scripts.Universal;
 using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies
 {
     public class Enemy : MonoBehaviour
     {

@@ -1,10 +1,13 @@
+using _Project.Scripts.GameEntities.Player;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Portals
 {
     public class Portal : ILateTickable, IInitializable
     {
+        private const float VIEWPORT_SCALE = 1;
+        
         private Camera _mainCamera;
         private Transform _playerTransform;
         private float _offsetOutOfScreen = 0.05f;
@@ -33,15 +36,15 @@ namespace AsteroidGame
             Vector3 newPosition = _playerTransform.position;
             Vector3 cachedPos = newPosition;
 
-            if (viewportPos.x > 1 + _offsetOutOfScreen || viewportPos.x < -_offsetOutOfScreen ||
-                viewportPos.y > 1 + _offsetOutOfScreen || viewportPos.y < -_offsetOutOfScreen)
+            if (viewportPos.x > VIEWPORT_SCALE + _offsetOutOfScreen || viewportPos.x < -_offsetOutOfScreen ||
+                viewportPos.y > VIEWPORT_SCALE + _offsetOutOfScreen || viewportPos.y < -_offsetOutOfScreen)
             {
-                if (viewportPos.x > 1 + _offsetOutOfScreen)
+                if (viewportPos.x > VIEWPORT_SCALE + _offsetOutOfScreen)
                     newPosition.x = -(newPosition.x - _cameraOffset.x) + _cameraOffset.x + _offsetOutOfScreen;
                 else if (viewportPos.x < -_offsetOutOfScreen)
                     newPosition.x = -(newPosition.x - _cameraOffset.x) + _cameraOffset.x - _offsetOutOfScreen;
 
-                if (viewportPos.y > 1 + _offsetOutOfScreen)
+                if (viewportPos.y > VIEWPORT_SCALE + _offsetOutOfScreen)
                     newPosition.y = -(newPosition.y - _cameraOffset.y) + _cameraOffset.y + _offsetOutOfScreen;
                 else if (viewportPos.y < -_offsetOutOfScreen)
                     newPosition.y = -(newPosition.y - _cameraOffset.y) + _cameraOffset.y - _offsetOutOfScreen;

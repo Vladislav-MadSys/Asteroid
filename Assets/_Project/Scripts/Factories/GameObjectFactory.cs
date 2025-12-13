@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Factories
 {
     public class GameObjectFactory : IFactory<GameObject>
     {

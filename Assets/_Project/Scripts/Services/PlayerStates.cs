@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.Services
 {
 
     public class PlayerStates

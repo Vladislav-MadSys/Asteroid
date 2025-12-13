@@ -1,6 +1,7 @@
+using _Project.Scripts.GameEntities.Player;
 using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies
 {
     public class KillOnTouch : MonoBehaviour
     {

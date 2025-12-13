@@ -1,7 +1,9 @@
+using _Project.Scripts.Low;
+using _Project.Scripts.Services;
 using UnityEngine;
 using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour

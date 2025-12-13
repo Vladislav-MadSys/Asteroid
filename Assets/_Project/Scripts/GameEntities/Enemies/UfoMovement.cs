@@ -1,7 +1,7 @@
+using _Project.Scripts.GameEntities.Player;
 using UnityEngine;
-using Zenject;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class UfoMovement : MonoBehaviour

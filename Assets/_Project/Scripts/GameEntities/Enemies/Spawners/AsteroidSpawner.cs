@@ -1,7 +1,6 @@
 using UnityEngine;
-using Zenject.SpaceFighter;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
 
     public class AsteroidSpawner : EnemySpawner

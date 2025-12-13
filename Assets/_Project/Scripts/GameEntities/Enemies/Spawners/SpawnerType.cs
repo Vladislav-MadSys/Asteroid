@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
     public enum SpawnerType
     {

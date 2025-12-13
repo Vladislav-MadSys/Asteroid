@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace AsteroidGame
+namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
 
     [CreateAssetMenu(fileName = "Spawner")]
