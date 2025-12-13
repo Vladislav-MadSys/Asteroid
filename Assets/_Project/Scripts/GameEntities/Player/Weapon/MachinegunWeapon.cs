@@ -63,8 +63,15 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             projectileTransform.parent = null;
             if (projectile.TryGetComponent(out Projectile projectileScript))
             {
-                projectileScript.SetPooler(_objectPooler);
+                projectileScript.OnEndLifeTime += OnProjectileEndLifeTime;
             }
         }
+
+        private void OnProjectileEndLifeTime(Projectile projectile)
+        {
+            _objectPooler.ReturnObject(projectile.gameObject);
+            projectile.OnEndLifeTime -= OnProjectileEndLifeTime;
+        }
+        
     }
 }

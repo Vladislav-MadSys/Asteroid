@@ -7,11 +7,9 @@ using Zenject;
 
 namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
-    public class SpawnersManager : MonoBehaviour
+    public class SpawnersManager : ITickable, IInitializable
     {
         [SerializeField] private SpawnerSettings[] Settings;
-        
-        protected PlayerStates PlayerStates;
         
         private Camera _mainCamera;
         private PlayerShip _playerShip;
@@ -21,14 +19,15 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         private List<EnemySpawner> _obstaclesSpawner = new List<EnemySpawner>();
         
         [Inject]
-        private void Inject(PlayerShip playerShip, Camera mainCamera, EnemyDeathListener enemyDeathListener)
+        private void Inject(PlayerShip playerShip, Camera mainCamera, EnemyDeathListener enemyDeathListener, SpawnerSettings[] spawnerSettings)
         {
             _playerShip = playerShip;
             _mainCamera = mainCamera;
             _enemyDeathListener = enemyDeathListener;
+            Settings = spawnerSettings;
         }
 
-        private void Awake()
+        public void Initialize()
         {
             foreach (SpawnerSettings spawnerSettings in Settings)
             {
@@ -51,8 +50,8 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             
         }
 
-        public void Update()
-        { 
+        public void Tick()
+        {
             foreach (var spawner in _obstaclesSpawner)
             {
                 spawner.Tick();

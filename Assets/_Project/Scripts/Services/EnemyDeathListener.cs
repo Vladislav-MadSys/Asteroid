@@ -1,3 +1,4 @@
+using _Project.Scripts.GameEntities.Enemies;
 using Zenject;
 
 namespace _Project.Scripts.Services
@@ -11,10 +12,9 @@ namespace _Project.Scripts.Services
         {
             _gameSessionData = gameSessionData;
         }
-        public void OnEnemyDeath(int delta)
+        public void OnEnemyDeath(Enemy enemy)
         {
-            
-            _gameSessionData.ChangePoints(delta);
+            _gameSessionData.ChangePoints(enemy.PointsForKill);
         }
     }
 }

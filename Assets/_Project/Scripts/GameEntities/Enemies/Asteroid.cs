@@ -45,6 +45,11 @@ namespace _Project.Scripts.GameEntities.Enemies
                         asteroidMovement.SetStartDirection();
                     }
 
+                    if (deathObject.TryGetComponent(out Enemy enemy))
+                    {
+                        enemy.SetDeathListener(_enemyDeathListener);
+                    }
+                    
                 }
             }
 

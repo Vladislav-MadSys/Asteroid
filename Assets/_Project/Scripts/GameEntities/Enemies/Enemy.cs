@@ -1,34 +1,33 @@
 using System;
+using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.GameEntities.Enemies
 {
     public class Enemy : MonoBehaviour
     {
-        public event Action<int> OnKill;
-
+        public event Action<Enemy> OnKill;
+        
         [field: SerializeField] public int PointsForKill {get; private set; }
-
-        protected ObjectPooler _objectPooler; 
-
-        public void Initialize(ObjectPooler objectPooler)
+        
+        protected EnemyDeathListener _enemyDeathListener;
+    
+        public void SetDeathListener(EnemyDeathListener enemyDeathListener)
         {
-            _objectPooler = objectPooler;
+            _enemyDeathListener = enemyDeathListener;
         }
 
         public virtual void Kill()
         {
-            OnKill?.Invoke(PointsForKill);
-
-            if (_objectPooler != null)
+            _enemyDeathListener.OnEnemyDeath(this);
+            if (OnKill == null)
             {
-                _objectPooler.ReturnObject(gameObject);
+                Destroy(gameObject);   
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            OnKill?.Invoke(this);
+            
         }
     }
 }

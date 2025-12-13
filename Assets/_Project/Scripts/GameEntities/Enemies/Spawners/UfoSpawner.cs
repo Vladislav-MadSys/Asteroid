@@ -25,8 +25,8 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             obstacle.transform.position = spawnPosition;
             
             Enemy enemy = obstacle.GetComponent<Enemy>();
-            enemy.Initialize(_objectPooler);
-            enemy.OnKill += _enemyDeathListener.OnEnemyDeath;
+            enemy.SetDeathListener(_enemyDeathListener);
+            enemy.OnKill += OnMyEnemyKill;
             
             UfoMovement ufoMovment = obstacle.GetComponent<UfoMovement>();
             ufoMovment.Initialize(_playerShip);

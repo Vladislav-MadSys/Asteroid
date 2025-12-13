@@ -26,10 +26,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private int _curCharges = 0;
         private float _chargeTimer;
         private bool _canFire = false;
-
-
-
-
+        
         [Inject]
         private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates)
         {

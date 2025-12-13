@@ -10,14 +10,16 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
     [RequireComponent(typeof(Rigidbody2D))]
     public class Projectile : MonoBehaviour
     {
+        public event Action<Projectile> OnEndLifeTime;
+        
         [SerializeField] private float _speed;
         [SerializeField] private int _lifeTimeMs = 10000;
         
         private Transform _transform;
         private Rigidbody2D _rigidbody;
-        private ObjectPooler _objectPooler;
 
         private CancellationTokenSource _cancellationTokenSource;
+        
         private void Awake()
         {
             _transform = transform;
@@ -30,7 +32,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             try
             {
                 await UniTask.Delay(_lifeTimeMs, cancellationToken: _cancellationTokenSource.Token);
-                OnEndLifetime();
+                EndLifetime();
             }
             catch (OperationCanceledException)
             {
@@ -43,11 +45,6 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             _cancellationTokenSource.Cancel();
         }
 
-        public void SetPooler(ObjectPooler pooler)
-        {
-            _objectPooler = pooler;
-        }
-
         private void FixedUpdate()
         {
             _rigidbody.position = transform.position + transform.up * (_speed * Time.fixedDeltaTime);
@@ -58,20 +55,17 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             if (other.TryGetComponent(out Enemy enemy))
             {
                 enemy.Kill();
-                OnEndLifetime();
+                EndLifetime();
             }
         }
-        private void OnEndLifetime()
+        private void EndLifetime()
         {
             _cancellationTokenSource.Cancel();
-            if (_objectPooler != null)
-            {
-                _objectPooler.ReturnObject(gameObject);
-            }
-            else
+            if (OnEndLifeTime == null )
             {
                 Destroy(gameObject);
             }
+            OnEndLifeTime?.Invoke(this);
         }
     }
 }
