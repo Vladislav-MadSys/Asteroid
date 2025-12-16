@@ -24,8 +24,6 @@ namespace _Project.Scripts.UI
             _sceneController = sceneController;
             _gameSessionData = gameSessionData;
             _presenter = presenter;
-            
-            Initialize();
         }
 
         public void Initialize()

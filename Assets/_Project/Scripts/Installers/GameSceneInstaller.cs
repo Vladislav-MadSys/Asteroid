@@ -27,7 +27,7 @@ namespace _Project.Scripts.Installers
             Container.Bind<PlayerShip>().FromComponentInHierarchy().AsSingle();
             Container.Bind<SpawnerSettings[]>().FromInstance(spawnerSettings).AsSingle();
             Container.Bind<Presenter>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<Model>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Model>().AsSingle().NonLazy();
         }
     }
 }
