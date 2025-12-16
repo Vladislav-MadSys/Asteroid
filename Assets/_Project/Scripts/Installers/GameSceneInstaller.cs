@@ -25,8 +25,9 @@ namespace _Project.Scripts.Installers
             Container.Bind<SceneController>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInputHandler>().AsSingle();
             Container.Bind<PlayerShip>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<UIController>().FromComponentInHierarchy().AsSingle();
             Container.Bind<SpawnerSettings[]>().FromInstance(spawnerSettings).AsSingle();
+            Container.Bind<Presenter>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<Model>().AsSingle().NonLazy();
         }
     }
 }
