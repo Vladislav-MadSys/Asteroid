@@ -36,5 +36,9 @@ namespace _Project.Scripts.GameEntities.Enemies
             }
         }
 
+        private void OnDestroy()
+        {
+            OnKill = null;
+        }
     }
 }
