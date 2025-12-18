@@ -13,21 +13,28 @@ namespace _Project.Scripts.GameEntities.Enemies
         [field: SerializeField] public int PointsForKill {get; private set; }
         
         protected EnemyDeathListener _enemyDeathListener;
+        protected bool _isFromPool = false;
     
-        public void SetDeathListener(EnemyDeathListener enemyDeathListener)
+        public void Initialize(EnemyDeathListener enemyDeathListener, bool isFromPool)
         {
             _enemyDeathListener = enemyDeathListener;
+            _isFromPool = isFromPool;
         }
 
         public virtual void Kill()
         {
             _enemyDeathListener.OnEnemyDeath(this);
-            if (OnKill == null)
+
+            if (_isFromPool)
             {
-                Destroy(gameObject);   
+                OnKill?.Invoke(this);
             }
-            OnKill?.Invoke(this);
-            
+            else
+            {
+                OnKill?.Invoke(this);
+                Destroy(gameObject);
+            }
         }
+
     }
 }

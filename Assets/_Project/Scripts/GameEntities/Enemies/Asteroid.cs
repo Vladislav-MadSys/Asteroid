@@ -47,7 +47,7 @@ namespace _Project.Scripts.GameEntities.Enemies
 
                     if (deathObject.TryGetComponent(out Enemy enemy))
                     {
-                        enemy.SetDeathListener(_enemyDeathListener);
+                        enemy.Initialize(_enemyDeathListener, false);
                     }
                     
                 }

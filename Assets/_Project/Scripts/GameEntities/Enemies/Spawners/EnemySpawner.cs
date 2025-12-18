@@ -89,15 +89,17 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             return worldPos;
         }
 
-        protected virtual void Spawn()
+        protected virtual GameObject Spawn()
         {
             Vector3 spawnPosition = GetPositionOutsideScreen();
             GameObject obstacle = _objectPooler.GetObject();
             obstacle.transform.position = spawnPosition;
             
             Enemy enemy = obstacle.GetComponent<Enemy>();
-            enemy.SetDeathListener(_enemyDeathListener);
+            enemy.Initialize(_enemyDeathListener, true);
             enemy.OnKill += OnMyEnemyKill;
+            
+            return obstacle;
         }
 
         protected virtual void OnMyEnemyKill(Enemy enemy)

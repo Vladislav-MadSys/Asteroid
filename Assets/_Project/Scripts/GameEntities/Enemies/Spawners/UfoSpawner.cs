@@ -18,18 +18,14 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             _enemyDeathListener = enemyDeathListener;
         }
 
-        protected override void Spawn()
+        protected override GameObject Spawn()
         {
-            Vector3 spawnPosition = GetPositionOutsideScreen();
-            GameObject obstacle = _objectPooler.GetObject();
-            obstacle.transform.position = spawnPosition;
-            
-            Enemy enemy = obstacle.GetComponent<Enemy>();
-            enemy.SetDeathListener(_enemyDeathListener);
-            enemy.OnKill += OnMyEnemyKill;
+            GameObject obstacle = base.Spawn();
             
             UfoMovement ufoMovment = obstacle.GetComponent<UfoMovement>();
             ufoMovment.Initialize(_playerShip);
+            
+            return obstacle;
         }
     }
 }
