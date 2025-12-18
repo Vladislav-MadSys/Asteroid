@@ -9,28 +9,27 @@ using _Project.Scripts.UI;
 
 namespace _Project.Scripts.UI
 {
-    public class Model : IInitializable, IDisposable
+    public class UIModel : IInitializable, IDisposable
     {
-        private Presenter _presenter;
+        protected UIVIew _view;
 
         private PlayerStates _playerStates;
         private SceneController _sceneController;
         private GameSessionData _gameSessionData;
 
+        public int Points => _gameSessionData.Points;
+
         [Inject]
-        private void Inject(PlayerStates playerStates, SceneController sceneController, GameSessionData gameSessionData, Presenter presenter)
+        private void Inject(PlayerStates playerStates, SceneController sceneController, GameSessionData gameSessionData, UIVIew view)
         {
             _playerStates = playerStates;
             _sceneController = sceneController;
             _gameSessionData = gameSessionData;
-            _presenter = presenter;
+            _view = view;
         }
 
         public void Initialize()
         {
-            Debug.Log("Initializing Model");
-            _presenter.InitializeRestartButton(() => { _sceneController.ReloadCurrentScene(); });
-
             _gameSessionData.OnPointsChanged += ChangePointsText;
             _playerStates.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
             _playerStates.OnPlayerRotationChanged += ChangePlayerAngleText;
@@ -53,32 +52,32 @@ namespace _Project.Scripts.UI
 
         private void ChangePointsText()
         {
-            _presenter.ChangePointsText(_gameSessionData.Points.ToString());
+            _view.ChangePointsText(Points.ToString());
         }
 
         private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
         {
-            _presenter.ChangePlayerCoordinatesText("Player pos: " + newCoordinates);
+            _view.ChangePlayerCoordinatesText("Player pos: " + newCoordinates);
         }
 
         private void ChangePlayerAngleText(float newAngle)
         {
-            _presenter.ChangePlayerAngleText("Player angle: " + newAngle);
+            _view.ChangePlayerAngleText("Player angle: " + newAngle);
         }
 
         private void ChangeLaserChargeText(int laserCharges)
         {
-            _presenter.ChangeLaserChargeText("Laser charges: " + laserCharges);
+            _view.ChangeLaserChargeText("Laser charges: " + laserCharges);
         }
 
         private void ChangeLaserReloadText(float timer)
         {
-            _presenter.ChangeLaserReloadText("Laser reload: " + timer);
+            _view.ChangeLaserReloadText("Laser reload: " + timer);
         }
 
         private void ShowLosePanel()
         {
-            _presenter.ShowLosePanel();
+            _view.ShowLosePanel();
         }
     }
 }
