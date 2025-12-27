@@ -9,23 +9,25 @@ using _Project.Scripts.UI;
 
 namespace _Project.Scripts.UI
 {
-    public class UIModel : IInitializable, IDisposable
+    public class PlayerStatsHudModel : IInitializable, IDisposable
     {
-        protected UIVIew _view;
+        public event Action<int> OnPointsChanged;
+        public event Action<Vector2> OnPlayerPositionChanged;
+        public event Action<float> OnPlayerRotationChanged;
+        public event Action<int> OnLaserChargesChanged;
+        public event Action<float> OnLaserTimeChanged;
+        public event Action OnPlayerKilled;
 
         private PlayerStates _playerStates;
-        private SceneController _sceneController;
         private GameSessionData _gameSessionData;
 
         public int Points => _gameSessionData.Points;
 
         [Inject]
-        private void Inject(PlayerStates playerStates, SceneController sceneController, GameSessionData gameSessionData, UIVIew view)
+        private void Inject(PlayerStates playerStates, GameSessionData gameSessionData)
         {
             _playerStates = playerStates;
-            _sceneController = sceneController;
             _gameSessionData = gameSessionData;
-            _view = view;
         }
 
         public void Initialize()
@@ -52,32 +54,32 @@ namespace _Project.Scripts.UI
 
         private void ChangePointsText()
         {
-            _view.ChangePointsText(Points.ToString());
+            OnPointsChanged?.Invoke(Points);
         }
 
         private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
         {
-            _view.ChangePlayerCoordinatesText("Player pos: " + newCoordinates);
+            OnPlayerPositionChanged?.Invoke(newCoordinates);
         }
 
         private void ChangePlayerAngleText(float newAngle)
         {
-            _view.ChangePlayerAngleText("Player angle: " + newAngle);
+            OnPlayerRotationChanged?.Invoke(newAngle);
         }
 
         private void ChangeLaserChargeText(int laserCharges)
         {
-            _view.ChangeLaserChargeText("Laser charges: " + laserCharges);
+            OnLaserChargesChanged?.Invoke(laserCharges);
         }
 
         private void ChangeLaserReloadText(float timer)
         {
-            _view.ChangeLaserReloadText("Laser reload: " + timer);
+            OnLaserTimeChanged?.Invoke(timer);
         }
 
         private void ShowLosePanel()
         {
-            _view.ShowLosePanel();
+            OnPlayerKilled?.Invoke();
         }
     }
 }

@@ -7,10 +7,10 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
-public class UIVIew : MonoBehaviour
+public class PlayerStatsHudVIew : MonoBehaviour
 {
     
-    protected UIPresenter _presenter;
+    protected PlayerStatsHudPresenter _presenter;
     
     [Header("Texts With Data")]
     [SerializeField] private TextMeshProUGUI _pointsText;
@@ -26,7 +26,7 @@ public class UIVIew : MonoBehaviour
     private UnityAction OnRestartButtonClickEvent;
 
     [Inject]
-    private void Inject(UIPresenter presenter)
+    private void Inject(PlayerStatsHudPresenter presenter)
     {
         _presenter = presenter;
     }

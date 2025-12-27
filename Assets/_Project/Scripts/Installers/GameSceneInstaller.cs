@@ -26,9 +26,9 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesAndSelfTo<PlayerInputHandler>().AsSingle();
             Container.Bind<PlayerShip>().FromComponentInHierarchy().AsSingle();
             Container.Bind<SpawnerSettings[]>().FromInstance(spawnerSettings).AsSingle();
-            Container.BindInterfacesAndSelfTo<UIPresenter>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<UIModel>().AsSingle().NonLazy();
-            Container.Bind<UIVIew>().FromComponentInHierarchy().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerStatsHudPresenter>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerStatsHudModel>().AsSingle().NonLazy();
+            Container.Bind<PlayerStatsHudVIew>().FromComponentInHierarchy().AsSingle();
         }
     }
 }
