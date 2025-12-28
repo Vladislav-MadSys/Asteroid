@@ -1,10 +1,16 @@
 using _Project.Scripts.Saves;
+using _Project.Scripts.Services;
 using Zenject;
 
-public class ProjectContextInstaller : MonoInstaller
+namespace _Project.Scripts.Installers
 {
-    public override void InstallBindings()
+    public class ProjectContextInstaller : MonoInstaller
     {
-        
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesAndSelfTo<GameSessionData>().AsSingle().NonLazy();
+            Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
+            Container.Bind<ISaveService>().To<SaveSystem_PlayerPrefs>().AsSingle().NonLazy();
+        }
     }
 }

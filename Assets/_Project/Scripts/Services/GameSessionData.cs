@@ -4,34 +4,15 @@ using Zenject;
 
 namespace _Project.Scripts.Services
 {
-    public class GameSessionData : IInitializable, IDisposable
+    public class GameSessionData
     {
         public event Action OnPlayerKilled;
         public event Action OnPointsChanged;
 
-        public PlayerStates playerState;
         public Vector2 PlayerPosition { get; private set; }
         public float PlayerRotation { get; private set; }
         public int Points { get; private set; } = 0;
-
-        [Inject]
-        void Inject(PlayerStates playerStates)
-        {
-            playerState = playerStates;
-        }
-            
-        public void Initialize()
-        {
-            playerState.OnPlayerPositionChanged += ChangePlayerPosition;
-            playerState.OnPlayerRotationChanged += ChangePlayerRotation;
-        }
-
-        public void Dispose()
-        {
-            playerState.OnPlayerPositionChanged -= ChangePlayerPosition;
-            playerState.OnPlayerRotationChanged -= ChangePlayerRotation;
-        }
-
+        
         public void ChangePoints(int deltaPoints)
         {
             Points += deltaPoints;

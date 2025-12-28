@@ -2,8 +2,8 @@ using _Project.Scripts.GameEntities.Enemies.Spawners;
 using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
 using _Project.Scripts.Portals;
-using _Project.Scripts.Services;
 using _Project.Scripts.Saves;
+using _Project.Scripts.Services;
 using _Project.Scripts.UI;
 using UnityEngine;
 using Zenject;
@@ -19,7 +19,6 @@ namespace _Project.Scripts.Installers
             Container.Bind<PlayerStates>().AsSingle();
             Container.Bind<PlayerInput>().AsSingle();
             Container.BindInterfacesAndSelfTo<Portal>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<GameSessionData>().AsSingle().NonLazy();
             Container.Bind<EnemyDeathListener>().AsSingle();
             Container.BindInterfacesAndSelfTo<SpawnersManager>().AsSingle().NonLazy();
             Container.Bind<Camera>().FromInstance(Camera.main).AsSingle().NonLazy();
@@ -31,8 +30,6 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesAndSelfTo<PlayerStatsHudModel>().AsSingle().NonLazy();
             Container.Bind<PlayerStatsHudVIew>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveController>().AsSingle().NonLazy();
-            Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
-            Container.Bind<ISaveService>().To<SaveSystem_PlayerPrefs>().AsSingle().NonLazy();
         }
     }
 }

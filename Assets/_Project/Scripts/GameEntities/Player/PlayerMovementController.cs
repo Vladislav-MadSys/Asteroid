@@ -16,15 +16,17 @@ namespace _Project.Scripts.GameEntities.Player
 
         private PlayerInputHandler _playerInputHandler;
         private PlayerStates _playerStates;
+        private GameSessionData _gameSessionData;
 
         private Rigidbody2D _rb;
         private Transform _transform;
 
         [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates)
+        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates, GameSessionData gameSessionData)
         {
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;
+            _gameSessionData = gameSessionData;
         }
 
         private void Awake()
@@ -53,8 +55,12 @@ namespace _Project.Scripts.GameEntities.Player
                 angularDirection * _rotationSpeed,
                 _rotationSpeed / _rotationInertia * Time.deltaTime);
 
-            _playerStates.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
-            _playerStates.ChangePlayerRotation(_transform.rotation.z * 180);
+            Vector2 curPosition = new Vector2(_transform.position.x, _transform.position.y);
+            float curRotation = _transform.rotation.z * 180;
+            _playerStates.ChangePlayerPosition(curPosition);
+            _gameSessionData.ChangePlayerPosition(curPosition);
+            _playerStates.ChangePlayerRotation(curRotation);
+            _gameSessionData.ChangePlayerRotation(curRotation);
         }
     }
 }
