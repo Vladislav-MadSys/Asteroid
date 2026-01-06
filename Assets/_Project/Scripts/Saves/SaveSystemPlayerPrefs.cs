@@ -4,8 +4,10 @@ using Zenject;
 
 namespace _Project.Scripts.Saves
 {
-    public class SaveSystem_PlayerPrefs : ISaveService
+    public class SaveSystemPlayerPrefs : ISaveService
     {
+        private const string SAVE_KEY = "basicSave";
+        
         private SaveDataConstructor _saveDataConstructor;
         
         [Inject]
@@ -17,15 +19,16 @@ namespace _Project.Scripts.Saves
         public void Save()
         {
             string save = JsonUtility.ToJson(_saveDataConstructor.GetSaveData());
-            PlayerPrefs.SetString("basicSave", save);
+            PlayerPrefs.SetString(SAVE_KEY, save);
         }
 
-        public void Load()
+        public SaveData Load()
         {
-            if(!PlayerPrefs.HasKey("basicSave")) return;
+            if(!PlayerPrefs.HasKey(SAVE_KEY)) return null;
             
-            string save = PlayerPrefs.GetString("basicSave");
+            string save = PlayerPrefs.GetString(SAVE_KEY);
             Debug.Log(save);
+            return JsonUtility.FromJson<SaveData>(save);
         }
     }
 }

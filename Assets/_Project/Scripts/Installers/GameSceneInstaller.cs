@@ -18,7 +18,7 @@ namespace _Project.Scripts.Installers
         {
             Container.Bind<PlayerStates>().AsSingle();
             Container.Bind<PlayerInput>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Portal>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Portal>().AsSingle();
             Container.Bind<EnemyDeathListener>().AsSingle();
             Container.BindInterfacesAndSelfTo<SpawnersManager>().AsSingle().NonLazy();
             Container.Bind<Camera>().FromInstance(Camera.main).AsSingle().NonLazy();
@@ -30,6 +30,7 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesAndSelfTo<PlayerStatsHudModel>().AsSingle().NonLazy();
             Container.Bind<PlayerStatsHudVIew>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesAndSelfTo<SaveController>().AsSingle().NonLazy();
+            
         }
     }
 }

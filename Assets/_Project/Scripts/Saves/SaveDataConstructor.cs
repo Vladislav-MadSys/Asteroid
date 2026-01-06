@@ -6,13 +6,13 @@ namespace _Project.Scripts.Saves
 {
     public class SaveDataConstructor
     {
-        private GameSessionData _gameSessionData;
+        [Inject] private GameSessionData _gameSessionData;
 
-        [Inject]
-        private void Inject(GameSessionData gameSessionData)
+        
+       /* private void Inject(GameSessionData gameSessionData)
         {
             _gameSessionData = gameSessionData;
-        }
+        }*/
 
         public SaveData GetSaveData()
         {

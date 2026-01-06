@@ -2,10 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BootstrapScene : MonoBehaviour
+namespace _Project.Scripts.Bootstrap
 {
-    private void Start()
+    public class BootstrapScene : MonoBehaviour
     {
-        SceneManager.LoadScene("Game");
+        private void Start()
+        {
+            SceneManager.LoadScene("Game");
+        }
     }
 }
