@@ -1,18 +1,16 @@
 using _Project.Scripts.Services;
-using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Saves
 {
     public class SaveDataConstructor
     {
-        [Inject] private GameSessionData _gameSessionData;
+        private GameSessionData _gameSessionData;
 
-        
-       /* private void Inject(GameSessionData gameSessionData)
+        public void Initialize(GameSessionData gameSessionData)
         {
             _gameSessionData = gameSessionData;
-        }*/
+        }
+        
 
         public SaveData GetSaveData()
         {

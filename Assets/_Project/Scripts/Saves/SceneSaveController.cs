@@ -1,27 +1,29 @@
 using System;
-using _Project.Scripts.Saves;
 using _Project.Scripts.Services;
-using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Saves
 {
-    public class SaveController : IInitializable, IDisposable
+    public class SceneSaveController : IInitializable, IDisposable
     {
-        private ISaveService _saveService;
+        private SaveDataConstructor _saveDataConstructor;
         private GameSessionData _gameSessionData;
+        private ISaveService _saveService;
 
         [Inject]
-        private void Inject(ISaveService saveService, GameSessionData gameSessionData)
+        private void Inject(SaveDataConstructor saveDataConstructor, GameSessionData gameSessionData,
+            ISaveService saveService)
         {
-            _saveService = saveService;
+            _saveDataConstructor = saveDataConstructor;
             _gameSessionData = gameSessionData;
+            _saveService = saveService;
         }
 
         public void Initialize()
         {
+            _saveDataConstructor.Initialize(_gameSessionData);
             _gameSessionData.OnPlayerKilled += SaveData;
-            
+
             LoadData();
         }
 

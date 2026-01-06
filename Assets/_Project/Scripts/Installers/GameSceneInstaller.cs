@@ -29,8 +29,8 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesAndSelfTo<PlayerStatsHudPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerStatsHudModel>().AsSingle().NonLazy();
             Container.Bind<PlayerStatsHudVIew>().FromComponentInHierarchy().AsSingle();
-            Container.BindInterfacesAndSelfTo<SaveController>().AsSingle().NonLazy();
-            
+            Container.BindInterfacesAndSelfTo<GameSessionData>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<SceneSaveController>().AsSingle().NonLazy();
         }
     }
 }

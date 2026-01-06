@@ -4,7 +4,7 @@ using Zenject;
 
 namespace _Project.Scripts.Services
 {
-    public class GameSessionData
+    public class GameSessionData : IInitializable, IDisposable
     {
         public event Action OnPlayerKilled;
         public event Action OnPointsChanged;
@@ -12,6 +12,26 @@ namespace _Project.Scripts.Services
         public Vector2 PlayerPosition { get; private set; }
         public float PlayerRotation { get; private set; }
         public int Points { get; private set; } = 0;
+
+        private PlayerStates _playerState;
+        
+        [Inject]
+        private void Inject(PlayerStates playerState)
+        {
+            _playerState = playerState;
+        }
+
+        public void Initialize()
+        {
+            _playerState.OnPlayerPositionChanged += ChangePlayerPosition;
+            _playerState.OnPlayerRotationChanged += ChangePlayerRotation;
+        }
+
+        public void Dispose()
+        {
+            _playerState.OnPlayerPositionChanged -= ChangePlayerPosition;
+            _playerState.OnPlayerRotationChanged -= ChangePlayerRotation;
+        }
         
         public void ChangePoints(int deltaPoints)
         {

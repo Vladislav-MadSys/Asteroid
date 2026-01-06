@@ -8,7 +8,6 @@ namespace _Project.Scripts.Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameSessionData>().AsSingle().NonLazy();
             Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
             Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
         }

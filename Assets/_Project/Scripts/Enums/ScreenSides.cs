@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace _Project.Scripts.GameEntities.Enemies.Spawners
+namespace _Project.Scripts.Enums
 {
     public enum ScreenSide
     {

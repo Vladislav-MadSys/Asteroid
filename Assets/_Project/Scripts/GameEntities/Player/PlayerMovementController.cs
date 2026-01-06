@@ -55,12 +55,8 @@ namespace _Project.Scripts.GameEntities.Player
                 angularDirection * _rotationSpeed,
                 _rotationSpeed / _rotationInertia * Time.deltaTime);
 
-            Vector2 curPosition = new Vector2(_transform.position.x, _transform.position.y);
-            float curRotation = _transform.rotation.z * 180;
-            _playerStates.ChangePlayerPosition(curPosition);
-            _gameSessionData.ChangePlayerPosition(curPosition);
-            _playerStates.ChangePlayerRotation(curRotation);
-            _gameSessionData.ChangePlayerRotation(curRotation);
+            _playerStates.ChangePlayerPosition(new Vector2(_transform.position.x, _transform.position.y));
+            _playerStates.ChangePlayerRotation(_transform.rotation.z * 180);
         }
     }
 }
