@@ -24,10 +24,7 @@ namespace _Project.Scripts.Saves
         public SaveData Load()
         {
             if(!PlayerPrefs.HasKey(SAVE_KEY)) return null;
-            
-            string save = PlayerPrefs.GetString(SAVE_KEY);
-            Debug.Log(save);
-            return JsonUtility.FromJson<SaveData>(save);
+            return JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString(SAVE_KEY));
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using _Project.Scripts.Services;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Saves
@@ -39,7 +40,8 @@ namespace _Project.Scripts.Saves
 
         private void LoadData()
         {
-            _saveService.Load();
+            SaveData save = _saveService.Load();
+            Debug.Log("LAST GAME RESULTS" + "\nPlayer position: " + save.playerPosition + " Player rotation: " + save.playerRotation + " Points: " + save.points);
         }
     }
 }
