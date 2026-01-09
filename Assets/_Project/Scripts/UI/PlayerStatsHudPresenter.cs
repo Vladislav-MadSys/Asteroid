@@ -77,9 +77,9 @@ namespace _Project.Scripts.UI
             _view.ChangeLaserReloadText("Laser reload: " + timer);
         }
 
-        private void ShowLosePanel()
+        private void ShowLosePanel(int currentPoints, int previousPoints)
         {
-            _view.ShowLosePanel();
+            _view.ShowLosePanel(currentPoints, previousPoints);
         }
     }
 }

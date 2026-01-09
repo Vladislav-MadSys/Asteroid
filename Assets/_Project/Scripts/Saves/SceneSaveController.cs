@@ -7,6 +7,8 @@ namespace _Project.Scripts.Saves
 {
     public class SceneSaveController : IInitializable, IDisposable
     {
+        public event Action<SaveData> OnSaveLoaded;
+        
         private SaveDataConstructor _saveDataConstructor;
         private GameSessionData _gameSessionData;
         private ISaveService _saveService;
@@ -41,7 +43,7 @@ namespace _Project.Scripts.Saves
         private void LoadData()
         {
             SaveData save = _saveService.Load();
-            Debug.Log("LAST GAME RESULTS" + "\nPlayer position: " + save.playerPosition + " Player rotation: " + save.playerRotation + " Points: " + save.points);
+            OnSaveLoaded?.Invoke(save);
         }
     }
 }

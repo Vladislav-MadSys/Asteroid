@@ -16,7 +16,7 @@ namespace _Project.Scripts.UI
         public event Action<float> OnPlayerRotationChanged;
         public event Action<int> OnLaserChargesChanged;
         public event Action<float> OnLaserTimeChanged;
-        public event Action OnPlayerKilled;
+        public event Action<int, int> OnPlayerKilled;
 
         private PlayerStates _playerStates;
         private GameSessionData _gameSessionData;
@@ -79,7 +79,7 @@ namespace _Project.Scripts.UI
 
         private void ShowLosePanel()
         {
-            OnPlayerKilled?.Invoke();
+            OnPlayerKilled?.Invoke(_gameSessionData.Points, _gameSessionData.PreviousPoints);
         }
     }
 }

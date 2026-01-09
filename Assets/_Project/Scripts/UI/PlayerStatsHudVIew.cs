@@ -20,6 +20,7 @@ namespace _Project.Scripts.UI
 
         [Header("Final Panel")]
         [SerializeField] private GameObject _losePanel;
+        [SerializeField] private TextMeshProUGUI _losePanelPointsText;
         [SerializeField] private Button _restartButton;
 
         private UnityAction OnRestartButtonClickEvent;
@@ -65,9 +66,10 @@ namespace _Project.Scripts.UI
             _laserReloadTimeText.text = timeToReloadLaser;
         }
 
-        public void ShowLosePanel()
+        public void ShowLosePanel(int currentPoints, int previousPoints)
         {
             _losePanel.SetActive(true);
+            _losePanelPointsText.text = "Current points: " + currentPoints + '\n' + "Previous Points: " + previousPoints;
         }
 
         private void OnDestroy()
