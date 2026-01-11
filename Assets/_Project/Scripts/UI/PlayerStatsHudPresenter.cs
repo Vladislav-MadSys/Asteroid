@@ -13,12 +13,12 @@ namespace _Project.Scripts.UI
     {
         protected SceneController _sceneController;
         protected PlayerStatsHudModel _model;
-        protected PlayerStatsHudVIew _view;
+        protected PlayerStatsHudView _view;
 
         private Action onRestart;
 
         [Inject]
-        private void Inject(SceneController sceneController, PlayerStatsHudModel model, PlayerStatsHudVIew view)
+        private void Inject(SceneController sceneController, PlayerStatsHudModel model, PlayerStatsHudView view)
         {
             _sceneController = sceneController;
             _model = model;

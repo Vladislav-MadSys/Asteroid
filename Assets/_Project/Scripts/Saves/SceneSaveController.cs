@@ -44,6 +44,7 @@ namespace _Project.Scripts.Saves
         {
             SaveData save = _saveService.Load();
             OnSaveLoaded?.Invoke(save);
+            _gameSessionData.SetPreviousPoints(save.points);
         }
     }
 }

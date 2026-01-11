@@ -6,7 +6,7 @@ using Zenject;
 
 namespace _Project.Scripts.UI
 {
-    public class PlayerStatsHudVIew : MonoBehaviour
+    public class PlayerStatsHudView : MonoBehaviour
     {
     
         protected PlayerStatsHudPresenter _presenter;

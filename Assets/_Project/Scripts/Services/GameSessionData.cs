@@ -16,27 +16,23 @@ namespace _Project.Scripts.Services
         public int PreviousPoints { get; private set; } = 0;
 
         private PlayerStates _playerState;
-        private SceneSaveController _sceneSaveController;
         
         [Inject]
         private void Inject(PlayerStates playerState, SceneSaveController sceneSaveController)
         {
             _playerState = playerState;
-            _sceneSaveController = sceneSaveController;
         }
 
         public void Initialize()
         {
             _playerState.OnPlayerPositionChanged += ChangePlayerPosition;
             _playerState.OnPlayerRotationChanged += ChangePlayerRotation;
-            _sceneSaveController.OnSaveLoaded += OnSaveDataLoaded;
         }
 
         public void Dispose()
         {
             _playerState.OnPlayerPositionChanged -= ChangePlayerPosition;
             _playerState.OnPlayerRotationChanged -= ChangePlayerRotation;
-            _sceneSaveController.OnSaveLoaded -= OnSaveDataLoaded;
         }
         
         public void ChangePoints(int deltaPoints)
@@ -63,11 +59,6 @@ namespace _Project.Scripts.Services
         public void KillPlayer()
         {
             OnPlayerKilled?.Invoke();   
-        }
-
-        private void OnSaveDataLoaded(SaveData save)
-        {
-            SetPreviousPoints(save.points);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace _Project.Scripts.Installers
             Container.Bind<SpawnerSettings[]>().FromInstance(spawnerSettings).AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerStatsHudPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerStatsHudModel>().AsSingle().NonLazy();
-            Container.Bind<PlayerStatsHudVIew>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<PlayerStatsHudView>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesAndSelfTo<GameSessionData>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<SceneSaveController>().AsSingle().NonLazy();
         }
