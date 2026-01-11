@@ -231,6 +231,8 @@ MonoBehaviour:
   spawnerSettings:
   - {fileID: 11400000, guid: 8ea96bb77bc30b14a803350faae31a88, type: 2}
   - {fileID: 11400000, guid: 3757fb133bfec164683fe691a4e36566, type: 2}
+  _playerShipPrefab: {fileID: 1376153506753037066, guid: 1689505212ad4de47bc3e1c9d3610551, type: 3}
+  _playerStatsHudViewPrefab: {fileID: 6952889372874813591, guid: 3e4868921a687cf4982dd6315aba3db1, type: 3}
 --- !u!114 &473487296
 MonoBehaviour:
   m_ObjectHideFlags: 0
