@@ -43,8 +43,11 @@ namespace _Project.Scripts.Saves
         private void LoadData()
         {
             SaveData save = _saveService.Load();
-            OnSaveLoaded?.Invoke(save);
-            _gameSessionData.SetPreviousPoints(save.points);
+            if (save != null)
+            {
+                OnSaveLoaded?.Invoke(save);
+                _gameSessionData.SetPreviousPoints(save.points);
+            }
         }
     }
 }

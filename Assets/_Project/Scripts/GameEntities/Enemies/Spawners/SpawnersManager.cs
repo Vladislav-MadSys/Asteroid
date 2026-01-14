@@ -15,15 +15,17 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         private PlayerShip _playerShip;
         private float _timer;
         private EnemyDeathListener _enemyDeathListener;
+        private GameSessionData _gameSessionData;
         
         private List<EnemySpawner> _obstaclesSpawner = new List<EnemySpawner>();
         
         [Inject]
-        private void Inject(PlayerShip playerShip, Camera mainCamera, EnemyDeathListener enemyDeathListener, SpawnerSettings[] spawnerSettings)
+        private void Inject(PlayerShip playerShip, Camera mainCamera, EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, SpawnerSettings[] spawnerSettings)
         {
             _playerShip = playerShip;
             _mainCamera = mainCamera;
             _enemyDeathListener = enemyDeathListener;
+            _gameSessionData = gameSessionData;
             Settings = spawnerSettings;
         }
 
@@ -37,12 +39,12 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
                 {
                     case SpawnerType.Asteroid:
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPooler, _enemyDeathListener);
+                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPooler, _enemyDeathListener, _gameSessionData);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:
                         UfoSpawner ufoSpawner = new UfoSpawner();
-                        ufoSpawner.Initialize(_playerShip, _mainCamera, spawnerSettings, objectPooler, _enemyDeathListener);
+                        ufoSpawner.Initialize(_playerShip, _mainCamera, spawnerSettings, objectPooler, _enemyDeathListener, _gameSessionData);
                         _obstaclesSpawner.Add(ufoSpawner);
                         break;
                 }

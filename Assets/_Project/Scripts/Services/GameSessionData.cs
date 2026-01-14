@@ -14,19 +14,28 @@ namespace _Project.Scripts.Services
         public float PlayerRotation { get; private set; }
         public int Points { get; private set; } = 0;
         public int PreviousPoints { get; private set; } = 0;
+        
+        public int ShotsCount { get; private set; } = 0;
+        public int LaserUsesCount { get; private set; } = 0;
+        public int DestroyedAsteroids { get; private set; } = 0;
+        public int DestroyedUfos { get; private set; } = 0;
 
         private PlayerStates _playerState;
+        private IAnalyticsService _analyticsService;
         
         [Inject]
-        private void Inject(PlayerStates playerState, SceneSaveController sceneSaveController)
+        private void Inject(PlayerStates playerState, SceneSaveController sceneSaveController, IAnalyticsService analyticsService)
         {
             _playerState = playerState;
+            _analyticsService = analyticsService;
         }
 
         public void Initialize()
         {
             _playerState.OnPlayerPositionChanged += ChangePlayerPosition;
             _playerState.OnPlayerRotationChanged += ChangePlayerRotation;
+            
+            _analyticsService.LogGameStart();
         }
 
         public void Dispose()
@@ -58,7 +67,30 @@ namespace _Project.Scripts.Services
 
         public void KillPlayer()
         {
-            OnPlayerKilled?.Invoke();   
+            OnPlayerKilled?.Invoke();  
+            _analyticsService.LogGameEnd(ShotsCount, LaserUsesCount, DestroyedAsteroids, DestroyedUfos);
         }
+
+        public void AddShot()
+        {
+            ShotsCount++;
+        }
+
+        public void AddLaserUses()
+        {
+            LaserUsesCount++;
+            _analyticsService.LogLaserUse();
+        }
+        
+        public void AddDestroyedAsteroids()
+        {
+            DestroyedAsteroids++;
+        }
+
+        public void AddDestroyedUfos()
+        {
+            DestroyedUfos++;
+        }
+        
     }
 }

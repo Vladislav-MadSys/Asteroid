@@ -17,8 +17,9 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         [SerializeField] private float _chargeDelay = 5f;
 
         private Transform _transform;
-        private PlayerInputHandler _playerInputHandler;
         private PlayerStates _playerStates;
+        private PlayerInputHandler _playerInputHandler;
+        private GameSessionData _gameSessionData;
 
         private float _shootingTimer;
         private RaycastHit2D[] _hitsBuffer = new RaycastHit2D[LASER_BUFFER_SIZE];
@@ -28,10 +29,11 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private bool _canFire = false;
         
         [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates)
+        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates, GameSessionData gameSessionData)
         {
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;
+            _gameSessionData = gameSessionData;
         }
 
         private void Awake()
@@ -110,6 +112,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
                     enemy.Kill();
                 }
             }
+            _gameSessionData.AddLaserUses();
         }
     }
 }

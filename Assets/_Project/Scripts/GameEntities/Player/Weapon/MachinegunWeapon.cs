@@ -1,4 +1,5 @@
 using _Project.Scripts.Low;
+using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
 using UnityEngine;
 using Zenject;
@@ -11,16 +12,19 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         [SerializeField] private float _shootingDelay = 0.5f;
 
         private Transform _transform;
-        private PlayerInputHandler _playerInputHandler;
         private ObjectPooler _objectPooler;
+        private PlayerInputHandler _playerInputHandler;
+        private GameSessionData _gameSessionData;
+        
         
         private float _timer;
         private bool _canFire = false;
 
         [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler)
+        private void Inject(PlayerInputHandler playerInputHandler, GameSessionData gameSessionData)
         {
             _playerInputHandler = playerInputHandler;
+            _gameSessionData = gameSessionData;
         }
 
         private void Awake()
@@ -65,6 +69,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             {
                 projectileScript.OnEndLifeTime += OnProjectileEndLifeTime;
             }
+            _gameSessionData.AddShot();
         }
 
         private void OnProjectileEndLifeTime(Projectile projectile)

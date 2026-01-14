@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4345738972353423715}
   - component: {fileID: 7447504769404578877}
   - component: {fileID: 7202780807719920236}
-  - component: {fileID: 4084230538846956312}
   - component: {fileID: 4764348036337420090}
+  - component: {fileID: 4369560840911695500}
   m_Layer: 0
   m_Name: UFO
   m_TagString: Untagged
@@ -98,19 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d2c3b7247ee5e47a4f61ac6188af96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4084230538846956312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3283534207927173240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e14a6d56aee1643a40849a593ff270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PointsForKill>k__BackingField: 5
 --- !u!50 &4764348036337420090
 Rigidbody2D:
   serializedVersion: 5
@@ -138,6 +125,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4369560840911695500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283534207927173240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f61fb7f8b07c7eb47a29bac7dfe654fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PointsForKill>k__BackingField: 5
 --- !u!1 &4487034876329046667
 GameObject:
   m_ObjectHideFlags: 0

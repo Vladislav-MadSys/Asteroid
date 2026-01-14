@@ -47,12 +47,12 @@ namespace _Project.Scripts.GameEntities.Enemies
 
                     if (deathObject.TryGetComponent(out Enemy enemy))
                     {
-                        enemy.Initialize(_enemyDeathListener, false);
+                        enemy.Initialize(_enemyDeathListener, _gameSessionData,false);
                     }
                     
                 }
             }
-
+            _gameSessionData.AddDestroyedAsteroids();
             base.Kill();
         }
         

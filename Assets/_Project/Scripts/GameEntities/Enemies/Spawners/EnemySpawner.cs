@@ -17,6 +17,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         protected ObjectPooler _objectPooler;
         protected Camera _mainCamera;
         protected EnemyDeathListener _enemyDeathListener;
+        protected GameSessionData _gameSessionData;
         
         private float _timer;
        
@@ -25,12 +26,14 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             Camera mainCamera,
             SpawnerSettings settings,
             ObjectPooler objectPooler,
-            EnemyDeathListener enemyDeathListener)
+            EnemyDeathListener enemyDeathListener,
+            GameSessionData gameSessionData)
         {
             _mainCamera = mainCamera;
             Settings = settings;
             _objectPooler = objectPooler;
             _enemyDeathListener = enemyDeathListener;
+            _gameSessionData = gameSessionData;
         }
         
         public void Tick()
@@ -97,7 +100,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             obstacle.transform.position = spawnPosition;
             
             Enemy enemy = obstacle.GetComponent<Enemy>();
-            enemy.Initialize(_enemyDeathListener, true);
+            enemy.Initialize(_enemyDeathListener, _gameSessionData,true);
             enemy.OnKill += OnMyEnemyKill;
             
             return obstacle;

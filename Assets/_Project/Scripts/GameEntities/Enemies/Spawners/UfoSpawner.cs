@@ -9,13 +9,14 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
     {
         private PlayerShip _playerShip;
 
-        public void Initialize(PlayerShip playerShip, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler, EnemyDeathListener enemyDeathListener)
+        public void Initialize(PlayerShip playerShip, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler, EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData)
         {
             _playerShip = playerShip;
             _objectPooler = objectPooler;
             _mainCamera = mainCamera;
             Settings = settings;
             _enemyDeathListener = enemyDeathListener;
+            _gameSessionData = gameSessionData;
         }
 
         protected override GameObject Spawn()

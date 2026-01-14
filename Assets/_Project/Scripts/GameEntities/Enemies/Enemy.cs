@@ -13,11 +13,13 @@ namespace _Project.Scripts.GameEntities.Enemies
         [field: SerializeField] public int PointsForKill {get; private set; }
         
         protected EnemyDeathListener _enemyDeathListener;
+        protected GameSessionData _gameSessionData;
         protected bool _isFromPool = false;
     
-        public void Initialize(EnemyDeathListener enemyDeathListener, bool isFromPool)
+        public void Initialize(EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, bool isFromPool)
         {
             _enemyDeathListener = enemyDeathListener;
+            _gameSessionData = gameSessionData;
             _isFromPool = isFromPool;
         }
 
