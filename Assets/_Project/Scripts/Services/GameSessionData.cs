@@ -13,7 +13,7 @@ namespace _Project.Scripts.Services
         public Vector2 PlayerPosition { get; private set; }
         public float PlayerRotation { get; private set; }
         public int Points { get; private set; } = 0;
-        public int PreviousPoints { get; private set; } = 0;
+        public int PreviousPoints = 0;
         
         public int ShotsCount { get; private set; } = 0;
         public int LaserUsesCount { get; private set; } = 0;
@@ -33,6 +33,7 @@ namespace _Project.Scripts.Services
         public void Initialize()
         {
             _playerState.OnPlayerPositionChanged += ChangePlayerPosition;
+            _playerState.OnPlayerPositionChanged += туцЗ
             _playerState.OnPlayerRotationChanged += ChangePlayerRotation;
             
             _analyticsService.LogGameStart();
@@ -48,11 +49,6 @@ namespace _Project.Scripts.Services
         {
             Points += deltaPoints;
             OnPointsChanged?.Invoke();
-        }
-        
-        public void SetPreviousPoints(int deltaPoints)
-        {
-            PreviousPoints = deltaPoints;
         }
 
         public void ChangePlayerPosition(Vector2 newPlayerPosition)

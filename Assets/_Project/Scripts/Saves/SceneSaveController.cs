@@ -46,7 +46,7 @@ namespace _Project.Scripts.Saves
             if (save != null)
             {
                 OnSaveLoaded?.Invoke(save);
-                _gameSessionData.SetPreviousPoints(save.points);
+                _gameSessionData.PreviousPoints = save.points;
             }
         }
     }
