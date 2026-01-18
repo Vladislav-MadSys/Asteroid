@@ -33,7 +33,6 @@ namespace _Project.Scripts.Services
         public void Initialize()
         {
             _playerState.OnPlayerPositionChanged += ChangePlayerPosition;
-            _playerState.OnPlayerPositionChanged += туцЗ
             _playerState.OnPlayerRotationChanged += ChangePlayerRotation;
             
             _analyticsService.LogGameStart();
