@@ -15,7 +15,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         
         private GameObject _projectilePrefab;
         private Transform _transform;
-        private ObjectPooler _objectPooler;
+        private ObjectPool<Projectile> _objectPool;
         private PlayerInputHandler _playerInputHandler;
         private GameSessionData _gameSessionData;
         private IResourcesService _resourceService;
@@ -33,8 +33,8 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             
             _transform = transform;
             _projectilePrefab = await _resourceService.Load(AddressablesKeys.PROJECTILE);
-            _objectPooler = new ObjectPooler(_projectilePrefab, 50);
-            _objectPooler.Initialize();
+            _objectPool = new ObjectPool<Projectile>(_projectilePrefab, 50);
+            _objectPool.Initialize();
             _isReady = true;
         }
 
@@ -66,21 +66,18 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
 
         private void Fire()
         {
-            GameObject projectile = _objectPooler.GetObject();
+            Projectile projectile = _objectPool.GetObject();
+            projectile.gameObject.SetActive(true);
             Transform projectileTransform = projectile.transform;
             projectileTransform.position = _transform.position;
             projectileTransform.rotation = _transform.rotation;
             projectileTransform.parent = null;
-            if (projectile.TryGetComponent(out Projectile projectileScript))
-            {
-                projectileScript.OnEndLifeTime += OnProjectileEndLifeTime;
-            }
             _gameSessionData.AddShot();
         }
 
         private void OnProjectileEndLifeTime(Projectile projectile)
         {
-            _objectPooler.ReturnObject(projectile.gameObject);
+            _objectPool.ReturnObject(projectile);
             projectile.OnEndLifeTime -= OnProjectileEndLifeTime;
         }
         

@@ -4,9 +4,9 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
     public class AsteroidSpawner : EnemySpawner
     {
-        protected override GameObject Spawn()
+        protected override Enemy Spawn()
         {
-            GameObject obstacle = base.Spawn();
+            Enemy obstacle = base.Spawn();
             
             AsteroidMovement asteroidMovement = obstacle.GetComponent<AsteroidMovement>();
             asteroidMovement.SetStartDirection();

@@ -61,8 +61,8 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private void EndLifetime()
         {
             _cancellationTokenSource.Cancel();
-            
             OnEndLifeTime?.Invoke(this);
+            gameObject.SetActive(false);
         }
     }
 }

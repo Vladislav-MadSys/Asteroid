@@ -1,8 +1,6 @@
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Analytics;
 using _Project.Scripts.Saves;
-using _Project.Scripts.Services;
-using Firebase.Analytics;
 using Zenject;
 
 namespace _Project.Scripts.Installers

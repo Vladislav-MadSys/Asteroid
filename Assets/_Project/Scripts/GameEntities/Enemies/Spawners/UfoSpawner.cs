@@ -9,19 +9,19 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
     {
         private PlayerShip _playerShip;
 
-        public void Initialize(PlayerShip playerShip, Camera mainCamera, SpawnerSettings settings, ObjectPooler objectPooler, EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData)
+        public void Initialize(PlayerShip playerShip, Camera mainCamera, SpawnerSettings settings, ObjectPool<Enemy> objectPool, EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData)
         {
             _playerShip = playerShip;
-            _objectPooler = objectPooler;
+            ObjectPool = objectPool;
             _mainCamera = mainCamera;
             Settings = settings;
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
         }
 
-        protected override GameObject Spawn()
+        protected override Enemy Spawn()
         {
-            GameObject obstacle = base.Spawn();
+            Enemy obstacle = base.Spawn();
             
             UfoMovement ufoMovment = obstacle.GetComponent<UfoMovement>();
             ufoMovment.Initialize(_playerShip);

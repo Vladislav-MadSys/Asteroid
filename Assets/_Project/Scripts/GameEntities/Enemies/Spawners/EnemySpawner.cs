@@ -16,7 +16,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         
         protected SpawnerSettings Settings;
 
-        protected ObjectPooler _objectPooler;
+        protected ObjectPool<Enemy> ObjectPool;
         protected Camera _mainCamera;
         protected EnemyDeathListener _enemyDeathListener;
         protected IResourcesService _resourcesService;
@@ -28,14 +28,14 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         public void Initialize(
             Camera mainCamera,
             SpawnerSettings settings,
-            ObjectPooler objectPooler,
+            ObjectPool<Enemy> objectPool,
             EnemyDeathListener enemyDeathListener,
             IResourcesService resourcesService,
             GameSessionData gameSessionData)
         {
             _mainCamera = mainCamera;
             Settings = settings;
-            _objectPooler = objectPooler;
+            ObjectPool = objectPool;
             _enemyDeathListener = enemyDeathListener;
             _resourcesService = resourcesService;
             _gameSessionData = gameSessionData;
@@ -98,23 +98,22 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             return worldPos;
         }
 
-        protected virtual GameObject Spawn()
+        protected virtual Enemy Spawn()
         {
             Vector3 spawnPosition = GetPositionOutsideScreen();
-            GameObject obstacle = _objectPooler.GetObject();
-            obstacle.transform.position = spawnPosition;
+            Enemy enemy = ObjectPool.GetObject();
+            enemy.transform.position = spawnPosition;
             
-            Enemy enemy = obstacle.GetComponent<Enemy>();
             enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService,true);
             enemy.OnKill += OnMyEnemyKill;
             
-            return obstacle;
+            return enemy;
         }
 
         protected virtual void OnMyEnemyKill(Enemy enemy)
         {
             enemy.OnKill -= OnMyEnemyKill;
-            _objectPooler.ReturnObject(enemy.gameObject);
+            ObjectPool.ReturnObject(enemy);
         }
     }
 }

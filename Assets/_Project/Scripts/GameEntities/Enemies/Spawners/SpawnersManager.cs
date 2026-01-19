@@ -44,7 +44,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         {
             foreach (SpawnerSettings spawnerSettings in Settings)
             {
-                ObjectPooler objectPooler;//
+                ObjectPool<Enemy> objectPool;//
                 var asteroidTask = _resourcesService.Load(AddressablesKeys.ASTEROID);
                 var ufoTask = _resourcesService.Load(AddressablesKeys.UFO);
                 var (asteroidPrefab, ufoPrefab) = await UniTask.WhenAll(asteroidTask, ufoTask);
@@ -53,19 +53,19 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
                 switch (spawnerSettings.Type)
                 {
                     case SpawnerType.Asteroid:
-                        objectPooler = new ObjectPooler(asteroidPrefab);
-                        objectPooler.Initialize();
+                        objectPool = new ObjectPool<Enemy>(asteroidPrefab);
+                        objectPool.Initialize();
                         
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPooler, _enemyDeathListener, _resourcesService, _gameSessionData);
+                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPool, _enemyDeathListener, _resourcesService, _gameSessionData);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:
-                        objectPooler = new ObjectPooler(ufoPrefab);
-                        objectPooler.Initialize();
+                        objectPool = new ObjectPool<Enemy>(ufoPrefab);
+                        objectPool.Initialize();
                         
                         UfoSpawner ufoSpawner = new UfoSpawner();
-                        ufoSpawner.Initialize(_playerFactory.PlayerShip, _mainCamera, spawnerSettings, objectPooler, _enemyDeathListener, _gameSessionData);
+                        ufoSpawner.Initialize(_playerFactory.PlayerShip, _mainCamera, spawnerSettings, objectPool, _enemyDeathListener, _gameSessionData);
                         _obstaclesSpawner.Add(ufoSpawner);
                         break;
                 }
