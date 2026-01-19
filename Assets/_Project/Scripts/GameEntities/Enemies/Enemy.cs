@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.Addressables;
 using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
 using UnityEngine;
@@ -14,12 +15,14 @@ namespace _Project.Scripts.GameEntities.Enemies
         
         protected EnemyDeathListener _enemyDeathListener;
         protected GameSessionData _gameSessionData;
+        protected IResourcesService _resourcesService;
         protected bool _isFromPool = false;
     
-        public void Initialize(EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, bool isFromPool)
+        public virtual void Initialize(EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, IResourcesService resourcesService, bool isFromPool)
         {
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
+            _resourcesService = resourcesService;
             _isFromPool = isFromPool;
         }
 

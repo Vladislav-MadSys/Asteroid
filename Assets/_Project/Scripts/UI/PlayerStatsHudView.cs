@@ -25,8 +25,7 @@ namespace _Project.Scripts.UI
 
         private UnityAction OnRestartButtonClickEvent;
 
-        [Inject]
-        private void Inject(PlayerStatsHudPresenter presenter)
+        public void Initialize(PlayerStatsHudPresenter presenter)
         {
             _presenter = presenter;
         }

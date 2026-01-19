@@ -9,7 +9,7 @@ using Zenject;
 
 namespace _Project.Scripts.UI
 {
-    public class PlayerStatsHudPresenter : IInitializable, IDisposable
+    public class PlayerStatsHudPresenter : IDisposable
     {
         protected SceneController _sceneController;
         protected PlayerStatsHudModel _model;
@@ -17,16 +17,12 @@ namespace _Project.Scripts.UI
 
         private Action onRestart;
 
-        [Inject]
-        private void Inject(SceneController sceneController, PlayerStatsHudModel model, PlayerStatsHudView view)
+        public void Initialize(SceneController sceneController, PlayerStatsHudModel model, PlayerStatsHudView view)
         {
             _sceneController = sceneController;
             _model = model;
             _view = view;
-        }
-
-        public void Initialize()
-        {
+        
             _model.OnPointsChanged += ChangePointsText;
             _model.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
             _model.OnPlayerRotationChanged += ChangePlayerAngleText;

@@ -28,8 +28,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private float _chargeTimer;
         private bool _canFire = false;
         
-        [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates, GameSessionData gameSessionData)
+        public void Initialize(PlayerInputHandler playerInputHandler, PlayerStates playerStates, GameSessionData gameSessionData)
         {
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;

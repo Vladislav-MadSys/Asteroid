@@ -1,23 +1,25 @@
+using System;
 using _Project.Scripts.GameEntities.Player;
 using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Portals
 {
-    public class Portal : ILateTickable, IInitializable
+    public class Portal : ILateTickable, IInitializable, IDisposable
     {
         private const float VIEWPORT_SCALE = 1;
         
         private Camera _mainCamera;
+        private PlayerFactory _playerFactory;
         private Transform _playerTransform;
         private float _offsetOutOfScreen = 0.05f;
 
         private Vector2 _cameraOffset;
 
         [Inject]
-        private void Inject(PlayerShip playerShip, Camera camera)
+        private void Inject(PlayerFactory playerFactory, Camera camera)
         {
-            _playerTransform = playerShip.transform;
+            _playerFactory = playerFactory;
             _mainCamera = camera;
             
             Initialize();
@@ -26,11 +28,18 @@ namespace _Project.Scripts.Portals
         public void Initialize()
         {
             _cameraOffset = new Vector2(_mainCamera.transform.position.x, _mainCamera.transform.position.y);
+            _playerFactory.OnPlayerShipCreated += SetPlayer;
+        }
+
+        public void Dispose()
+        {
+            _playerFactory.OnPlayerShipCreated -= SetPlayer;
         }
 
         public void LateTick()
         {
             if (!_playerTransform) return;
+            
 
             Vector3 viewportPos = _mainCamera.WorldToViewportPoint(_playerTransform.position);
             Vector3 newPosition = _playerTransform.position;
@@ -54,6 +63,11 @@ namespace _Project.Scripts.Portals
                     _playerTransform.position = newPosition;
                 }
             }
+        }
+
+        private void SetPlayer(PlayerShip playerShip)
+        {
+            _playerTransform = playerShip.transform;
         }
     }
 }

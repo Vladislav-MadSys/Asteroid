@@ -9,7 +9,7 @@ using _Project.Scripts.UI;
 
 namespace _Project.Scripts.UI
 {
-    public class PlayerStatsHudModel : IInitializable, IDisposable
+    public class PlayerStatsHudModel : IDisposable
     {
         public event Action<int> OnPointsChanged;
         public event Action<Vector2> OnPlayerPositionChanged;
@@ -23,15 +23,11 @@ namespace _Project.Scripts.UI
 
         public int Points => _gameSessionData.Points;
 
-        [Inject]
-        private void Inject(PlayerStates playerStates, GameSessionData gameSessionData)
+        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData)
         {
             _playerStates = playerStates;
             _gameSessionData = gameSessionData;
-        }
-
-        public void Initialize()
-        {
+            
             _gameSessionData.OnPointsChanged += ChangePointsText;
             _playerStates.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
             _playerStates.OnPlayerRotationChanged += ChangePlayerAngleText;

@@ -246,5 +246,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PointsForKill>k__BackingField: 1
-  _objectsToSpawnOnDeath: []
+  _debrisCount: 0
   _lifeTimeMs: 10000

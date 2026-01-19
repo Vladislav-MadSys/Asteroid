@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.Design;
+using _Project.Scripts.Addressables;
 using _Project.Scripts.Enums;
 using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
@@ -17,6 +19,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         protected ObjectPooler _objectPooler;
         protected Camera _mainCamera;
         protected EnemyDeathListener _enemyDeathListener;
+        protected IResourcesService _resourcesService;
         protected GameSessionData _gameSessionData;
         
         private float _timer;
@@ -27,12 +30,14 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             SpawnerSettings settings,
             ObjectPooler objectPooler,
             EnemyDeathListener enemyDeathListener,
+            IResourcesService resourcesService,
             GameSessionData gameSessionData)
         {
             _mainCamera = mainCamera;
             Settings = settings;
             _objectPooler = objectPooler;
             _enemyDeathListener = enemyDeathListener;
+            _resourcesService = resourcesService;
             _gameSessionData = gameSessionData;
         }
         
@@ -100,7 +105,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             obstacle.transform.position = spawnPosition;
             
             Enemy enemy = obstacle.GetComponent<Enemy>();
-            enemy.Initialize(_enemyDeathListener, _gameSessionData,true);
+            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService,true);
             enemy.OnKill += OnMyEnemyKill;
             
             return obstacle;

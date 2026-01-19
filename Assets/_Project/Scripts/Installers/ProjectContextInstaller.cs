@@ -1,3 +1,4 @@
+using _Project.Scripts.Addressables;
 using _Project.Scripts.Analytics;
 using _Project.Scripts.Saves;
 using _Project.Scripts.Services;
@@ -13,6 +14,7 @@ namespace _Project.Scripts.Installers
             Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
             Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FireBaseAnalytics>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ResourceLoader>().AsSingle().NonLazy();
         }
     }
 }

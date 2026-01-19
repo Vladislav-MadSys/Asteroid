@@ -61,10 +61,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private void EndLifetime()
         {
             _cancellationTokenSource.Cancel();
-            if (OnEndLifeTime == null )
-            {
-                Destroy(gameObject);
-            }
+            
             OnEndLifeTime?.Invoke(this);
         }
     }

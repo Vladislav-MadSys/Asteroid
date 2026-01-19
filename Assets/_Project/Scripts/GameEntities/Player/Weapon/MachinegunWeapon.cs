@@ -1,6 +1,8 @@
+using _Project.Scripts.Addressables;
 using _Project.Scripts.Low;
 using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -8,34 +10,38 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
 {
     public class MachinegunWeapon : MonoBehaviour
     {
-        [SerializeField] private GameObject _projectilePrefab;
+        [SerializeField]private string _projectilePrefabKey;
         [SerializeField] private float _shootingDelay = 0.5f;
-
+        
+        private GameObject _projectilePrefab;
         private Transform _transform;
         private ObjectPooler _objectPooler;
         private PlayerInputHandler _playerInputHandler;
         private GameSessionData _gameSessionData;
+        private IResourcesService _resourceService;
         
         
         private float _timer;
         private bool _canFire = false;
+        private bool _isReady = false;
 
-        [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, GameSessionData gameSessionData)
+        public async void Initialize(PlayerInputHandler playerInputHandler, GameSessionData gameSessionData, IResourcesService resourceService)
         {
             _playerInputHandler = playerInputHandler;
             _gameSessionData = gameSessionData;
-        }
-
-        private void Awake()
-        {
+            _resourceService = resourceService;
+            
             _transform = transform;
+            _projectilePrefab = await _resourceService.Load(AddressablesKeys.PROJECTILE);
             _objectPooler = new ObjectPooler(_projectilePrefab, 50);
             _objectPooler.Initialize();
+            _isReady = true;
         }
 
         private void Update()
         {
+            if(!_isReady) return;
+                
             if (_canFire)
             {
                 if (_playerInputHandler.isFireButtonPressed)

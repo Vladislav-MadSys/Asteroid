@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using _Project.Scripts.Addressables;
 using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -12,44 +14,62 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         [SerializeField] private SpawnerSettings[] Settings;
         
         private Camera _mainCamera;
-        private PlayerShip _playerShip;
         private float _timer;
         private EnemyDeathListener _enemyDeathListener;
+        private PlayerFactory _playerFactory;
         private GameSessionData _gameSessionData;
+        private IResourcesService _resourcesService;
         
         private List<EnemySpawner> _obstaclesSpawner = new List<EnemySpawner>();
         
         [Inject]
-        private void Inject(PlayerShip playerShip, Camera mainCamera, EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, SpawnerSettings[] spawnerSettings)
+        private void Inject(
+            Camera mainCamera, 
+            PlayerFactory playerFactory,
+            EnemyDeathListener enemyDeathListener, 
+            GameSessionData gameSessionData, 
+            SpawnerSettings[] spawnerSettings,
+            IResourcesService resourcesService)
         {
-            _playerShip = playerShip;
             _mainCamera = mainCamera;
+            _playerFactory = playerFactory;
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
+            _resourcesService = resourcesService;
+            
             Settings = spawnerSettings;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
             foreach (SpawnerSettings spawnerSettings in Settings)
             {
-                ObjectPooler objectPooler = new ObjectPooler(spawnerSettings.Prefab);
-                objectPooler.Initialize();
+                ObjectPooler objectPooler;//
+                var asteroidTask = _resourcesService.Load(AddressablesKeys.ASTEROID);
+                var ufoTask = _resourcesService.Load(AddressablesKeys.UFO);
+                var (asteroidPrefab, ufoPrefab) = await UniTask.WhenAll(asteroidTask, ufoTask);
+                    
+                
                 switch (spawnerSettings.Type)
                 {
                     case SpawnerType.Asteroid:
+                        objectPooler = new ObjectPooler(asteroidPrefab);
+                        objectPooler.Initialize();
+                        
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPooler, _enemyDeathListener, _gameSessionData);
+                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPooler, _enemyDeathListener, _resourcesService, _gameSessionData);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:
+                        objectPooler = new ObjectPooler(ufoPrefab);
+                        objectPooler.Initialize();
+                        
                         UfoSpawner ufoSpawner = new UfoSpawner();
-                        ufoSpawner.Initialize(_playerShip, _mainCamera, spawnerSettings, objectPooler, _enemyDeathListener, _gameSessionData);
+                        ufoSpawner.Initialize(_playerFactory.PlayerShip, _mainCamera, spawnerSettings, objectPooler, _enemyDeathListener, _gameSessionData);
                         _obstaclesSpawner.Add(ufoSpawner);
                         break;
                 }
             }
-            
         }
 
         public void Tick()

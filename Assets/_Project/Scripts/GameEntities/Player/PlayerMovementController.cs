@@ -21,8 +21,7 @@ namespace _Project.Scripts.GameEntities.Player
         private Rigidbody2D _rb;
         private Transform _transform;
 
-        [Inject]
-        private void Inject(PlayerInputHandler playerInputHandler, PlayerStates playerStates, SceneSaveController sceneSaveController)
+        public void Initialize(PlayerInputHandler playerInputHandler, PlayerStates playerStates, SceneSaveController sceneSaveController)
         {
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;
@@ -33,12 +32,12 @@ namespace _Project.Scripts.GameEntities.Player
         {
             _transform = transform;
             _rb = GetComponent<Rigidbody2D>();
-            _sceneSaveController.OnSaveLoaded += OnSaveDataLoaded;
+            
         }
 
         private void OnDestroy()
         {
-            _sceneSaveController.OnSaveLoaded -= OnSaveDataLoaded;
+            
             _playerInputHandler.Dispose();
         }
 
@@ -61,17 +60,13 @@ namespace _Project.Scripts.GameEntities.Player
             _playerStates.ChangePlayerRotation(_transform.rotation.z * 180);
         }
 
-        private void OnSaveDataLoaded(SaveData saveData)
-        {
-            SetPlayerPosition(saveData.playerPosition);
-            SetPlayerRotation(saveData.playerRotation);
-        }
         
-        private void SetPlayerPosition(Vector2 position)
+        
+        public void SetPlayerPosition(Vector2 position)
         {
             _transform.position = position;
         }
-        private void SetPlayerRotation(float rotation)
+        public void SetPlayerRotation(float rotation)
         {
             _transform.rotation = Quaternion.Euler(0f, 0f, rotation);
         }
