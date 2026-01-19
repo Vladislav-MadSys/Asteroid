@@ -13,7 +13,6 @@ namespace _Project.Scripts.Installers
     public class GameSceneInstaller : MonoInstaller
     {
         [SerializeField] private SpawnerSettings[] spawnerSettings;
-        [SerializeField]private GameObject _playerStatsHudViewPrefab;
         
         public override void InstallBindings()
         {

@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.Analytics;
 using _Project.Scripts.Saves;
 using UnityEngine;
 using Zenject;
