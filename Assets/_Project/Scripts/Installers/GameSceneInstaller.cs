@@ -5,6 +5,7 @@ using _Project.Scripts.Portals;
 using _Project.Scripts.Saves;
 using _Project.Scripts.Services;
 using _Project.Scripts.UI;
+using _Project.Scripts.UI.Gameplay;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +17,6 @@ namespace _Project.Scripts.Installers
         
         public override void InstallBindings()
         {
-            Container.Bind<SceneController>().AsSingle();
             Container.Bind<PlayerStates>().AsSingle().NonLazy();
             Container.Bind<PlayerInput>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerInputHandler>().AsSingle().NonLazy();

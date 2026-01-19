@@ -29,7 +29,9 @@ namespace _Project.Scripts.Universal
                 GameObject obj = _factory.Create();
                 obj.SetActive(false);
                 
-                T component = obj.GetComponent<T>();
+                
+                T component = typeof(T) != typeof(GameObject) ? obj.GetComponent<T>() : (T)(object)obj;
+                
                 if (component != null)
                 {
                     _objectPool.Enqueue(component);

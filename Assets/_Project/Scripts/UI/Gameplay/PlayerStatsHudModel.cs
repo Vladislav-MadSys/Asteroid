@@ -1,13 +1,8 @@
 using System;
-using _Project.Scripts.Low;
 using _Project.Scripts.Services;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
-using _Project.Scripts.UI;
 
-namespace _Project.Scripts.UI
+namespace _Project.Scripts.UI.Gameplay
 {
     public class PlayerStatsHudModel : IDisposable
     {

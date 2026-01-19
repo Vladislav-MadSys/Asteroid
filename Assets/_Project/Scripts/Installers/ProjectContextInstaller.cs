@@ -1,6 +1,8 @@
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Analytics;
+using _Project.Scripts.Low;
 using _Project.Scripts.Saves;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Installers
@@ -13,6 +15,7 @@ namespace _Project.Scripts.Installers
             Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FireBaseAnalytics>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ResourceLoader>().AsSingle().NonLazy();
+            Container.Bind<SceneController>().AsSingle();
         }
     }
 }

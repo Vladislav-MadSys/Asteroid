@@ -32,7 +32,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             _resourceService = resourceService;
             
             _transform = transform;
-            _projectilePrefab = await _resourceService.Load(AddressablesKeys.PROJECTILE);
+            _projectilePrefab = await _resourceService.Load<GameObject>(AddressablesKeys.PROJECTILE);
             _objectPool = new ObjectPool<Projectile>(_projectilePrefab, 50);
             _objectPool.Initialize();
             _isReady = true;

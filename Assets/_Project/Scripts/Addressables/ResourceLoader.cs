@@ -10,14 +10,14 @@ namespace _Project.Scripts.Addressables
     {
         private Dictionary<string, AsyncOperationHandle> _cachedHandles = new Dictionary<string, AsyncOperationHandle>();
     
-        public async UniTask<GameObject> Load(string key)
+        public async UniTask<T> Load<T>(string key)
         {
             if (_cachedHandles.ContainsKey(key))
             {
-                return (GameObject)_cachedHandles[key].Result;
+                return (T)_cachedHandles[key].Result;
             }
         
-            var handle = UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<GameObject>(key);
+            var handle = UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<T>(key);
             await handle.Task;
             _cachedHandles[key] = handle;
             return handle.Result;
@@ -33,6 +33,11 @@ namespace _Project.Scripts.Addressables
         }
 
         public void Dispose()
+        {
+            UnloadAll();
+        }
+
+        public void UnloadAll()
         {
             List<string> keysToClear = new List<string>(_cachedHandles.Keys);
             foreach (var key in keysToClear)

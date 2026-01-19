@@ -5,7 +5,8 @@ namespace _Project.Scripts.Addressables
 {
     public interface IResourcesService
     {
-        public UniTask<GameObject> Load(string key);
+        public UniTask<T> Load<T>(string key);
         public void Unload(string key);
+        public void UnloadAll();
     }
 }

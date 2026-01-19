@@ -102,6 +102,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         {
             Vector3 spawnPosition = GetPositionOutsideScreen();
             Enemy enemy = ObjectPool.GetObject();
+            enemy.gameObject.SetActive(true);
             enemy.transform.position = spawnPosition;
             
             enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService,true);
@@ -114,6 +115,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         {
             enemy.OnKill -= OnMyEnemyKill;
             ObjectPool.ReturnObject(enemy);
+            enemy.gameObject.SetActive(false);
         }
     }
 }

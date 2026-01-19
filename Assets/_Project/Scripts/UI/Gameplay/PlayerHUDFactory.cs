@@ -5,7 +5,7 @@ using _Project.Scripts.Services;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.UI
+namespace _Project.Scripts.UI.Gameplay
 {
     public class PlayerHUDFactory : IInitializable
     {
@@ -31,7 +31,7 @@ namespace _Project.Scripts.UI
         {
             _model = new PlayerStatsHudModel();
             _presenter = new PlayerStatsHudPresenter();
-            var hudPrefab = await _resourcesService.Load(AddressablesKeys.PLAYER_HUD_CANVAS);
+            var hudPrefab = await _resourcesService.Load<GameObject>(AddressablesKeys.PLAYER_HUD_CANVAS);
             GameObjectFactory gameObjectFactory = new GameObjectFactory(hudPrefab);
             GameObject hud = gameObjectFactory.Create();
             _view = hud.GetComponent<PlayerStatsHudView>();

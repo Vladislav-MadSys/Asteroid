@@ -42,7 +42,7 @@ namespace _Project.Scripts.GameEntities.Player
         {
             _sceneSaveController.OnSaveLoaded += OnSaveDataLoaded;
             
-            var playerPrefab = await _resourcesService.Load(AddressablesKeys.PLAYER);
+            var playerPrefab = await _resourcesService.Load<GameObject>(AddressablesKeys.PLAYER);
             GameObjectFactory gameObjectFactory = new GameObjectFactory(playerPrefab);
             PlayerShip = gameObjectFactory.Create().GetComponent<PlayerShip>();
             PlayerShip.Initialize(_gameSessionData, _resourcesService, _playerInputHandler, _playerStates, _sceneSaveController);

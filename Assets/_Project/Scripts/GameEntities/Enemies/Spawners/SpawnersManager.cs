@@ -45,8 +45,8 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             foreach (SpawnerSettings spawnerSettings in Settings)
             {
                 ObjectPool<Enemy> objectPool;//
-                var asteroidTask = _resourcesService.Load(AddressablesKeys.ASTEROID);
-                var ufoTask = _resourcesService.Load(AddressablesKeys.UFO);
+                var asteroidTask = _resourcesService.Load<GameObject>(AddressablesKeys.ASTEROID);
+                var ufoTask = _resourcesService.Load<GameObject>(AddressablesKeys.UFO);
                 var (asteroidPrefab, ufoPrefab) = await UniTask.WhenAll(asteroidTask, ufoTask);
                     
                 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Gameplay
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: Gameplay
   m_GUID: 6e2bc4823244d8b43902fe888ba6d928
   m_SerializeEntries:
   - m_GUID: 1689505212ad4de47bc3e1c9d3610551

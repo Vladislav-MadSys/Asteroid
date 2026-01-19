@@ -1,13 +1,8 @@
-using System; 
-using System.Linq; 
-using System.Collections.Generic;
+using System;
 using _Project.Scripts.Low;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
 
-namespace _Project.Scripts.UI
+namespace _Project.Scripts.UI.Gameplay
 {
     public class PlayerStatsHudPresenter : IDisposable
     {

@@ -19,7 +19,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         public async override void Initialize(EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, IResourcesService resourcesService, bool isFromPool)
         {
             base.Initialize(enemyDeathListener, gameSessionData, resourcesService, isFromPool);
-            _debrisPrefab = await _resourcesService.Load(AddressablesKeys.PART_OF_ASTEROID);
+            _debrisPrefab = await _resourcesService.Load<GameObject>(AddressablesKeys.PART_OF_ASTEROID);
         }
 
         private async void OnEnable()
