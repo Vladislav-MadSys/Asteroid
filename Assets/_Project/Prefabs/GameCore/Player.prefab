@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338e3770dfc0bae4685209ec60902eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControlEnabled: 1
   _speed: 5
   _rotationSpeed: 90
   _movmentInertia: 2
@@ -96,6 +97,8 @@ MonoBehaviour:
   _playerMovementController: {fileID: 661709556505316376}
   _machinegunWeapon: {fileID: 3337134811485487754}
   _laser: {fileID: 2844727740871379694}
+  _body: {fileID: 8330652249423612245}
+  _bodySprite: {fileID: 7135763583196172472}
 --- !u!61 &1437869908213105338
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -186,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a143b280a7e33d40a5f3f2cd881286e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControlEnabled: 1
   _projectilePrefabKey: 
   _shootingDelay: 0.25
 --- !u!1 &4847396243346830659
@@ -372,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bd987d2d33af04bba0090b4171ca08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControlEnabled: 1
   _lineRenderer: {fileID: 2338415801808878504}
   _shootingDelay: 2
   _maxCharges: 3

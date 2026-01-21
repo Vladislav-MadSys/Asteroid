@@ -21,8 +21,13 @@ namespace _Project.Scripts.UI.Gameplay
         [SerializeField] private GameObject _losePanel;
         [SerializeField] private TextMeshProUGUI _losePanelPointsText;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private GameObject _respawnPanel;
+        [SerializeField] private Button _respawnButton;
+        [SerializeField] private Button _cancelRespawnButton;
 
         private UnityAction OnRestartButtonClickEvent;
+        private UnityAction OnRespawnButtonClickEvent;
+        private UnityAction OnCancelRespawnButtonClickEvent;
 
         public void Initialize(PlayerStatsHudPresenter presenter)
         {
@@ -37,6 +42,20 @@ namespace _Project.Scripts.UI.Gameplay
                 _presenter.OnRestartButtonClicked();
             };
             _restartButton.onClick.AddListener(OnRestartButtonClickEvent);
+
+            OnRespawnButtonClickEvent = () =>
+            {
+                _losePanel.SetActive(false);
+                _presenter.OnRespawnButtonClicked();
+            };
+            _respawnButton.onClick.AddListener(OnRespawnButtonClickEvent);
+            
+            OnCancelRespawnButtonClickEvent = () =>
+            {
+                _respawnPanel.SetActive(false);
+                _presenter.OnCancelRespawnButtonClicked();
+            };
+            _cancelRespawnButton.onClick.AddListener(OnCancelRespawnButtonClickEvent);
         }
 
         public void ChangePointsText(string pointsString)
@@ -64,15 +83,18 @@ namespace _Project.Scripts.UI.Gameplay
             _laserReloadTimeText.text = timeToReloadLaser;
         }
 
-        public void ShowLosePanel(int currentPoints, int previousPoints)
+        public void ShowLosePanel(int currentPoints, int previousPoints, bool canRespawnPlayer)
         {
             _losePanel.SetActive(true);
+            _respawnButton.interactable = canRespawnPlayer;
+            _respawnPanel.gameObject.SetActive(canRespawnPlayer);
             _losePanelPointsText.text = "Current points: " + currentPoints + '\n' + "Previous Points: " + previousPoints;
         }
 
         private void OnDestroy()
         {
             _restartButton.onClick.RemoveListener(OnRestartButtonClickEvent);
+            _respawnButton.onClick.RemoveListener(OnRespawnButtonClickEvent);
         }
     }
 }

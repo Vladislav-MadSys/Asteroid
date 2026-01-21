@@ -20,6 +20,7 @@ namespace _Project.Scripts.GameEntities.Player
         private PlayerStates _playerStates;
         private SceneSaveController _sceneSaveController;
         
+        
         private Vector2 _playerTargetPosition;
         private float _playerTargetRotation;
 
@@ -29,7 +30,8 @@ namespace _Project.Scripts.GameEntities.Player
             IResourcesService resourcesService,
             PlayerInputHandler playerInputHandler,
             PlayerStates playerStates,
-            SceneSaveController sceneSaveController)
+            SceneSaveController sceneSaveController,
+            IAdvertisement advertisement)
         {
             _gameSessionData = gameSessionData;
             _resourcesService = resourcesService;
@@ -55,7 +57,7 @@ namespace _Project.Scripts.GameEntities.Player
         {
             _sceneSaveController.OnSaveLoaded -= OnSaveDataLoaded;
         }
-        
+
         private void OnSaveDataLoaded(SaveData saveData)
         {
             _playerTargetPosition = saveData.playerPosition;

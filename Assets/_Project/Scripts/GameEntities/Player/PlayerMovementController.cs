@@ -9,6 +9,8 @@ namespace _Project.Scripts.GameEntities.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
     {
+        public bool ControlEnabled = true;
+        
         [field: SerializeField] private float _speed = 1;
         [field: SerializeField] private float _rotationSpeed = 15;
         [field: SerializeField] private float _movmentInertia = 1;
@@ -36,13 +38,14 @@ namespace _Project.Scripts.GameEntities.Player
         }
 
         private void OnDestroy()
-        {
-            
+        { 
             _playerInputHandler.Dispose();
         }
 
         private void Update()
         {
+            if(!ControlEnabled) return;
+            
             float angularDirection = -_playerInputHandler.JoyInput.x;
             float forceInput = Mathf.Clamp01(_playerInputHandler.JoyInput.y);
 

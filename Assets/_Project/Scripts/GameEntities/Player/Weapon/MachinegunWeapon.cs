@@ -10,6 +10,8 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
 {
     public class MachinegunWeapon : MonoBehaviour
     {
+        public bool ControlEnabled = true;
+        
         [SerializeField]private string _projectilePrefabKey;
         [SerializeField] private float _shootingDelay = 0.5f;
         
@@ -40,7 +42,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
 
         private void Update()
         {
-            if(!_isReady) return;
+            if(!_isReady || !ControlEnabled) return;
                 
             if (_canFire)
             {

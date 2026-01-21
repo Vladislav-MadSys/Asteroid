@@ -11,6 +11,8 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private const float RANGE = 10;
         private const int LASER_BUFFER_SIZE = 50;
 
+        public bool ControlEnabled = true;
+        
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private float _shootingDelay = 2f;
         [SerializeField] private float _maxCharges = 3;
@@ -42,6 +44,8 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
 
         private void Update()
         {
+            if (!ControlEnabled) return;
+            
             if (_canFire)
             {
                 if (_curCharges > 0)

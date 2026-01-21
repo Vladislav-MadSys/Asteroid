@@ -9,6 +9,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         [SerializeField] private float _speed = 5;
 
         private Transform _transform;
+        private PlayerShip _playerShip;
         private Transform _target;
         private Rigidbody2D _rigidbody;
 
@@ -16,6 +17,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         {
             if (player != null)
             {
+                _playerShip = player;
                 _target = player.transform;
             }
         }
@@ -30,8 +32,11 @@ namespace _Project.Scripts.GameEntities.Enemies
         {
             if (_target != null)
             {
-                _rigidbody.position =
-                    Vector3.MoveTowards(_transform.position, _target.position, Time.deltaTime * _speed);
+                if (_playerShip.IsDead)
+                {
+                    _rigidbody.position =
+                        Vector3.MoveTowards(_transform.position, _target.position, Time.deltaTime * _speed);
+                }
             }
         }
     }

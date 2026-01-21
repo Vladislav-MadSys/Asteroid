@@ -13,6 +13,8 @@ namespace _Project.Scripts.UI.Gameplay
         public event Action<float> OnLaserTimeChanged;
         public event Action<int, int> OnPlayerKilled;
 
+        public bool wasPlayerRespawned = false;
+
         private PlayerStates _playerStates;
         private GameSessionData _gameSessionData;
 

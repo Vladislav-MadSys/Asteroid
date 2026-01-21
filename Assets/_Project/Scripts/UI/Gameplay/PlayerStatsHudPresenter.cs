@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
 using UnityEngine;
 
@@ -7,14 +8,23 @@ namespace _Project.Scripts.UI.Gameplay
     public class PlayerStatsHudPresenter : IDisposable
     {
         protected SceneController _sceneController;
+        protected PlayerFactory _playerFactory;
+        protected IAdvertisement _advertisement;
         protected PlayerStatsHudModel _model;
         protected PlayerStatsHudView _view;
 
         private Action onRestart;
 
-        public void Initialize(SceneController sceneController, PlayerStatsHudModel model, PlayerStatsHudView view)
+        public void Initialize(
+            SceneController sceneController, 
+            IAdvertisement advertisment, 
+            PlayerFactory playerFactory,
+            PlayerStatsHudModel model,
+            PlayerStatsHudView view)
         {
             _sceneController = sceneController;
+            _advertisement = advertisment;
+            _playerFactory = playerFactory;
             _model = model;
             _view = view;
         
@@ -42,7 +52,21 @@ namespace _Project.Scripts.UI.Gameplay
         {
             _sceneController.ReloadCurrentScene();
         }
-        
+
+        public void OnRespawnButtonClicked()
+        {
+            _advertisement.ShowRewardedAd(() =>
+            {
+                _playerFactory.PlayerShip.RespawnPlayer();
+                _model.wasPlayerRespawned = true;
+            });
+        }
+
+        public void OnCancelRespawnButtonClicked()
+        {
+            _advertisement.ShowInterstitialAd();
+        }
+
         private void ChangePointsText(int points)
         {
             _view.ChangePointsText(points.ToString());
@@ -70,7 +94,7 @@ namespace _Project.Scripts.UI.Gameplay
 
         private void ShowLosePanel(int currentPoints, int previousPoints)
         {
-            _view.ShowLosePanel(currentPoints, previousPoints);
+            _view.ShowLosePanel(currentPoints, previousPoints, !_model.wasPlayerRespawned);
         }
     }
 }
