@@ -1,5 +1,6 @@
 using System;
 using Unity.Services.LevelPlay;
+using UnityEngine;
 using Zenject;
 
 public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposable
@@ -45,6 +46,8 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
         _rewardedCallback = callback;
         _rewardedAd.OnAdLoaded += ShowRewardedAdEvent;
         _rewardedAd.OnAdRewarded += GetRewardedOfRewardedAdEvent;
+        _rewardedAd.OnAdLoadFailed += RewardedFailedLoadEvent;
+        _rewardedAd.OnAdDisplayFailed += RewardedFailedDisplayEvent;
         
         _rewardedAd.LoadAd();
     }
@@ -64,6 +67,20 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
         _rewardedCallback = null; 
     }
 
+    private void RewardedFailedLoadEvent(LevelPlayAdError error)
+    {
+        Debug.LogError(error.ToString());
+        _rewardedAd = null;
+        _rewardedCallback = null;
+    }
+    
+    private void RewardedFailedDisplayEvent(LevelPlayAdInfo adInfo, LevelPlayAdError error)
+    {
+        Debug.LogError(error.ToString());
+        _rewardedAd = null;
+        _rewardedCallback = null;
+    }
+
     public void ShowInterstitialAd()
     {
         if (!isSDKReady) return;
@@ -71,6 +88,8 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
         _interstitialAd = new LevelPlayInterstitialAd(INTERSTITIAL_AD_UNIT_ID);
         
         _interstitialAd.OnAdLoaded += ShowInterstitialAdEvent;
+        _interstitialAd.OnAdLoadFailed += InterstitialDiaplayLoadEvent;
+        _interstitialAd.OnAdDisplayFailed += InterstitialDiaplayFailedEvent;
         
         _interstitialAd.LoadAd();
     }
@@ -81,5 +100,13 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
         {
             _interstitialAd.ShowAd();
         }
+    }
+    private void InterstitialDiaplayLoadEvent(LevelPlayAdError error)
+    {
+        Debug.LogError(error.ToString());
+    }
+    private void InterstitialDiaplayFailedEvent(LevelPlayAdInfo info, LevelPlayAdError error)
+    {
+        Debug.LogError(error.ToString());
     }
 }
