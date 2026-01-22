@@ -18,16 +18,16 @@ namespace _Project.Scripts.GameEntities.Player
 
         private PlayerInputHandler _playerInputHandler;
         private PlayerStates _playerStates;
-        private SceneSaveController _sceneSaveController;
 
         private Rigidbody2D _rb;
         private Transform _transform;
 
-        public void Initialize(PlayerInputHandler playerInputHandler, PlayerStates playerStates, SceneSaveController sceneSaveController)
+        public void Initialize(PlayerInputHandler playerInputHandler, PlayerStates playerStates, SceneSaveController sceneSaveController, ConfigData configData)
         {
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;
-            _sceneSaveController = sceneSaveController;
+
+            _speed = configData.ShipSpeed;
         }
 
         private void Awake()

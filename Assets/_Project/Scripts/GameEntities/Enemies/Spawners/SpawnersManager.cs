@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Project.Scripts.Addressables;
 using _Project.Scripts.GameEntities.Player;
@@ -18,6 +19,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         private EnemyDeathListener _enemyDeathListener;
         private PlayerFactory _playerFactory;
         private GameSessionData _gameSessionData;
+        private ConfigData _configData;
         private IResourcesService _resourcesService;
         
         private List<EnemySpawner> _obstaclesSpawner = new List<EnemySpawner>();
@@ -29,13 +31,15 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             EnemyDeathListener enemyDeathListener, 
             GameSessionData gameSessionData, 
             SpawnerSettings[] spawnerSettings,
-            IResourcesService resourcesService)
+            IResourcesService resourcesService,
+            ConfigData configData)
         {
             _mainCamera = mainCamera;
             _playerFactory = playerFactory;
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
             _resourcesService = resourcesService;
+            _configData = configData;
             
             Settings = spawnerSettings;
         }
@@ -44,7 +48,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         {
             foreach (SpawnerSettings spawnerSettings in Settings)
             {
-                ObjectPool<Enemy> objectPool;//
+                ObjectPool<Enemy> objectPool;
                 var asteroidTask = _resourcesService.Load<GameObject>(AddressablesKeys.ASTEROID);
                 var ufoTask = _resourcesService.Load<GameObject>(AddressablesKeys.UFO);
                 var (asteroidPrefab, ufoPrefab) = await UniTask.WhenAll(asteroidTask, ufoTask);
@@ -57,15 +61,14 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
                         objectPool.Initialize();
                         
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPool, _enemyDeathListener, _resourcesService, _gameSessionData);
+                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPool, _enemyDeathListener, _resourcesService, _gameSessionData, _configData);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:
                         objectPool = new ObjectPool<Enemy>(ufoPrefab);
                         objectPool.Initialize();
-                        
                         UfoSpawner ufoSpawner = new UfoSpawner();
-                        ufoSpawner.Initialize(_playerFactory.PlayerShip, _mainCamera, spawnerSettings, objectPool, _enemyDeathListener, _gameSessionData);
+                        ufoSpawner.Initialize(_playerFactory, _mainCamera, spawnerSettings, objectPool, _enemyDeathListener, _gameSessionData, _configData);
                         _obstaclesSpawner.Add(ufoSpawner);
                         break;
                 }

@@ -21,6 +21,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         protected EnemyDeathListener _enemyDeathListener;
         protected IResourcesService _resourcesService;
         protected GameSessionData _gameSessionData;
+        protected ConfigData _configData;
         
         private float _timer;
        
@@ -31,7 +32,8 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             ObjectPool<Enemy> objectPool,
             EnemyDeathListener enemyDeathListener,
             IResourcesService resourcesService,
-            GameSessionData gameSessionData)
+            GameSessionData gameSessionData,
+            ConfigData configData)
         {
             _mainCamera = mainCamera;
             Settings = settings;
@@ -39,6 +41,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             _enemyDeathListener = enemyDeathListener;
             _resourcesService = resourcesService;
             _gameSessionData = gameSessionData;
+            _configData = configData;
         }
         
         public void Tick()
@@ -105,7 +108,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             enemy.gameObject.SetActive(true);
             enemy.transform.position = spawnPosition;
             
-            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService,true);
+            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, _configData,true);
             enemy.OnKill += OnMyEnemyKill;
             
             return enemy;

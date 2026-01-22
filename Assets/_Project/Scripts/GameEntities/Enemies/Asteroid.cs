@@ -16,9 +16,14 @@ namespace _Project.Scripts.GameEntities.Enemies
         private CancellationTokenSource _cancellationTokenSource;
 
 
-        public async override void Initialize(EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, IResourcesService resourcesService, bool isFromPool)
+        public async override void Initialize(
+            EnemyDeathListener enemyDeathListener, 
+            GameSessionData gameSessionData, 
+            IResourcesService resourcesService, 
+            ConfigData configData,
+            bool isFromPool)
         {
-            base.Initialize(enemyDeathListener, gameSessionData, resourcesService, isFromPool);
+            base.Initialize(enemyDeathListener, gameSessionData, resourcesService, configData, isFromPool);
             _debrisPrefab = await _resourcesService.Load<GameObject>(AddressablesKeys.PART_OF_ASTEROID);
         }
 
@@ -60,7 +65,7 @@ namespace _Project.Scripts.GameEntities.Enemies
 
                         if (deathObject.TryGetComponent(out Enemy enemy))
                         {
-                            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, false);
+                            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, _config, false);
                         }
                     }
                 }

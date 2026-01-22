@@ -7,16 +7,25 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
     public class UfoSpawner : EnemySpawner
     {
-        private PlayerShip _playerShip;
+        private PlayerFactory _playerFactory;
+        private ConfigData _configData;
 
-        public void Initialize(PlayerShip playerShip, Camera mainCamera, SpawnerSettings settings, ObjectPool<Enemy> objectPool, EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData)
+        public void Initialize(
+            PlayerFactory playerFactory, 
+            Camera mainCamera, 
+            SpawnerSettings settings, 
+            ObjectPool<Enemy> objectPool, 
+            EnemyDeathListener enemyDeathListener, 
+            GameSessionData gameSessionData,
+            ConfigData configData)
         {
-            _playerShip = playerShip;
+            _playerFactory = playerFactory;
             ObjectPool = objectPool;
             _mainCamera = mainCamera;
             Settings = settings;
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
+            _configData = configData;
         }
 
         protected override Enemy Spawn()
@@ -24,7 +33,8 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             Enemy obstacle = base.Spawn();
             
             UfoMovement ufoMovment = obstacle.GetComponent<UfoMovement>();
-            ufoMovment.Initialize(_playerShip);
+            ufoMovment.Initialize(_playerFactory, _configData);
+            
             
             return obstacle;
         }

@@ -1,3 +1,4 @@
+using _Project.Scripts.GameEntities.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +10,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         [SerializeField] private float _speed;
         [SerializeField] private float _minRotationOffset = -5;
         [SerializeField] private float _maxRotationOffset = 5;
-    
+
         private Transform _transform;
         private Rigidbody2D _rigidbody;
     
@@ -17,6 +18,11 @@ namespace _Project.Scripts.GameEntities.Enemies
         {
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody2D>();
+        }
+
+        public void Initialize(ConfigData configData)
+        {
+            _speed = configData.AsteroidSpeed;
         }
 
         public void SetStartDirection()

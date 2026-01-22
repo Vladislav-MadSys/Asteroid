@@ -19,6 +19,7 @@ namespace _Project.Scripts.GameEntities.Player
         private PlayerInputHandler _playerInputHandler;
         private PlayerStates _playerStates;
         private SceneSaveController _sceneSaveController;
+        private ConfigData _configData;
         
         
         private Vector2 _playerTargetPosition;
@@ -31,13 +32,15 @@ namespace _Project.Scripts.GameEntities.Player
             PlayerInputHandler playerInputHandler,
             PlayerStates playerStates,
             SceneSaveController sceneSaveController,
-            IAdvertisement advertisement)
+            IAdvertisement advertisement,
+            ConfigData configData)
         {
             _gameSessionData = gameSessionData;
             _resourcesService = resourcesService;
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;
             _sceneSaveController = sceneSaveController;
+            _configData = configData;
         }
 
         public async void Initialize()
@@ -47,7 +50,7 @@ namespace _Project.Scripts.GameEntities.Player
             var playerPrefab = await _resourcesService.Load<GameObject>(AddressablesKeys.PLAYER);
             GameObjectFactory gameObjectFactory = new GameObjectFactory(playerPrefab);
             PlayerShip = gameObjectFactory.Create().GetComponent<PlayerShip>();
-            PlayerShip.Initialize(_gameSessionData, _resourcesService, _playerInputHandler, _playerStates, _sceneSaveController);
+            PlayerShip.Initialize(_gameSessionData, _resourcesService, _playerInputHandler, _playerStates, _sceneSaveController, _configData);
             PlayerShip.SetPlayerPosition(_playerTargetPosition);
             PlayerShip.SetPlayerRotation(_playerTargetRotation);
             OnPlayerShipCreated.Invoke(PlayerShip);

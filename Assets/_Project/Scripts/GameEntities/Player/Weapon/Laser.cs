@@ -30,11 +30,13 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private float _chargeTimer;
         private bool _canFire = false;
         
-        public void Initialize(PlayerInputHandler playerInputHandler, PlayerStates playerStates, GameSessionData gameSessionData)
+        public void Initialize(PlayerInputHandler playerInputHandler, PlayerStates playerStates, GameSessionData gameSessionData, ConfigData configData)
         {
             _playerInputHandler = playerInputHandler;
             _playerStates = playerStates;
             _gameSessionData = gameSessionData;
+
+            _chargeDelay = configData.laserChargeDelay;
         }
 
         private void Awake()

@@ -1,0 +1,61 @@
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+using Firebase.Extensions;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
+using Zenject;
+
+public class FirebaseRemoteConfig : IInitializable
+{
+    private const string CONFIG_KEY = "AsteroidConfig";
+    
+    private bool isFirebaseReady = false;
+    private Firebase.FirebaseApp app;
+
+    private ConfigData _config;
+    
+    [Inject]
+    private void Inject(ConfigData config)
+    {
+        _config = config;
+    }
+    
+    public void Initialize()
+    {
+        Firebase.FirebaseApp.CheckAndFixDependenciesAsync()
+            .ContinueWithOnMainThread((Task<Firebase.DependencyStatus> task) =>
+            {
+                var dependencyStatus = task.Result;
+                if (dependencyStatus == Firebase.DependencyStatus.Available)
+                {
+                    // Create and hold a reference to your FirebaseApp,
+                    // where app is a Firebase.FirebaseApp property of your application class.
+                    app = Firebase.FirebaseApp.DefaultInstance;
+
+                    // Set a flag here to indicate whether Firebase is ready to use by your app.
+                    isFirebaseReady = true;
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError(System.String.Format(
+                        "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
+                    // Firebase Unity SDK is not safe to use here.
+                }
+            });
+        FetchDataAsync();
+    }
+
+    public async UniTask FetchDataAsync()
+    {
+        if(isFirebaseReady) return;
+        
+        UniTask fetchTask = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.FetchAsync(TimeSpan.Zero).AsUniTask();
+        await fetchTask;
+        Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.ActivateAsync();
+        
+        string result = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(CONFIG_KEY).StringValue;
+        JsonUtility.FromJsonOverwrite(result, _config);
+    }
+    
+}

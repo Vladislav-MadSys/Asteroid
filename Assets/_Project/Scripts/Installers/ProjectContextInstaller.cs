@@ -2,6 +2,7 @@ using _Project.Scripts.Addressables;
 using _Project.Scripts.Analytics;
 using _Project.Scripts.Low;
 using _Project.Scripts.Saves;
+using Firebase.Analytics;
 using Unity.Services.LevelPlay;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,8 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesAndSelfTo<ResourceLoader>().AsSingle().NonLazy();
             Container.Bind<SceneController>().AsSingle();
             Container.BindInterfacesTo<LevelPlayAdvertisement>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<FirebaseRemoteConfig>().AsSingle().NonLazy();
+            Container.Bind<ConfigData>().AsSingle().NonLazy();
         }
     }
 }

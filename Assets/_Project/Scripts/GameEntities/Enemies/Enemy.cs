@@ -16,13 +16,20 @@ namespace _Project.Scripts.GameEntities.Enemies
         protected EnemyDeathListener _enemyDeathListener;
         protected GameSessionData _gameSessionData;
         protected IResourcesService _resourcesService;
+        protected  ConfigData _config;
         protected bool _isFromPool = false;
     
-        public virtual void Initialize(EnemyDeathListener enemyDeathListener, GameSessionData gameSessionData, IResourcesService resourcesService, bool isFromPool)
+        public virtual void Initialize(
+            EnemyDeathListener enemyDeathListener, 
+            GameSessionData gameSessionData, 
+            IResourcesService resourcesService, 
+            ConfigData configData,
+            bool isFromPool)
         {
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
             _resourcesService = resourcesService;
+            _config = configData;
             _isFromPool = isFromPool;
         }
 

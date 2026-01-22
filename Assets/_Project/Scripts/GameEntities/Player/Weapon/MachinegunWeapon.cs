@@ -27,13 +27,14 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private bool _canFire = false;
         private bool _isReady = false;
 
-        public async void Initialize(PlayerInputHandler playerInputHandler, GameSessionData gameSessionData, IResourcesService resourceService)
+        public async void Initialize(PlayerInputHandler playerInputHandler, GameSessionData gameSessionData, IResourcesService resourceService, ConfigData configData)
         {
             _playerInputHandler = playerInputHandler;
             _gameSessionData = gameSessionData;
             _resourceService = resourceService;
             
             _transform = transform;
+            _shootingDelay = configData.ShootDelay;
             _projectilePrefab = await _resourceService.Load<GameObject>(AddressablesKeys.PROJECTILE);
             _objectPool = new ObjectPool<Projectile>(_projectilePrefab, 50);
             _objectPool.Initialize();

@@ -22,6 +22,7 @@ namespace _Project.Scripts.GameEntities.Player
         
         private GameSessionData _gameSessionData;
         private IAdvertisement _advertisement;
+        private ConfigData _configData;
         private CancellationTokenSource _cancellationToken;
         private bool _isInvencible = false;
         private Color _baseColor;
@@ -35,13 +36,15 @@ namespace _Project.Scripts.GameEntities.Player
             IResourcesService resourcesService,
             PlayerInputHandler playerInputHandler,
             PlayerStates playerStates,
-            SceneSaveController sceneSaveController)
+            SceneSaveController sceneSaveController,
+            ConfigData configData)
         {
             _gameSessionData = gameSessionData;
+            _configData = configData;
             
-            _playerMovementController.Initialize(playerInputHandler, playerStates, sceneSaveController);
-            _machinegunWeapon.Initialize(playerInputHandler, gameSessionData, resourcesService);
-            _laser.Initialize(playerInputHandler, playerStates, gameSessionData);
+            _playerMovementController.Initialize(playerInputHandler, playerStates, sceneSaveController, configData);
+            _machinegunWeapon.Initialize(playerInputHandler, gameSessionData, resourcesService, configData);
+            _laser.Initialize(playerInputHandler, playerStates, gameSessionData, configData);
 
             _baseColor = _bodySprite.color;
         }
@@ -69,7 +72,7 @@ namespace _Project.Scripts.GameEntities.Player
             _playerMovementController.ControlEnabled = true;
             _machinegunWeapon.ControlEnabled = true;
             _laser.ControlEnabled = true;
-            IsDead = true;
+            IsDead = false;
             
             _cancellationToken = new CancellationTokenSource();
             await UniTask.Delay(INVENCIBLE_TIME, cancellationToken: _cancellationToken.Token);
