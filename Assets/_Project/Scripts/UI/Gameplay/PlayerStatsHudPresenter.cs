@@ -1,6 +1,8 @@
 using System;
+using _Project.Scripts.Advertisement;
 using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
+using _Project.Scripts.Purchases;
 using UnityEngine;
 
 namespace _Project.Scripts.UI.Gameplay
@@ -12,6 +14,7 @@ namespace _Project.Scripts.UI.Gameplay
         protected IAdvertisement _advertisement;
         protected PlayerStatsHudModel _model;
         protected PlayerStatsHudView _view;
+        protected IPurchaser _purchaser;
 
         private Action onRestart;
 
@@ -19,12 +22,15 @@ namespace _Project.Scripts.UI.Gameplay
             SceneController sceneController, 
             IAdvertisement advertisment, 
             PlayerFactory playerFactory,
+            IPurchaser purchaser,
             PlayerStatsHudModel model,
-            PlayerStatsHudView view)
+            PlayerStatsHudView view
+            )
         {
             _sceneController = sceneController;
             _advertisement = advertisment;
             _playerFactory = playerFactory;
+            _purchaser = purchaser;
             _model = model;
             _view = view;
         
@@ -64,7 +70,10 @@ namespace _Project.Scripts.UI.Gameplay
 
         public void OnCancelRespawnButtonClicked()
         {
-            _advertisement.ShowInterstitialAd();
+            if (_purchaser.IsAdsRemoved == false)
+            {
+                _advertisement.ShowInterstitialAd();
+            }
         }
 
         private void ChangePointsText(int points)

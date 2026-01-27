@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.Purchases;
 using _Project.Scripts.Services;
 using UnityEngine;
 using Zenject;
@@ -12,19 +13,21 @@ namespace _Project.Scripts.Saves
         private SaveDataConstructor _saveDataConstructor;
         private GameSessionData _gameSessionData;
         private ISaveService _saveService;
+        private IPurchaser _purchaser;
 
         [Inject]
         private void Inject(SaveDataConstructor saveDataConstructor, GameSessionData gameSessionData,
-            ISaveService saveService)
+            ISaveService saveService, IPurchaser purchaser)
         {
             _saveDataConstructor = saveDataConstructor;
             _gameSessionData = gameSessionData;
             _saveService = saveService;
+            _purchaser = purchaser;
         }
 
         public void Initialize()
         {
-            _saveDataConstructor.Initialize(_gameSessionData);
+            _saveDataConstructor.Initialize(_gameSessionData, _purchaser);
             _gameSessionData.OnPlayerKilled += SaveData;
 
             LoadData();

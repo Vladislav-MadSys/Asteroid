@@ -1,3 +1,4 @@
+using _Project.Scripts.Config;
 using _Project.Scripts.GameEntities.Enemies;
 using _Project.Scripts.Services;
 using UnityEngine;

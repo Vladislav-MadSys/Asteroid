@@ -1,7 +1,9 @@
 using _Project.Scripts.Addressables;
+using _Project.Scripts.Advertisement;
 using _Project.Scripts.Factories;
 using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
+using _Project.Scripts.Purchases;
 using _Project.Scripts.Services;
 using UnityEngine;
 using Zenject;
@@ -16,6 +18,7 @@ namespace _Project.Scripts.UI.Gameplay
         private IResourcesService _resourcesService;
         private IAdvertisement _advertisement;
         private PlayerFactory _playerFactory;
+        private IPurchaser _purchaser;
     
         protected PlayerStatsHudModel _model;
         protected PlayerStatsHudView _view;
@@ -28,7 +31,8 @@ namespace _Project.Scripts.UI.Gameplay
             GameSessionData gameSessionData, 
             IResourcesService resourcesService,
             IAdvertisement advertisement,
-            PlayerFactory playerFactory)
+            PlayerFactory playerFactory,
+            IPurchaser purchaser)
         {
             _sceneController = sceneController;
             _playerStates = playerStates;
@@ -36,6 +40,7 @@ namespace _Project.Scripts.UI.Gameplay
             _resourcesService = resourcesService;
             _advertisement = advertisement;
             _playerFactory = playerFactory;
+            _purchaser = purchaser;
         }
     
         public async void Initialize()
@@ -48,7 +53,7 @@ namespace _Project.Scripts.UI.Gameplay
             _view = hud.GetComponent<PlayerStatsHudView>();
         
             _model.Initialize(_playerStates, _gameSessionData);
-            _presenter.Initialize(_sceneController, _advertisement, _playerFactory, _model, _view);
+            _presenter.Initialize(_sceneController, _advertisement, _playerFactory, _purchaser, _model, _view);
             _view.Initialize(_presenter);
         }
 

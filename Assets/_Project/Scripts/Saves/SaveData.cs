@@ -7,5 +7,6 @@ namespace _Project.Scripts.Saves
         public Vector2 playerPosition;
         public float playerRotation;
         public int points;
+        public bool isAdsRemoved = false;
     }
 }

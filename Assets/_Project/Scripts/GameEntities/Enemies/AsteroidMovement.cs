@@ -1,3 +1,4 @@
+using _Project.Scripts.Config;
 using _Project.Scripts.GameEntities.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;

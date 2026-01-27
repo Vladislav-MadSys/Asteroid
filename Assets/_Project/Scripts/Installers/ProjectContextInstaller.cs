@@ -1,6 +1,10 @@
 using _Project.Scripts.Addressables;
+using _Project.Scripts.Advertisement;
 using _Project.Scripts.Analytics;
+using _Project.Scripts.Config;
+using _Project.Scripts.Config.RemoteConfig;
 using _Project.Scripts.Low;
+using _Project.Scripts.Purchases;
 using _Project.Scripts.Saves;
 using Firebase.Analytics;
 using Unity.Services.LevelPlay;
@@ -21,6 +25,7 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesTo<LevelPlayAdvertisement>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FirebaseRemoteConfig>().AsSingle().NonLazy();
             Container.Bind<ConfigData>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<PurchaserUnityIAP>().AsSingle().NonLazy();
         }
     }
 }

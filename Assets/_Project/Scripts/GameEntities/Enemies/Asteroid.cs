@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using _Project.Scripts.Addressables;
+using _Project.Scripts.Config;
 using _Project.Scripts.Services;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

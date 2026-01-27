@@ -1,7 +1,10 @@
 using System;
 
-public interface IAdvertisement
+namespace _Project.Scripts.Advertisement
 {
-    public void ShowRewardedAd(Action callback);
-    public void ShowInterstitialAd();
+    public interface IAdvertisement
+    {
+        public void ShowRewardedAd(Action callback);
+        public void ShowInterstitialAd();
+    }
 }
