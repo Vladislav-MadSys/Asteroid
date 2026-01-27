@@ -16,7 +16,7 @@ namespace _Project.Scripts.Installers
             Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
             Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FireBaseAnalytics>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ResourceLoader>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<ResourceLoader>().AsSingle().NonLazy();
             Container.Bind<SceneController>().AsSingle();
             Container.BindInterfacesTo<LevelPlayAdvertisement>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FirebaseRemoteConfig>().AsSingle().NonLazy();

@@ -17,8 +17,8 @@ namespace _Project.Scripts.Analytics
         private const string DESTROYED_ASTEROIDS_KEY = "DestroyedAsteroids";
         private const string DESTROYED_UFO_KEY = "DestroyedUfo";
         
-        private bool isFirebaseReady = false;
-        private Firebase.FirebaseApp app;
+        private bool _isFirebaseReady = false;
+        private Firebase.FirebaseApp _app;
 
         public void Initialize()
         {
@@ -30,10 +30,10 @@ namespace _Project.Scripts.Analytics
                     {
                         // Create and hold a reference to your FirebaseApp,
                         // where app is a Firebase.FirebaseApp property of your application class.
-                        app = Firebase.FirebaseApp.DefaultInstance;
+                        _app = Firebase.FirebaseApp.DefaultInstance;
 
                         // Set a flag here to indicate whether Firebase is ready to use by your app.
-                        isFirebaseReady = true;
+                        _isFirebaseReady = true;
                     }
                     else
                     {
@@ -46,14 +46,14 @@ namespace _Project.Scripts.Analytics
 
         public void LogGameStart()
         {
-            if (!isFirebaseReady) return;
+            if (!_isFirebaseReady) return;
 
             Firebase.Analytics.FirebaseAnalytics.LogEvent(GAME_START_KEY);
         }
 
         public void LogGameEnd(int shotsCount, int laserUsesCount, int destroyedAsteroids, int destroyedUfo)
         {
-            if (!isFirebaseReady) return;
+            if (!_isFirebaseReady) return;
             
             Firebase.Analytics.FirebaseAnalytics.LogEvent(GAME_END_KEY,
                 new Firebase.Analytics.Parameter(SHOTS_COUNT_KEY, shotsCount),
@@ -65,7 +65,7 @@ namespace _Project.Scripts.Analytics
 
         public void LogLaserUse()
         {
-            if (!isFirebaseReady) return;
+            if (!_isFirebaseReady) return;
             
             Firebase.Analytics.FirebaseAnalytics.LogEvent(LASER_USES_KEY);
         }

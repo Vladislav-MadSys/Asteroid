@@ -6,12 +6,12 @@ using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 using Zenject;
 
-public class FirebaseRemoteConfig : IInitializable
+public class FirebaseRemoteConfig : IRemoteConfig
 {
     private const string CONFIG_KEY = "AsteroidConfig";
     
-    private bool isFirebaseReady = false;
-    private Firebase.FirebaseApp app;
+    private bool _isFirebaseReady = false;
+    private Firebase.FirebaseApp _app;
 
     private ConfigData _config;
     
@@ -31,10 +31,10 @@ public class FirebaseRemoteConfig : IInitializable
                 {
                     // Create and hold a reference to your FirebaseApp,
                     // where app is a Firebase.FirebaseApp property of your application class.
-                    app = Firebase.FirebaseApp.DefaultInstance;
+                    _app = Firebase.FirebaseApp.DefaultInstance;
 
                     // Set a flag here to indicate whether Firebase is ready to use by your app.
-                    isFirebaseReady = true;
+                    _isFirebaseReady = true;
                 }
                 else
                 {
@@ -43,12 +43,12 @@ public class FirebaseRemoteConfig : IInitializable
                     // Firebase Unity SDK is not safe to use here.
                 }
             });
-        FetchDataAsync();
+        FetchDataAsync().Forget();
     }
 
     public async UniTask FetchDataAsync()
     {
-        if(isFirebaseReady) return;
+        if(_isFirebaseReady) return;
         
         UniTask fetchTask = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.FetchAsync(TimeSpan.Zero).AsUniTask();
         await fetchTask;
@@ -57,5 +57,4 @@ public class FirebaseRemoteConfig : IInitializable
         string result = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(CONFIG_KEY).StringValue;
         JsonUtility.FromJsonOverwrite(result, _config);
     }
-    
 }

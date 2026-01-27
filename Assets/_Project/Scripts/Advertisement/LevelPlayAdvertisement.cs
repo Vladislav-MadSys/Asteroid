@@ -9,7 +9,7 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
     private const string REWARDED_AD_UNIT_ID = "Rewarded_Android";
     private const string INTERSTITIAL_AD_UNIT_ID = "Rewarded_Android";
     
-    private bool isSDKReady = false;
+    private bool _isSDKReady = false;
 
     private LevelPlayRewardedAd _rewardedAd;
     private Action _rewardedCallback;
@@ -34,12 +34,12 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
 
     private void SdkInitializationCompletedEvent(LevelPlayConfiguration config)
     {
-        isSDKReady = true;
+        _isSDKReady = true;
     }
 
     public void ShowRewardedAd(Action callback)
     {
-        if (!isSDKReady) return;
+        if (!_isSDKReady) return;
 
         _rewardedAd = new LevelPlayRewardedAd(REWARDED_AD_UNIT_ID);
         
@@ -83,13 +83,13 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
 
     public void ShowInterstitialAd()
     {
-        if (!isSDKReady) return;
+        if (!_isSDKReady) return;
 
         _interstitialAd = new LevelPlayInterstitialAd(INTERSTITIAL_AD_UNIT_ID);
         
         _interstitialAd.OnAdLoaded += ShowInterstitialAdEvent;
-        _interstitialAd.OnAdLoadFailed += InterstitialDiaplayLoadEvent;
-        _interstitialAd.OnAdDisplayFailed += InterstitialDiaplayFailedEvent;
+        _interstitialAd.OnAdLoadFailed += InterstitialDisplayLoadEvent;
+        _interstitialAd.OnAdDisplayFailed += InterstitialDisplayFailedEvent;
         
         _interstitialAd.LoadAd();
     }
@@ -101,11 +101,11 @@ public class LevelPlayAdvertisement : IAdvertisement, IInitializable, IDisposabl
             _interstitialAd.ShowAd();
         }
     }
-    private void InterstitialDiaplayLoadEvent(LevelPlayAdError error)
+    private void InterstitialDisplayLoadEvent(LevelPlayAdError error)
     {
         Debug.LogError(error.ToString());
     }
-    private void InterstitialDiaplayFailedEvent(LevelPlayAdInfo info, LevelPlayAdError error)
+    private void InterstitialDisplayFailedEvent(LevelPlayAdInfo info, LevelPlayAdError error)
     {
         Debug.LogError(error.ToString());
     }
