@@ -5,10 +5,12 @@ using _Project.Scripts.Config;
 using _Project.Scripts.Config.RemoteConfig;
 using _Project.Scripts.Low;
 using _Project.Scripts.Purchases;
+using _Project.Scripts.Purchases.Purchasing;
 using _Project.Scripts.Saves;
 using Firebase.Analytics;
 using Unity.Services.LevelPlay;
 using UnityEngine;
+using UnityEngine.Purchasing;
 using Zenject;
 
 namespace _Project.Scripts.Installers

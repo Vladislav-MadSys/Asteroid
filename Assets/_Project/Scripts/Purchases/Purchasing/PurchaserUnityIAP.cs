@@ -1,35 +1,48 @@
+using System;
 using _Project.Scripts.Saves;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using Zenject;
 
-namespace _Project.Scripts.Purchases
+namespace _Project.Scripts.Purchases.Purchasing
 {
-    public class PurchaserUnityIAP : IPurchaser, IInitializable
+    public class PurchaserUnityIAP : IPurchaser, IInitializable, IDisposable
     {
         private const string REMOVE_ADS_PURCHASE_KEY = "com.DefaultCompany.Asteroid.removeAds";
-        private const string BUY_100_RANDOM_SHIT_KEY = "com.DefaultCompany.Asteroid.100RandomConsumableShit";
-
+        private const string BUY_100_RANDOM_POINTS_KEY = "com.DefaultCompany.Asteroid.100RandomConsumablePoints";
+        
         public bool IsAdsRemoved { get; protected set; } = false;
-    
+        
+        private StoreController _storeController; 
         private ISaveService _saveService;
     
-        [Inject]
-        private void Inject(ISaveService saveService)
+        private PurchaserUnityIAP(ISaveService saveService)
         {
             _saveService = saveService;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            _storeController = UnityIAPServices.StoreController();
             SaveData savedData = _saveService.Load();
             if (savedData != null)
             {
                 IsAdsRemoved = savedData.isAdsRemoved;
             }
+
+            await _storeController.Connect();
+
+            _storeController.OnPurchasePending += OnPurchasePending;
+            _storeController.OnPurchasesFetched += OnPurchasesFetched;
+        }
+
+        public void Dispose()
+        {
+            _storeController.OnPurchasePending -= OnPurchasePending;
+            _storeController.OnPurchasesFetched -= OnPurchasesFetched;
         }
     
-        public void OnOrderPending(PendingOrder order)
+        public void OnPurchasePending(PendingOrder order)
         {
             foreach (var cartItem in order.CartOrdered.Items())
             {
@@ -39,8 +52,8 @@ namespace _Project.Scripts.Purchases
                     case REMOVE_ADS_PURCHASE_KEY:
                         RemoveAds();
                         break;
-                    case BUY_100_RANDOM_SHIT_KEY:
-                        RandomShit();
+                    case BUY_100_RANDOM_POINTS_KEY:
+                        RandomPoints();
                         break;
                 }
             }
@@ -58,8 +71,8 @@ namespace _Project.Scripts.Purchases
                         case REMOVE_ADS_PURCHASE_KEY:
                             RemoveAds();
                             break;
-                        case BUY_100_RANDOM_SHIT_KEY:
-                            RandomShit();
+                        case BUY_100_RANDOM_POINTS_KEY:
+                            RandomPoints();
                             break;
                     }
                 }
@@ -72,9 +85,9 @@ namespace _Project.Scripts.Purchases
             Debug.Log("Removing Ads");
         }
 
-        private void RandomShit()
+        private void RandomPoints()
         {
-            Debug.Log("WOW! You bought 100 random shit!");
+            Debug.Log("WOW! You bought 100 random points!");
         }
     }
 }
