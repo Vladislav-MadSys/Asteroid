@@ -15,8 +15,7 @@ namespace _Project.Scripts.Saves
         private ISaveService _saveService;
         private IPurchaser _purchaser;
 
-        [Inject]
-        private void Inject(SaveDataConstructor saveDataConstructor, GameSessionData gameSessionData,
+        public SceneSaveController(SaveDataConstructor saveDataConstructor, GameSessionData gameSessionData,
             ISaveService saveService, IPurchaser purchaser)
         {
             _saveDataConstructor = saveDataConstructor;

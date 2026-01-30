@@ -15,8 +15,7 @@ namespace _Project.Scripts.UI.MainMenu
         private MainMenuUIView _view;
         private MainMenuUIPresenter _presenter;
     
-        [Inject]
-        private void Inject(SceneController sceneController, IResourcesService resourcesService)
+        public MainMenuUIFactory(SceneController sceneController, IResourcesService resourcesService)
         {
             _sceneController = sceneController;
             _resourcesService = resourcesService;

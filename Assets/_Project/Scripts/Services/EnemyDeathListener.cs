@@ -7,8 +7,7 @@ namespace _Project.Scripts.Services
     {
         private GameSessionData _gameSessionData;
 
-        [Inject]
-        private void Inject(GameSessionData gameSessionData)
+        public EnemyDeathListener(GameSessionData gameSessionData)
         {
             _gameSessionData = gameSessionData;
         }

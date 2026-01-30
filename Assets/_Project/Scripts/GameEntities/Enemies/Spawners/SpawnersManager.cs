@@ -25,8 +25,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         
         private List<EnemySpawner> _obstaclesSpawner = new List<EnemySpawner>();
         
-        [Inject]
-        private void Inject(
+        public SpawnersManager(
             Camera mainCamera, 
             PlayerFactory playerFactory,
             EnemyDeathListener enemyDeathListener, 

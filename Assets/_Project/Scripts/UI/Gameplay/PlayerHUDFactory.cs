@@ -24,8 +24,7 @@ namespace _Project.Scripts.UI.Gameplay
         protected PlayerStatsHudView _view;
         protected PlayerStatsHudPresenter _presenter;
     
-        [Inject]
-        private void Inject(
+        public PlayerHUDFactory(
             SceneController sceneController, 
             PlayerStates playerStates, 
             GameSessionData gameSessionData, 

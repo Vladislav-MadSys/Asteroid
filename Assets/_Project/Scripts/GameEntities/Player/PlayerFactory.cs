@@ -27,8 +27,7 @@ namespace _Project.Scripts.GameEntities.Player
         private Vector2 _playerTargetPosition;
         private float _playerTargetRotation;
 
-        [Inject]
-        private void Inject(
+        public PlayerFactory(
             GameSessionData gameSessionData, 
             IResourcesService resourcesService,
             PlayerInputHandler playerInputHandler,

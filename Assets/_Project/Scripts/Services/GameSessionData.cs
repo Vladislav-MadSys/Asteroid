@@ -24,8 +24,8 @@ namespace _Project.Scripts.Services
         private PlayerStates _playerState;
         private IAnalyticsService _analyticsService;
         
-        [Inject]
-        private void Inject(PlayerStates playerState, SceneSaveController sceneSaveController, IAnalyticsService analyticsService)
+        
+        public GameSessionData(PlayerStates playerState, SceneSaveController sceneSaveController, IAnalyticsService analyticsService)
         {
             _playerState = playerState;
             _analyticsService = analyticsService;

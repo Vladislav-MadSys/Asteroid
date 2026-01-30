@@ -1,6 +1,7 @@
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Advertisement;
 using _Project.Scripts.Analytics;
+using _Project.Scripts.Bootstrap;
 using _Project.Scripts.Config;
 using _Project.Scripts.Config.RemoteConfig;
 using _Project.Scripts.Low;
@@ -19,6 +20,7 @@ namespace _Project.Scripts.Installers
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesTo<BootstrapScene>().AsSingle().NonLazy();
             Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
             Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FireBaseAnalytics>().AsSingle().NonLazy();

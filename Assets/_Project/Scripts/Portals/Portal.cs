@@ -16,8 +16,8 @@ namespace _Project.Scripts.Portals
 
         private Vector2 _cameraOffset;
 
-        [Inject]
-        private void Inject(PlayerFactory playerFactory, Camera camera)
+        
+        public Portal(PlayerFactory playerFactory, Camera camera)
         {
             _playerFactory = playerFactory;
             _mainCamera = camera;

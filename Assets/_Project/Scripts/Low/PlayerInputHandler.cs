@@ -12,8 +12,8 @@ namespace _Project.Scripts.Low
 
         private PlayerInput _playerInput;
 
-        [Inject]
-        private void Inject(PlayerInput playerInput)
+        
+        public PlayerInputHandler(PlayerInput playerInput)
         {
             _playerInput = playerInput;
         }

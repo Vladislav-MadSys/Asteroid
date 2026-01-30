@@ -1,20 +1,17 @@
 using _Project.Scripts.Low;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace _Project.Scripts.Bootstrap
 {
-    public class BootstrapScene : MonoBehaviour
+    public class BootstrapScene : IInitializable
     {
         private SceneController _sceneController;
         
-        [Inject]
-        private void Inject(SceneController sceneController)
+        public BootstrapScene(SceneController sceneController)
         {
             _sceneController = sceneController;
         }
-        private void Start()
+        public void Initialize()
         {
             _sceneController.LoadSceneWithKey("MainMenu");
         }

@@ -16,8 +16,7 @@ namespace _Project.Scripts.Config.RemoteConfig
 
         private ConfigData _config;
     
-        [Inject]
-        private void Inject(ConfigData config)
+       public FirebaseRemoteConfig(ConfigData config)
         {
             _config = config;
         }

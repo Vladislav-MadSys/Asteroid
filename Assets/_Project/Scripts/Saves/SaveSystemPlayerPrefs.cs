@@ -9,8 +9,7 @@ namespace _Project.Scripts.Saves
         
         private SaveDataConstructor _saveDataConstructor;
         
-        [Inject]
-        private void Inject(SaveDataConstructor saveDataConstructor)
+       public SaveSystemPlayerPrefs(SaveDataConstructor saveDataConstructor)
         {
             _saveDataConstructor = saveDataConstructor;
         }
