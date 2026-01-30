@@ -5,6 +5,7 @@ using _Project.Scripts.Bootstrap;
 using _Project.Scripts.Config;
 using _Project.Scripts.Config.RemoteConfig;
 using _Project.Scripts.Low;
+using _Project.Scripts.Low.SceneController;
 using _Project.Scripts.Purchases;
 using _Project.Scripts.Purchases.Purchasing;
 using _Project.Scripts.Saves;
@@ -20,16 +21,16 @@ namespace _Project.Scripts.Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<BootstrapScene>().AsSingle().NonLazy();
             Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
             Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FireBaseAnalytics>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ResourceLoader>().AsSingle().NonLazy();
-            Container.Bind<SceneController>().AsSingle();
+            Container.Bind<ISceneController>().To<SceneController>().AsSingle();
             Container.BindInterfacesTo<LevelPlayAdvertisement>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FirebaseRemoteConfig>().AsSingle().NonLazy();
             Container.Bind<ConfigData>().AsSingle().NonLazy();
             Container.BindInterfacesTo<PurchaserUnityIAP>().AsSingle().NonLazy();
+            Container.Bind<IInitializable>().To<BootstrapScene>().AsSingle().NonLazy();
         }
     }
 }

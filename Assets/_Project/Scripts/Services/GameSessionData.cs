@@ -25,7 +25,7 @@ namespace _Project.Scripts.Services
         private IAnalyticsService _analyticsService;
         
         
-        public GameSessionData(PlayerStates playerState, SceneSaveController sceneSaveController, IAnalyticsService analyticsService)
+        public GameSessionData(PlayerStates playerState, IAnalyticsService analyticsService)
         {
             _playerState = playerState;
             _analyticsService = analyticsService;

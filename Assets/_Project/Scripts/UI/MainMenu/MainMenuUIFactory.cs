@@ -1,6 +1,7 @@
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Factories;
 using _Project.Scripts.Low;
+using _Project.Scripts.Low.SceneController;
 using UnityEngine;
 using Zenject;
 
@@ -8,14 +9,14 @@ namespace _Project.Scripts.UI.MainMenu
 {
     public class MainMenuUIFactory : IInitializable
     {
-        private SceneController _sceneController;
+        private ISceneController _sceneController;
         private IResourcesService _resourcesService;
 
         private MainMenuUIModel _model;
         private MainMenuUIView _view;
         private MainMenuUIPresenter _presenter;
     
-        public MainMenuUIFactory(SceneController sceneController, IResourcesService resourcesService)
+        public MainMenuUIFactory(ISceneController sceneController, IResourcesService resourcesService)
         {
             _sceneController = sceneController;
             _resourcesService = resourcesService;

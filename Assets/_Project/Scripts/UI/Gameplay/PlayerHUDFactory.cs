@@ -3,6 +3,7 @@ using _Project.Scripts.Advertisement;
 using _Project.Scripts.Factories;
 using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
+using _Project.Scripts.Low.SceneController;
 using _Project.Scripts.Purchases;
 using _Project.Scripts.Services;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace _Project.Scripts.UI.Gameplay
 {
     public class PlayerHUDFactory : IInitializable
     {
-        protected SceneController _sceneController;
+        protected ISceneController _sceneController;
         private PlayerStates _playerStates;
         private GameSessionData _gameSessionData;
         private IResourcesService _resourcesService;
@@ -25,7 +26,7 @@ namespace _Project.Scripts.UI.Gameplay
         protected PlayerStatsHudPresenter _presenter;
     
         public PlayerHUDFactory(
-            SceneController sceneController, 
+            ISceneController sceneController, 
             PlayerStates playerStates, 
             GameSessionData gameSessionData, 
             IResourcesService resourcesService,

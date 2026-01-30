@@ -2,6 +2,7 @@ using System;
 using _Project.Scripts.Advertisement;
 using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
+using _Project.Scripts.Low.SceneController;
 using _Project.Scripts.Purchases;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace _Project.Scripts.UI.Gameplay
 {
     public class PlayerStatsHudPresenter : IDisposable
     {
-        protected SceneController _sceneController;
+        protected ISceneController _sceneController;
         protected PlayerFactory _playerFactory;
         protected IAdvertisement _advertisement;
         protected PlayerStatsHudModel _model;
@@ -19,7 +20,7 @@ namespace _Project.Scripts.UI.Gameplay
         private Action onRestart;
 
         public void Initialize(
-            SceneController sceneController, 
+            ISceneController sceneController, 
             IAdvertisement advertisment, 
             PlayerFactory playerFactory,
             IPurchaser purchaser,

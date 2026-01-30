@@ -1,5 +1,6 @@
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Low;
+using _Project.Scripts.Low.SceneController;
 
 namespace _Project.Scripts.UI.MainMenu
 {
@@ -7,10 +8,10 @@ namespace _Project.Scripts.UI.MainMenu
     {
         private MainMenuUIView _view;
         private MainMenuUIModel _model;
-        private SceneController _sceneController;
+        private ISceneController _sceneController;
         private IResourcesService _resourcesService;
     
-        public void Initialize(MainMenuUIView view, MainMenuUIModel model, SceneController sceneController, IResourcesService resourcesService)
+        public void Initialize(MainMenuUIView view, MainMenuUIModel model, ISceneController sceneController, IResourcesService resourcesService)
         {
             _view = view;
             _model = model;
@@ -22,7 +23,7 @@ namespace _Project.Scripts.UI.MainMenu
         {
             _resourcesService.Unload(AddressablesKeys.MAIN_MENU_BACKGROUND);
             _resourcesService.Unload(AddressablesKeys.MAIN_MENU_SHIP);
-            _sceneController.LoadSceneWithKey("Game");
+            _sceneController.LoadGameScene();
         }
     }
 }
