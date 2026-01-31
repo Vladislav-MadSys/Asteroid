@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts.Saves;
 using _Project.Scripts.Services;
 using UnityEngine;
 
@@ -12,18 +13,21 @@ namespace _Project.Scripts.UI.Gameplay
         public event Action<int> OnLaserChargesChanged;
         public event Action<float> OnLaserTimeChanged;
         public event Action<int, int> OnPlayerKilled;
+        
 
         public bool wasPlayerRespawned = false;
 
         private PlayerStates _playerStates;
         private GameSessionData _gameSessionData;
+        private ISaveService _saveService;
 
         public int Points => _gameSessionData.Points;
 
-        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData)
+        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData, ISaveService saveService)
         {
             _playerStates = playerStates;
             _gameSessionData = gameSessionData;
+            _saveService = saveService;
             
             _gameSessionData.OnPointsChanged += ChangePointsText;
             _playerStates.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
@@ -43,6 +47,7 @@ namespace _Project.Scripts.UI.Gameplay
             _playerStates.OnLaserTimeChangedChanged -= ChangeLaserReloadText;
 
             _gameSessionData.OnPlayerKilled -= ShowLosePanel;
+            
         }
 
         private void ChangePointsText()
@@ -74,5 +79,7 @@ namespace _Project.Scripts.UI.Gameplay
         {
             OnPlayerKilled?.Invoke(_gameSessionData.Points, _gameSessionData.PreviousPoints);
         }
+
+        
     }
 }

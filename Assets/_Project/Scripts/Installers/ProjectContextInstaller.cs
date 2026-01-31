@@ -22,7 +22,8 @@ namespace _Project.Scripts.Installers
         public override void InstallBindings()
         {
             Container.Bind<SaveDataConstructor>().AsSingle().NonLazy();
-            Container.Bind<ISaveService>().To<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<UnityCloudSaveService>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<SaveSystemPlayerPrefs>().AsSingle().NonLazy();
             Container.BindInterfacesTo<FireBaseAnalytics>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ResourceLoader>().AsSingle().NonLazy();
             Container.Bind<ISceneController>().To<SceneController>().AsSingle();

@@ -6,7 +6,7 @@ namespace _Project.Scripts.Bootstrap
 {
     public class BootstrapScene : IInitializable
     {
-        private ISceneController _sceneController;
+        private readonly ISceneController _sceneController;
         
         public BootstrapScene(ISceneController sceneController)
         {

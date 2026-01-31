@@ -24,22 +24,18 @@ namespace _Project.Scripts.Purchases.Purchasing
         public async void Initialize()
         {
             _storeController = UnityIAPServices.StoreController();
-            SaveData savedData = _saveService.Load();
-            if (savedData != null)
-            {
-                IsAdsRemoved = savedData.isAdsRemoved;
-            }
-
             await _storeController.Connect();
 
             _storeController.OnPurchasePending += OnPurchasePending;
             _storeController.OnPurchasesFetched += OnPurchasesFetched;
+            _saveService.OnSaveLoaded += OnSaveDataLoaded;
         }
 
         public void Dispose()
         {
             _storeController.OnPurchasePending -= OnPurchasePending;
             _storeController.OnPurchasesFetched -= OnPurchasesFetched;
+            _saveService.OnSaveLoaded -= OnSaveDataLoaded;
         }
     
         public void OnPurchasePending(PendingOrder order)
@@ -76,6 +72,14 @@ namespace _Project.Scripts.Purchases.Purchasing
                             break;
                     }
                 }
+            }
+        }
+
+        private void OnSaveDataLoaded(SaveData saveData)
+        {
+            if (saveData != null)
+            {
+                IsAdsRemoved = saveData.isAdsRemoved;
             }
         }
 

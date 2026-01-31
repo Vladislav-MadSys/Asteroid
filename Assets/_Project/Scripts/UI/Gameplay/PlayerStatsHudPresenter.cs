@@ -4,6 +4,7 @@ using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
 using _Project.Scripts.Low.SceneController;
 using _Project.Scripts.Purchases;
+using _Project.Scripts.Saves;
 using UnityEngine;
 
 namespace _Project.Scripts.UI.Gameplay
@@ -41,6 +42,7 @@ namespace _Project.Scripts.UI.Gameplay
             _model.OnLaserChargesChanged += ChangeLaserChargeText;
             _model.OnLaserTimeChanged += ChangeLaserReloadText;
             _model.OnPlayerKilled += ShowLosePanel;
+            
         }
 
         public void Dispose()
@@ -106,5 +108,7 @@ namespace _Project.Scripts.UI.Gameplay
         {
             _view.ShowLosePanel(currentPoints, previousPoints, !_model.wasPlayerRespawned);
         }
+        
+        
     }
 }

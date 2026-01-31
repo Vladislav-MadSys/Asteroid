@@ -1,10 +1,12 @@
+using System;
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Low;
 using _Project.Scripts.Low.SceneController;
+using _Project.Scripts.Saves;
 
 namespace _Project.Scripts.UI.MainMenu
 {
-    public class MainMenuUIPresenter
+    public class MainMenuUIPresenter : IDisposable
     {
         private MainMenuUIView _view;
         private MainMenuUIModel _model;
@@ -17,6 +19,13 @@ namespace _Project.Scripts.UI.MainMenu
             _model = model;
             _sceneController = sceneController;
             _resourcesService = resourcesService;
+            
+            _model.OnConflictWithCloudSave += ShowPanelWithSelectingSave;
+        }
+
+        public void Dispose()
+        {
+            _model.OnConflictWithCloudSave -= ShowPanelWithSelectingSave;
         }
     
         public void OnPlayButtonClicked()
@@ -24,6 +33,21 @@ namespace _Project.Scripts.UI.MainMenu
             _resourcesService.Unload(AddressablesKeys.MAIN_MENU_BACKGROUND);
             _resourcesService.Unload(AddressablesKeys.MAIN_MENU_SHIP);
             _sceneController.LoadGameScene();
+        }
+        
+        public void OnSelectLocalSaveButtonClicked()
+        {
+            _model.SelectSave(false);
+        }
+
+        public void OnSelectCloudSaveButtonClicked()
+        {
+            _model.SelectSave(true);
+        }
+        
+        private void ShowPanelWithSelectingSave(SaveData localSaveData, SaveData cloudSaveData)
+        {
+            _view.ShowPanelWithSelectingSave(localSaveData, cloudSaveData);
         }
     }
 }

@@ -1,3 +1,4 @@
+using _Project.Scripts.Saves;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,12 @@ namespace _Project.Scripts.UI.Gameplay
         [SerializeField] private TextMeshProUGUI _laserChargesText;
         [SerializeField] private TextMeshProUGUI _laserReloadTimeText;
 
+        [Header("Save Conflict Panel")] 
+        [SerializeField] private GameObject _conflictPanel;
+        [SerializeField] private TextMeshProUGUI _conflictPanelText;
+        [SerializeField] private Button _selectLocalSaveButton;
+        [SerializeField] private Button _selectCloudSaveButton;
+        
         [Header("Final Panel")]
         [SerializeField] private GameObject _losePanel;
         [SerializeField] private TextMeshProUGUI _losePanelPointsText;
@@ -28,6 +35,8 @@ namespace _Project.Scripts.UI.Gameplay
         private UnityAction OnRestartButtonClickEvent;
         private UnityAction OnRespawnButtonClickEvent;
         private UnityAction OnCancelRespawnButtonClickEvent;
+        private UnityAction OnSelectLocalSaveButtonClickEvent;
+        private UnityAction OnSelectCloudSaveButtonClickEvent;
 
         public void Initialize(PlayerStatsHudPresenter presenter)
         {
@@ -56,6 +65,8 @@ namespace _Project.Scripts.UI.Gameplay
                 _presenter.OnCancelRespawnButtonClicked();
             };
             _cancelRespawnButton.onClick.AddListener(OnCancelRespawnButtonClickEvent);
+
+           
         }
 
         public void ChangePointsText(string pointsString)
@@ -89,6 +100,13 @@ namespace _Project.Scripts.UI.Gameplay
             _respawnButton.interactable = canRespawnPlayer;
             _respawnPanel.gameObject.SetActive(canRespawnPlayer);
             _losePanelPointsText.text = "Current points: " + currentPoints + '\n' + "Previous Points: " + previousPoints;
+        }
+
+        public void ShowPanelWithSelectingSave(SaveData localSaveData, SaveData cloudSaveData)
+        {
+            _conflictPanelText.text =
+                $"You have a cloud save from {cloudSaveData.saveTime}\nWhich one do you want to continue with?";
+            _conflictPanel.SetActive(true);
         }
 
         private void OnDestroy()

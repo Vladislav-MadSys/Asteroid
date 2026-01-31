@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Purchases;
 using _Project.Scripts.Services;
 
@@ -22,6 +23,7 @@ namespace _Project.Scripts.Saves
             data.playerRotation = _gameSessionData.PlayerRotation;
             data.points = _gameSessionData.Points;
             data.isAdsRemoved = _purchaser.IsAdsRemoved;
+            data.saveTime = DateTime.Now.ToString();
             
             return data;
         }

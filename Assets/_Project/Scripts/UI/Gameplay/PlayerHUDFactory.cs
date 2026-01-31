@@ -5,6 +5,7 @@ using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Low;
 using _Project.Scripts.Low.SceneController;
 using _Project.Scripts.Purchases;
+using _Project.Scripts.Saves;
 using _Project.Scripts.Services;
 using UnityEngine;
 using Zenject;
@@ -20,6 +21,7 @@ namespace _Project.Scripts.UI.Gameplay
         private IAdvertisement _advertisement;
         private PlayerFactory _playerFactory;
         private IPurchaser _purchaser;
+        private ISaveService _saveService;
     
         protected PlayerStatsHudModel _model;
         protected PlayerStatsHudView _view;
@@ -32,7 +34,8 @@ namespace _Project.Scripts.UI.Gameplay
             IResourcesService resourcesService,
             IAdvertisement advertisement,
             PlayerFactory playerFactory,
-            IPurchaser purchaser)
+            IPurchaser purchaser,
+            ISaveService saveService)
         {
             _sceneController = sceneController;
             _playerStates = playerStates;
@@ -41,6 +44,7 @@ namespace _Project.Scripts.UI.Gameplay
             _advertisement = advertisement;
             _playerFactory = playerFactory;
             _purchaser = purchaser;
+            _saveService = saveService;
         }
     
         public async void Initialize()
@@ -52,7 +56,7 @@ namespace _Project.Scripts.UI.Gameplay
             GameObject hud = gameObjectFactory.Create();
             _view = hud.GetComponent<PlayerStatsHudView>();
         
-            _model.Initialize(_playerStates, _gameSessionData);
+            _model.Initialize(_playerStates, _gameSessionData, _saveService);
             _presenter.Initialize(_sceneController, _advertisement, _playerFactory, _purchaser, _model, _view);
             _view.Initialize(_presenter);
         }

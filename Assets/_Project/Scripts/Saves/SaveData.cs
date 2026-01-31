@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace _Project.Scripts.Saves
@@ -8,5 +9,6 @@ namespace _Project.Scripts.Saves
         public float playerRotation;
         public int points;
         public bool isAdsRemoved = false;
+        public string saveTime;
     }
 }

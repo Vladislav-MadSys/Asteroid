@@ -1,5 +1,7 @@
 using _Project.Scripts.Addressables;
+using _Project.Scripts.Saves;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -14,8 +16,16 @@ namespace _Project.Scripts.UI.MainMenu
         [SerializeField] private Button playButton;
         [SerializeField] private Image background;
         [SerializeField] private Image ship;
-
+    
+        [Header("Save Conflict Panel")] 
+        [SerializeField] private GameObject _conflictPanel;
+        [SerializeField] private TextMeshProUGUI _conflictPanelText;
+        [SerializeField] private Button _selectLocalSaveButton;
+        [SerializeField] private Button _selectCloudSaveButton;
+        
         private UnityAction OnPlayButtonClickEvent;
+        private UnityAction OnSelectLocalSaveButtonClickEvent;
+        private UnityAction OnSelectCloudSaveButtonClickEvent;
     
         public async void Initialize(MainMenuUIPresenter presenter, IResourcesService resourcesService)
         {
@@ -36,11 +46,33 @@ namespace _Project.Scripts.UI.MainMenu
                 _presenter.OnPlayButtonClicked();
             };
             playButton.onClick.AddListener(OnPlayButtonClickEvent);
+            
+            OnSelectLocalSaveButtonClickEvent = () =>
+            {
+                _presenter.OnSelectLocalSaveButtonClicked();
+                _conflictPanel.SetActive(false);
+            };
+            _selectLocalSaveButton.onClick.AddListener(OnSelectLocalSaveButtonClickEvent);
+
+            OnSelectCloudSaveButtonClickEvent = () =>
+            {
+                _presenter.OnSelectCloudSaveButtonClicked();
+                _conflictPanel.SetActive(false);
+            };
+            _selectCloudSaveButton.onClick.AddListener(OnSelectCloudSaveButtonClickEvent);
         }
 
         private void OnDestroy()
         {
             playButton.onClick.RemoveListener(OnPlayButtonClickEvent);
         }
+        
+        public void ShowPanelWithSelectingSave(SaveData localSaveData, SaveData cloudSaveData)
+        {
+            _conflictPanelText.text =
+                $"You have a cloud save from {cloudSaveData.saveTime}\nWhich one do you want to continue with?";
+            _conflictPanel.SetActive(true);
+        }
+        
     }
 }

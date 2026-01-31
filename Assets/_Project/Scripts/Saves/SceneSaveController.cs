@@ -15,8 +15,11 @@ namespace _Project.Scripts.Saves
         private ISaveService _saveService;
         private IPurchaser _purchaser;
 
-        public SceneSaveController(SaveDataConstructor saveDataConstructor, GameSessionData gameSessionData,
-            ISaveService saveService, IPurchaser purchaser)
+        public SceneSaveController(
+            SaveDataConstructor saveDataConstructor,
+            GameSessionData gameSessionData,
+            ISaveService saveService,
+            IPurchaser purchaser)
         {
             _saveDataConstructor = saveDataConstructor;
             _gameSessionData = gameSessionData;
@@ -28,6 +31,7 @@ namespace _Project.Scripts.Saves
         {
             _saveDataConstructor.Initialize(_gameSessionData, _purchaser);
             _gameSessionData.OnPlayerKilled += SaveData;
+            _saveService.OnSaveLoaded += OnSaveDataLoaded;
 
             LoadData();
         }
@@ -35,6 +39,7 @@ namespace _Project.Scripts.Saves
         public void Dispose()
         {
             _gameSessionData.OnPlayerKilled -= SaveData;
+            _saveService.OnSaveLoaded -= OnSaveDataLoaded;
         }
 
         private void SaveData()
@@ -42,14 +47,23 @@ namespace _Project.Scripts.Saves
             _saveService.Save();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            SaveData save = _saveService.Load();
+            await _saveService.Load();
+            SaveData save = _saveService.CachedSaveData;
             if (save != null)
             {
-                OnSaveLoaded?.Invoke(save);
-                _gameSessionData.PreviousPoints = save.points;
+                if (!_saveService.HasConflictWithCloudSave)
+                {
+                    OnSaveDataLoaded(save);
+                }
             }
+        }
+        
+        private void OnSaveDataLoaded(SaveData save)
+        {
+            OnSaveLoaded?.Invoke(save);
+            _gameSessionData.PreviousPoints = save.points;
         }
     }
 }
