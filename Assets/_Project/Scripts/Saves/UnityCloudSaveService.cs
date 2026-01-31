@@ -13,6 +13,7 @@ namespace _Project.Scripts.Saves
     public class UnityCloudSaveService : ICloudSaveService, IInitializable
     {
         private const string SAVE_KEY = "basicSave";
+        private const int SECONDS_TO_WAIT_UNITY_CLOUD_READY = 5;
         
         private SaveDataConstructor _saveDataConstructor;
 
@@ -43,7 +44,7 @@ namespace _Project.Scripts.Saves
         public async UniTask<SaveData> Load()
         {
             var canceller = new CancellationTokenSource();
-            canceller.CancelAfterSlim(TimeSpan.FromSeconds(5));
+            canceller.CancelAfterSlim(TimeSpan.FromSeconds(SECONDS_TO_WAIT_UNITY_CLOUD_READY));
             
             try
             {
