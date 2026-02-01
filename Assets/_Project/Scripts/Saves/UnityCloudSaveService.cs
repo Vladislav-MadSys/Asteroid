@@ -31,10 +31,22 @@ namespace _Project.Scripts.Saves
             isReady = true;
         }
 
-        public void Save(string  jsonSaveData)
+        public void Save()
         {
             if(!isReady) return;
             
+            var jsonSaveData = JsonUtility.ToJson(_saveDataConstructor.GetSaveData());
+            var playerData = new Dictionary<string, object>{
+                {SAVE_KEY, jsonSaveData}
+            };
+            CloudSaveService.Instance.Data.Player.SaveAsync(playerData);
+        }
+        
+        public void Save(SaveData saveData)
+        {
+            if(!isReady) return;
+            
+            var jsonSaveData = JsonUtility.ToJson(saveData);
             var playerData = new Dictionary<string, object>{
                 {SAVE_KEY, jsonSaveData}
             };

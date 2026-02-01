@@ -6,19 +6,19 @@ using Zenject;
 
 namespace _Project.Scripts.Purchases.Purchasing
 {
-    public class PurchaserUnityIAP : IPurchaser, IInitializable, IDisposable
+    public class UnityIAP : IPurchaser, IInitializable, IDisposable
     {
         private const string REMOVE_ADS_PURCHASE_KEY = "com.DefaultCompany.Asteroid.removeAds";
         private const string BUY_100_RANDOM_POINTS_KEY = "com.DefaultCompany.Asteroid.100RandomConsumablePoints";
         
-        public bool IsAdsRemoved { get; protected set; } = false;
+        public bool IsAdsRemoved { get; private set; } = false;
         
         private StoreController _storeController; 
-        private ISaveService _saveService;
+        private ISaveSystem _saveSystem;
     
-        private PurchaserUnityIAP(ISaveService saveService)
+        private UnityIAP(ISaveSystem saveSystem)
         {
-            _saveService = saveService;
+            _saveSystem = saveSystem;
         }
 
         public async void Initialize()
@@ -28,14 +28,14 @@ namespace _Project.Scripts.Purchases.Purchasing
 
             _storeController.OnPurchasePending += OnPurchasePending;
             _storeController.OnPurchasesFetched += OnPurchasesFetched;
-            _saveService.OnSaveLoaded += OnSaveDataLoaded;
+            _saveSystem.OnSaveLoaded += OnLocalSaveDataLoaded;
         }
 
         public void Dispose()
         {
             _storeController.OnPurchasePending -= OnPurchasePending;
             _storeController.OnPurchasesFetched -= OnPurchasesFetched;
-            _saveService.OnSaveLoaded -= OnSaveDataLoaded;
+            _saveSystem.OnSaveLoaded -= OnLocalSaveDataLoaded;
         }
     
         public void OnPurchasePending(PendingOrder order)
@@ -75,7 +75,7 @@ namespace _Project.Scripts.Purchases.Purchasing
             }
         }
 
-        private void OnSaveDataLoaded(SaveData saveData)
+        private void OnLocalSaveDataLoaded(SaveData saveData)
         {
             if (saveData != null)
             {

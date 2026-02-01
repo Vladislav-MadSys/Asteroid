@@ -19,15 +19,15 @@ namespace _Project.Scripts.UI.Gameplay
 
         private PlayerStates _playerStates;
         private GameSessionData _gameSessionData;
-        private ISaveService _saveService;
+        private ILocalSaveService _localSaveService;
 
         public int Points => _gameSessionData.Points;
 
-        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData, ISaveService saveService)
+        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData, ILocalSaveService localSaveService)
         {
             _playerStates = playerStates;
             _gameSessionData = gameSessionData;
-            _saveService = saveService;
+            _localSaveService = localSaveService;
             
             _gameSessionData.OnPointsChanged += ChangePointsText;
             _playerStates.OnPlayerPositionChanged += ChangePlayerCoordinatesText;

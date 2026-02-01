@@ -12,18 +12,18 @@ namespace _Project.Scripts.Saves
         
         private SaveDataConstructor _saveDataConstructor;
         private GameSessionData _gameSessionData;
-        private ISaveService _saveService;
+        private ISaveSystem _saveSystem;
         private IPurchaser _purchaser;
 
         public SceneSaveController(
             SaveDataConstructor saveDataConstructor,
             GameSessionData gameSessionData,
-            ISaveService saveService,
+            ISaveSystem saveSystem,
             IPurchaser purchaser)
         {
             _saveDataConstructor = saveDataConstructor;
             _gameSessionData = gameSessionData;
-            _saveService = saveService;
+            _saveSystem = saveSystem;
             _purchaser = purchaser;
         }
 
@@ -31,7 +31,7 @@ namespace _Project.Scripts.Saves
         {
             _saveDataConstructor.Initialize(_gameSessionData, _purchaser);
             _gameSessionData.OnPlayerKilled += SaveData;
-            _saveService.OnSaveLoaded += OnSaveDataLoaded;
+            _saveSystem.OnSaveLoaded += OnLocalSaveDataLoaded;
 
             LoadData();
         }
@@ -39,28 +39,20 @@ namespace _Project.Scripts.Saves
         public void Dispose()
         {
             _gameSessionData.OnPlayerKilled -= SaveData;
-            _saveService.OnSaveLoaded -= OnSaveDataLoaded;
+            _saveSystem.OnSaveLoaded -= OnLocalSaveDataLoaded;
         }
 
         private void SaveData()
         {
-            _saveService.Save();
+            _saveSystem.Save();
         }
 
         private async void LoadData()
         {
-            await _saveService.Load();
-            SaveData save = _saveService.CachedSaveData;
-            if (save != null)
-            {
-                if (!_saveService.HasConflictWithCloudSave)
-                {
-                    OnSaveDataLoaded(save);
-                }
-            }
+            await _saveSystem.Load();
         }
         
-        private void OnSaveDataLoaded(SaveData save)
+        private void OnLocalSaveDataLoaded(SaveData save)
         {
             OnSaveLoaded?.Invoke(save);
             _gameSessionData.PreviousPoints = save.points;

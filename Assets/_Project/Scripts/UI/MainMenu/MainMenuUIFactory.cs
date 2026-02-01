@@ -13,17 +13,17 @@ namespace _Project.Scripts.UI.MainMenu
     {
         private ISceneController _sceneController;
         private IResourcesService _resourcesService;
-        private ISaveService _saveService;
+        private ISaveSystem _saveSystem;
         
         private MainMenuUIModel _model;
         private MainMenuUIView _view;
         private MainMenuUIPresenter _presenter;
     
-        public MainMenuUIFactory(ISceneController sceneController, IResourcesService resourcesService, ISaveService saveService)
+        public MainMenuUIFactory(ISceneController sceneController, IResourcesService resourcesService, ISaveSystem saveSystem)
         {
             _sceneController = sceneController;
             _resourcesService = resourcesService;
-            _saveService = saveService;
+            _saveSystem = saveSystem;
         }
 
         public async void Initialize()
@@ -35,7 +35,7 @@ namespace _Project.Scripts.UI.MainMenu
             GameObject ui = gameObjectFactory.Create();
             _view = ui.GetComponent<MainMenuUIView>();
 
-            _model.Initialize(_saveService);
+            _model.Initialize(_saveSystem);
             _view.Initialize(_presenter, _resourcesService);
             _presenter.Initialize(_view, _model, _sceneController, _resourcesService);
         }

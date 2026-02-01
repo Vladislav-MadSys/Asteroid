@@ -8,21 +8,22 @@ namespace _Project.Scripts.UI.MainMenu
     {
         public event Action<SaveData, SaveData> OnConflictWithCloudSave;
         
-        private ISaveService _saveService;
+        private ISaveSystem _saveSystem;
         
-        public void Initialize(ISaveService saveService)
+        public void Initialize(ISaveSystem saveSystem)
         {
-            _saveService = saveService;
+            _saveSystem = saveSystem;
             
-            _saveService.OnConflictWithCloudSave += ShowPanelWithSelectingSave;
+            _saveSystem.OnConflictWithCloudSave += ShowPanelWithSelectingLocalSave;
+            _saveSystem.Load();
         }
 
         public void Dispose()
         {
-            _saveService.OnConflictWithCloudSave -= ShowPanelWithSelectingSave;
+            _saveSystem.OnConflictWithCloudSave -= ShowPanelWithSelectingLocalSave;
         }
 
-        private void ShowPanelWithSelectingSave(SaveData localSaveData, SaveData cloudSaveData)
+        private void ShowPanelWithSelectingLocalSave(SaveData localSaveData, SaveData cloudSaveData)
         {
             OnConflictWithCloudSave?.Invoke(localSaveData, cloudSaveData);
         }
@@ -31,11 +32,11 @@ namespace _Project.Scripts.UI.MainMenu
         {
             if (isCloud)
             {
-                _saveService.UseCloudSave();
+                _saveSystem.UseCloudSave();
             }
             else
             {
-                _saveService.UseLocalSave();
+                _saveSystem.UseLocalSave();
             }
         }
     }
