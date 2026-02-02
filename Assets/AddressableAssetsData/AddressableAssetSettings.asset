@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: f5add1e24bb59e54d94eab653bb33422
   m_currentHash:
     serializedVersion: 2
-    Hash: 7981210325a73a5aef27ec4febf82a8b
+    Hash: cffe2001aaa16845b07846b85f2562bb
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -51,10 +51,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: c58066c434738f94bbd5969c348b976b
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: f4aa6b09f0b84614babf7deb07c7c89b
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -81,6 +81,20 @@ MonoBehaviour:
         m_Value: 'ServerData/[BuildTarget]'
       - m_Id: f4aa6b09f0b84614babf7deb07c7c89b
         m_Value: <undefined>
+    - m_InheritedParent: 
+      m_Id: c71e5ea5721577d4cb7c0306f4618896
+      m_ProfileName: Remote
+      m_Values:
+      - m_Id: 5e395b50085ef96428cdbcfa636f78b7
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 6377698eb276dff40b9149e0b35cf946
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: b222485ab4fc0d2499173295c911e11b
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: c58066c434738f94bbd5969c348b976b
+        m_Value: 'ServerData/[BuildTarget]'
+      - m_Id: f4aa6b09f0b84614babf7deb07c7c89b
+        m_Value: 'https://storage.yandexcloud.net/asteroidgamedevforge/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 5e395b50085ef96428cdbcfa636f78b7
       m_Name: BuildTarget
@@ -113,4 +127,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46c9506539c118a449daddc20afa5336, type: 2}
   - {fileID: 11400000, guid: c4e44b8a6241ae84fa7cc34a3c8c66e7, type: 2}
   - {fileID: 11400000, guid: 612bd52686dd6cc4ca323eaa79392516, type: 2}
-  m_ActiveProfileId: d1528a3902ba48747999c423025efe89
+  m_ActiveProfileId: c71e5ea5721577d4cb7c0306f4618896
