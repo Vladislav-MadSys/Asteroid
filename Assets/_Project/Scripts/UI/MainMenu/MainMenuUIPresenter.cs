@@ -1,8 +1,8 @@
 using System;
 using _Project.Scripts.Addressables;
-using _Project.Scripts.Low;
 using _Project.Scripts.Low.SceneController;
 using _Project.Scripts.Saves;
+using Application = UnityEngine.Application;
 
 namespace _Project.Scripts.UI.MainMenu
 {
@@ -33,6 +33,11 @@ namespace _Project.Scripts.UI.MainMenu
             _resourcesService.Unload(AddressablesKeys.MAIN_MENU_BACKGROUND);
             _resourcesService.Unload(AddressablesKeys.MAIN_MENU_SHIP);
             _sceneController.LoadGameScene();
+        }
+
+        public void OnExitButtonClicked()
+        {
+            Application.Quit();
         }
         
         public void OnSelectLocalSaveButtonClicked()

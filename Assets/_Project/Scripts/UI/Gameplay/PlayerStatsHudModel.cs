@@ -19,15 +19,13 @@ namespace _Project.Scripts.UI.Gameplay
 
         private PlayerStates _playerStates;
         private GameSessionData _gameSessionData;
-        private ILocalSaveService _localSaveService;
 
         public int Points => _gameSessionData.Points;
 
-        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData, ILocalSaveService localSaveService)
+        public void Initialize(PlayerStates playerStates, GameSessionData gameSessionData)
         {
             _playerStates = playerStates;
             _gameSessionData = gameSessionData;
-            _localSaveService = localSaveService;
             
             _gameSessionData.OnPointsChanged += ChangePointsText;
             _playerStates.OnPlayerPositionChanged += ChangePlayerCoordinatesText;
@@ -79,7 +77,5 @@ namespace _Project.Scripts.UI.Gameplay
         {
             OnPlayerKilled?.Invoke(_gameSessionData.Points, _gameSessionData.PreviousPoints);
         }
-
-        
     }
 }

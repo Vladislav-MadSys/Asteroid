@@ -14,6 +14,7 @@ namespace _Project.Scripts.UI.MainMenu
         private IResourcesService _resourcesService;
     
         [SerializeField] private Button playButton;
+        [SerializeField] private Button exitButton;
         [SerializeField] private Image background;
         [SerializeField] private Image ship;
     
@@ -24,6 +25,7 @@ namespace _Project.Scripts.UI.MainMenu
         [SerializeField] private Button _selectCloudSaveButton;
         
         private UnityAction OnPlayButtonClickEvent;
+        private UnityAction OnExitButtonClickEvent;
         private UnityAction OnSelectLocalSaveButtonClickEvent;
         private UnityAction OnSelectCloudSaveButtonClickEvent;
     
@@ -46,6 +48,12 @@ namespace _Project.Scripts.UI.MainMenu
                 _presenter.OnPlayButtonClicked();
             };
             playButton.onClick.AddListener(OnPlayButtonClickEvent);
+            
+            OnExitButtonClickEvent = () =>
+            {
+                _presenter.OnExitButtonClicked();
+            };
+            exitButton.onClick.AddListener(OnExitButtonClickEvent);
             
             OnSelectLocalSaveButtonClickEvent = () =>
             {

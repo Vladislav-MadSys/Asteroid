@@ -56,7 +56,7 @@ namespace _Project.Scripts.UI.Gameplay
             GameObject hud = gameObjectFactory.Create();
             _view = hud.GetComponent<PlayerStatsHudView>();
         
-            _model.Initialize(_playerStates, _gameSessionData, _localSaveService);
+            _model.Initialize(_playerStates, _gameSessionData);
             _presenter.Initialize(_sceneController, _advertisement, _playerFactory, _purchaser, _model, _view);
             _view.Initialize(_presenter);
         }

@@ -62,6 +62,11 @@ namespace _Project.Scripts.UI.Gameplay
             _sceneController.ReloadCurrentScene();
         }
 
+        public void OnGoToMainMenuButtonClicked()
+        {
+            _sceneController.LoadMainMenuScene();
+        }
+        
         public void OnRespawnButtonClicked()
         {
             _advertisement.ShowRewardedAd(() =>

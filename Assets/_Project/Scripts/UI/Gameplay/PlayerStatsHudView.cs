@@ -17,23 +17,19 @@ namespace _Project.Scripts.UI.Gameplay
         [SerializeField] private TextMeshProUGUI _playerAngleText;
         [SerializeField] private TextMeshProUGUI _laserChargesText;
         [SerializeField] private TextMeshProUGUI _laserReloadTimeText;
-
-        [Header("Save Conflict Panel")] 
-        [SerializeField] private GameObject _conflictPanel;
-        [SerializeField] private TextMeshProUGUI _conflictPanelText;
-        [SerializeField] private Button _selectLocalSaveButton;
-        [SerializeField] private Button _selectCloudSaveButton;
         
         [Header("Final Panel")]
         [SerializeField] private GameObject _losePanel;
         [SerializeField] private TextMeshProUGUI _losePanelPointsText;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _goToMainMenuButton;
         [SerializeField] private GameObject _respawnPanel;
         [SerializeField] private Button _respawnButton;
         [SerializeField] private Button _cancelRespawnButton;
 
         private UnityAction OnRestartButtonClickEvent;
         private UnityAction OnRespawnButtonClickEvent;
+        private UnityAction OnGoToMainMenuButtonClickEvent;
         private UnityAction OnCancelRespawnButtonClickEvent;
         private UnityAction OnSelectLocalSaveButtonClickEvent;
         private UnityAction OnSelectCloudSaveButtonClickEvent;
@@ -46,6 +42,8 @@ namespace _Project.Scripts.UI.Gameplay
     
         public void Awake()
         {
+            _losePanel.SetActive(false);
+                
             OnRestartButtonClickEvent = () =>
             {
                 _presenter.OnRestartButtonClicked();
@@ -66,7 +64,17 @@ namespace _Project.Scripts.UI.Gameplay
             };
             _cancelRespawnButton.onClick.AddListener(OnCancelRespawnButtonClickEvent);
 
-           
+            OnGoToMainMenuButtonClickEvent = () =>
+            {
+                _presenter.OnGoToMainMenuButtonClicked();
+            };
+            _goToMainMenuButton.onClick.AddListener(OnGoToMainMenuButtonClickEvent);
+        }
+        
+        private void OnDestroy()
+        {
+            _restartButton.onClick.RemoveListener(OnRestartButtonClickEvent);
+            _respawnButton.onClick.RemoveListener(OnRespawnButtonClickEvent);
         }
 
         public void ChangePointsText(string pointsString)
@@ -101,18 +109,7 @@ namespace _Project.Scripts.UI.Gameplay
             _respawnPanel.gameObject.SetActive(canRespawnPlayer);
             _losePanelPointsText.text = "Current points: " + currentPoints + '\n' + "Previous Points: " + previousPoints;
         }
-
-        public void ShowPanelWithSelectingSave(SaveData localSaveData, SaveData cloudSaveData)
-        {
-            _conflictPanelText.text =
-                $"You have a cloud save from {cloudSaveData.saveTime}\nWhich one do you want to continue with?";
-            _conflictPanel.SetActive(true);
-        }
-
-        private void OnDestroy()
-        {
-            _restartButton.onClick.RemoveListener(OnRestartButtonClickEvent);
-            _respawnButton.onClick.RemoveListener(OnRespawnButtonClickEvent);
-        }
+        
+        
     }
 }
