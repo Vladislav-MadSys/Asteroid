@@ -33,6 +33,7 @@ namespace _Project.Scripts.Installers
             Container.BindInterfacesTo<SaveSystem>().AsSingle().NonLazy();
             Container.BindInterfacesTo<UnityCloudSaveService>().AsSingle().NonLazy();
             Container.BindInterfacesTo<LocalSaveSystemPlayerPrefs>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<AccessChecker>().AsSingle().NonLazy();
         }
     }
 }
