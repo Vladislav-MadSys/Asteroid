@@ -13,5 +13,13 @@ namespace _Project.Scripts.Addressables
         public const string PROJECTILE = "Projectile";
         public const string ASTEROID = "Asteroid";
         public const string PART_OF_ASTEROID = "PartOfAsteroid";
+
+        public const string PLAYER_SHOOT_VFX = "Shoot VFX";
+        public const string ENEMY_DEATH_VFX = "Explosion VFX";
+
+        public const string PLAYER_SHOOT_SFX = "Shoot SFX";
+        public const string ENEMY_DEATH_SFX = "Explosion SFX";
+        
+        public const string BACKGROUND_MUSIC = "BackgroundMusic";
     }
 }

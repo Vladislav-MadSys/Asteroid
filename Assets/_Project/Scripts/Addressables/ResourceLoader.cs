@@ -10,17 +10,25 @@ namespace _Project.Scripts.Addressables
     {
         private Dictionary<string, AsyncOperationHandle> _cachedHandles = new Dictionary<string, AsyncOperationHandle>();
     
+        public void Dispose()
+        {
+            UnloadAll();
+        }
+        
         public async UniTask<T> Load<T>(string key)
         {
-            if (_cachedHandles.ContainsKey(key))
-            {
-                return (T)_cachedHandles[key].Result;
-            }
-        
-            var handle = UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<T>(key);
+            AsyncOperationHandle handle = GetHandle<T>(key);
+            
             await handle.Task;
             _cachedHandles[key] = handle;
-            return handle.Result;
+            if (handle.Result is GameObject gameObject && typeof(T) != typeof(GameObject))
+            {
+                return gameObject.GetComponent<T>();
+            }
+            else
+            {
+                return (T)handle.Result;
+            }
         }
 
         public async void Unload(string key)
@@ -32,10 +40,7 @@ namespace _Project.Scripts.Addressables
             _cachedHandles.Remove(key);
         }
 
-        public void Dispose()
-        {
-            UnloadAll();
-        }
+        
 
         public void UnloadAll()
         {
@@ -45,6 +50,29 @@ namespace _Project.Scripts.Addressables
                 Unload(key);
             }
             _cachedHandles.Clear();
+        }
+
+        private AsyncOperationHandle GetHandle<T>(string key)
+        {
+            
+            bool isComponent = typeof(Component).IsAssignableFrom(typeof(T));
+
+
+            if (!_cachedHandles.ContainsKey(key))
+            {
+                if (isComponent && typeof(T) != typeof(GameObject))
+                {
+                    return UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<GameObject>(key);
+                }
+                else
+                {
+                    return UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<T>(key);
+                }
+            }
+            else
+            {
+                return _cachedHandles[key];
+            }
         }
     }
 }

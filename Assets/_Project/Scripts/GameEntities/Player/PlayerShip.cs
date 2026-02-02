@@ -45,7 +45,7 @@ namespace _Project.Scripts.GameEntities.Player
             _configData = configData;
             
             _playerMovementController.Initialize(playerInputHandler, playerStates, sceneSaveController, configData);
-            _machinegunWeapon.Initialize(playerInputHandler, gameSessionData, resourcesService, configData);
+            _machinegunWeapon.Initialize(playerInputHandler, gameSessionData, resourcesService, configData, playerStates);
             _laser.Initialize(playerInputHandler, playerStates, gameSessionData, configData);
 
             _baseColor = _bodySprite.color;

@@ -22,17 +22,24 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
         private PlayerInputHandler _playerInputHandler;
         private GameSessionData _gameSessionData;
         private IResourcesService _resourceService;
+        private PlayerStates _playerState;
         
         
         private float _timer;
         private bool _canFire = false;
         private bool _isReady = false;
 
-        public async void Initialize(PlayerInputHandler playerInputHandler, GameSessionData gameSessionData, IResourcesService resourceService, ConfigData configData)
+        public async void Initialize(
+            PlayerInputHandler playerInputHandler, 
+            GameSessionData gameSessionData, 
+            IResourcesService resourceService, 
+            ConfigData configData,
+            PlayerStates playerState)
         {
             _playerInputHandler = playerInputHandler;
             _gameSessionData = gameSessionData;
             _resourceService = resourceService;
+            _playerState = playerState;
             
             _transform = transform;
             _shootingDelay = configData.ShootDelay;
@@ -77,6 +84,7 @@ namespace _Project.Scripts.GameEntities.Player.Weapon
             projectileTransform.rotation = _transform.rotation;
             projectileTransform.parent = null;
             _gameSessionData.AddShot();
+            _playerState.PlayerShoot(projectileTransform.position, projectileTransform.rotation);
         }
 
         private void OnProjectileEndLifeTime(Projectile projectile)

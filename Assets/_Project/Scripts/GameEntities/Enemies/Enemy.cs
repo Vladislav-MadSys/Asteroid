@@ -36,7 +36,7 @@ namespace _Project.Scripts.GameEntities.Enemies
 
         public virtual void Kill()
         {
-            _enemyDeathListener.OnEnemyDeath(this);
+            _enemyDeathListener.EnemyDeath(this);
 
             if (_isFromPool)
             {
