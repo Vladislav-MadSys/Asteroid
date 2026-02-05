@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Config;
+using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Services;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -15,35 +16,43 @@ namespace _Project.Scripts.GameEntities.Enemies
 
         private GameObject _debrisPrefab;
         private CancellationTokenSource _cancellationTokenSource;
+        
+        private bool _isInitialized;
 
 
         public async override void Initialize(
             EnemyDeathListener enemyDeathListener, 
             GameSessionData gameSessionData, 
-            IResourcesService resourcesService, 
+            IResourcesService resourcesService,
+            PlayerFactory playerFactory,
             ConfigData configData,
             bool isFromPool)
         {
-            base.Initialize(enemyDeathListener, gameSessionData, resourcesService, configData, isFromPool);
+            base.Initialize(enemyDeathListener, gameSessionData, resourcesService, playerFactory, configData, isFromPool);
             _debrisPrefab = await _resourcesService.Load<GameObject>(AddressablesKeys.PART_OF_ASTEROID);
+            _cancellationTokenSource = new CancellationTokenSource();
+            _isInitialized = true;
         }
 
-        private async void OnEnable()
+        private void OnEnable()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            try
+            if (_isInitialized)
             {
-                await UniTask.Delay(_lifeTimeMs, cancellationToken: _cancellationTokenSource.Token);
-                Kill();
-            }
-            catch (OperationCanceledException)
-            {
-                return;
+                InitSelfDestroy();
+                
+                _gameSessionData.OnPlayerKilled += OnPlayerKilled;
+                _gameSessionData.OnPlayerRespawned += OnPlayerRespawned;
             }
         }
         private void OnDisable()
         {
-            _cancellationTokenSource.Cancel();
+            if (_isInitialized)
+            {
+                _cancellationTokenSource.Cancel();
+
+                _gameSessionData.OnPlayerKilled -= OnPlayerKilled;
+                _gameSessionData.OnPlayerRespawned -= OnPlayerRespawned;
+            }
         }
         
         public override void Kill()
@@ -61,12 +70,13 @@ namespace _Project.Scripts.GameEntities.Enemies
 
                         if (deathObject.TryGetComponent(out AsteroidMovement asteroidMovement))
                         {
+                            asteroidMovement.Initialize(_configData, _playerFactory);
                             asteroidMovement.SetStartDirection();
                         }
 
                         if (deathObject.TryGetComponent(out Enemy enemy))
                         {
-                            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, _config, false);
+                            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, _playerFactory, _configData, false);
                         }
                     }
                 }
@@ -75,5 +85,27 @@ namespace _Project.Scripts.GameEntities.Enemies
             base.Kill();
         }
         
+        private async void InitSelfDestroy()
+        {
+            try
+            {
+                await UniTask.Delay(_lifeTimeMs, cancellationToken: _cancellationTokenSource.Token);
+                Kill();
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
+        }
+
+        private void OnPlayerKilled()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        private void OnPlayerRespawned()
+        {
+            InitSelfDestroy();
+        }
     }
 }

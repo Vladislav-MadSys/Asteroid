@@ -15,17 +15,19 @@ namespace _Project.Scripts.UI.MainMenu
     
         [SerializeField] private Button playButton;
         [SerializeField] private Button exitButton;
+        [SerializeField] private Button buyRemoveAdsButton;
         [SerializeField] private Image background;
         [SerializeField] private Image ship;
     
         [Header("Save Conflict Panel")] 
-        [SerializeField] private GameObject _conflictPanel;
-        [SerializeField] private TextMeshProUGUI _conflictPanelText;
-        [SerializeField] private Button _selectLocalSaveButton;
-        [SerializeField] private Button _selectCloudSaveButton;
+        [SerializeField] private GameObject conflictPanel;
+        [SerializeField] private TextMeshProUGUI conflictPanelText;
+        [SerializeField] private Button selectLocalSaveButton;
+        [SerializeField] private Button selectCloudSaveButton;
         
         private UnityAction OnPlayButtonClickEvent;
         private UnityAction OnExitButtonClickEvent;
+        private UnityAction OnBuyRemoveAdsButtonClickEvent;
         private UnityAction OnSelectLocalSaveButtonClickEvent;
         private UnityAction OnSelectCloudSaveButtonClickEvent;
     
@@ -58,16 +60,22 @@ namespace _Project.Scripts.UI.MainMenu
             OnSelectLocalSaveButtonClickEvent = () =>
             {
                 _presenter.OnSelectLocalSaveButtonClicked();
-                _conflictPanel.SetActive(false);
+                conflictPanel.SetActive(false);
             };
-            _selectLocalSaveButton.onClick.AddListener(OnSelectLocalSaveButtonClickEvent);
+            selectLocalSaveButton.onClick.AddListener(OnSelectLocalSaveButtonClickEvent);
 
             OnSelectCloudSaveButtonClickEvent = () =>
             {
                 _presenter.OnSelectCloudSaveButtonClicked();
-                _conflictPanel.SetActive(false);
+                conflictPanel.SetActive(false);
             };
-            _selectCloudSaveButton.onClick.AddListener(OnSelectCloudSaveButtonClickEvent);
+            selectCloudSaveButton.onClick.AddListener(OnSelectCloudSaveButtonClickEvent);
+
+            OnBuyRemoveAdsButtonClickEvent = () =>
+            {
+                _presenter.OnBuyRemoveAdsButtonClick();
+            };
+            buyRemoveAdsButton.onClick.AddListener(OnBuyRemoveAdsButtonClickEvent);
         }
 
         private void OnDestroy()
@@ -77,9 +85,9 @@ namespace _Project.Scripts.UI.MainMenu
         
         public void ShowPanelWithSelectingSave(SaveData localSaveData, SaveData cloudSaveData)
         {
-            _conflictPanelText.text =
+            conflictPanelText.text =
                 $"You have a cloud save from {cloudSaveData.saveTime}\nWhich one do you want to continue with?";
-            _conflictPanel.SetActive(true);
+            conflictPanel.SetActive(true);
         }
         
     }

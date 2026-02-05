@@ -9,7 +9,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             Enemy obstacle = base.Spawn();
             
             AsteroidMovement asteroidMovement = obstacle.GetComponent<AsteroidMovement>();
-            asteroidMovement.Initialize(_configData);
+            asteroidMovement.Initialize(_configData, _playerFactory);
             asteroidMovement.SetStartDirection();
             
             return obstacle;

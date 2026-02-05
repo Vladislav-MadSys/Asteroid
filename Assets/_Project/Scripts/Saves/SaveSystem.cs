@@ -1,7 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Saves
 {
@@ -27,8 +26,8 @@ namespace _Project.Scripts.Saves
         
         public void Save()
         {
-            _localSaveService.Save();
             _cloudSaveService.Save();
+            _localSaveService.Save();
         }
     
         public async UniTask Load()

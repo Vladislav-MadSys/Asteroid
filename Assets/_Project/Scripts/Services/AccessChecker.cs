@@ -1,54 +1,56 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.Networking;
 using Zenject;
 
-public class AccessChecker : IInitializable, IDisposable
+namespace _Project.Scripts.Services
 {
-    private const string URL_TO_CHECK = "https://storage.yandexcloud.net/asteroidgamedevforge";
+    public class AccessChecker : IInitializable, IDisposable
+    {
+        private const string URL_TO_CHECK = "https://storage.yandexcloud.net/asteroidgamedevforge";
 
-    public event Action OnSeccessConnection;
-    public event Action OnErrorConnection;
+        public event Action OnSeccessConnection;
+        public event Action OnErrorConnection;
     
-    private int _timeToCheck = 10;
-    private CancellationTokenSource _cancellationToken;
+        private int _timeToCheck = 10;
+        private CancellationTokenSource _cancellationToken;
 
-    public void Initialize()
-    {
-        _cancellationToken = new CancellationTokenSource();
-        CheckAccess();
-    }
-
-    public void Dispose()
-    {
-        _cancellationToken.Cancel();
-    }
-
-    private async UniTask CheckAccess()
-    {
-        try
+        public void Initialize()
         {
-            using (var request = UnityWebRequest.Head(URL_TO_CHECK))
+            _cancellationToken = new CancellationTokenSource();
+            CheckAccess();
+        }
+
+        public void Dispose()
+        {
+            _cancellationToken.Cancel();
+        }
+
+        private async UniTask CheckAccess()
+        {
+            try
             {
-                request.timeout = _timeToCheck;
-
-                await request.SendWebRequest().ToUniTask(cancellationToken: _cancellationToken.Token);
-
-                if (request.result == UnityWebRequest.Result.Success)
+                using (var request = UnityWebRequest.Head(URL_TO_CHECK))
                 {
-                    OnSeccessConnection?.Invoke();
-                }
-                else
-                {
-                    OnErrorConnection?.Invoke();
+                    request.timeout = _timeToCheck;
+
+                    await request.SendWebRequest().ToUniTask(cancellationToken: _cancellationToken.Token);
+
+                    if (request.result == UnityWebRequest.Result.Success)
+                    {
+                        OnSeccessConnection?.Invoke();
+                    }
+                    else
+                    {
+                        OnErrorConnection?.Invoke();
+                    }
                 }
             }
-        }
-        catch
-        {
-           OnErrorConnection?.Invoke();
+            catch
+            {
+                OnErrorConnection?.Invoke();
+            }
         }
     }
 }

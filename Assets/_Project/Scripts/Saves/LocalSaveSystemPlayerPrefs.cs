@@ -10,6 +10,7 @@ namespace _Project.Scripts.Saves
         private const string SAVE_KEY = "basicSave";
         
         private SaveDataConstructor _saveDataConstructor;
+        private SaveData _cachedSaveData;
 
         public LocalSaveSystemPlayerPrefs(SaveDataConstructor saveDataConstructor)
         {
@@ -18,7 +19,7 @@ namespace _Project.Scripts.Saves
         
         public void Save()
         {
-            string save = JsonUtility.ToJson(_saveDataConstructor.GetSaveData());
+            string save = JsonUtility.ToJson(_saveDataConstructor.GetSaveData(_cachedSaveData));
             PlayerPrefs.SetString(SAVE_KEY, save);
         }
 
@@ -32,7 +33,8 @@ namespace _Project.Scripts.Saves
         {
             if (!PlayerPrefs.HasKey(SAVE_KEY)) return null;
             
-            return JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString(SAVE_KEY));
+            _cachedSaveData = JsonUtility.FromJson<SaveData>(PlayerPrefs.GetString(SAVE_KEY));
+            return _cachedSaveData;
         }
     }
 }

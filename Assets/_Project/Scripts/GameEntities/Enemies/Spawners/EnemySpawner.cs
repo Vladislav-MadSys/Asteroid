@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Config;
 using _Project.Scripts.Enums;
+using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
 using UnityEngine;
@@ -11,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.GameEntities.Enemies.Spawners
 {
-    public class EnemySpawner : ITickable
+    public class EnemySpawner : ITickable, IDisposable
     {
         private const float VIEWPORT_SCALE = 1f;
         
@@ -21,10 +22,13 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         protected Camera _mainCamera;
         protected EnemyDeathListener _enemyDeathListener;
         protected IResourcesService _resourcesService;
+        protected PlayerFactory _playerFactory;
         protected GameSessionData _gameSessionData;
         protected ConfigData _configData;
         
+        
         private float _timer;
+        private bool _isSpawnerActive = true;
        
         
         public void Initialize(
@@ -33,6 +37,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             ObjectPool<Enemy> objectPool,
             EnemyDeathListener enemyDeathListener,
             IResourcesService resourcesService,
+            PlayerFactory playerFactory,
             GameSessionData gameSessionData,
             ConfigData configData)
         {
@@ -41,12 +46,24 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             ObjectPool = objectPool;
             _enemyDeathListener = enemyDeathListener;
             _resourcesService = resourcesService;
+            _playerFactory = playerFactory;
             _gameSessionData = gameSessionData;
             _configData = configData;
+    
+            _gameSessionData.OnPlayerKilled += StopSpawning;
+            _gameSessionData.OnPlayerRespawned += StartSpawning;        
         }
-        
+
+        public void Dispose()
+        {
+            _gameSessionData.OnPlayerKilled -= StopSpawning;
+            _gameSessionData.OnPlayerRespawned += StartSpawning;      
+        }
+
         public void Tick()
         {
+            if (!_isSpawnerActive) return;
+            
             if (_timer >= Settings.TimeToSpawn)
             {
                 _timer = 0;
@@ -106,10 +123,10 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
         {
             Vector3 spawnPosition = GetPositionOutsideScreen();
             Enemy enemy = ObjectPool.GetObject();
-            enemy.gameObject.SetActive(true);
             enemy.transform.position = spawnPosition;
             
-            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, _configData,true);
+            enemy.Initialize(_enemyDeathListener, _gameSessionData, _resourcesService, _playerFactory, _configData,true);
+            enemy.gameObject.SetActive(true);
             enemy.OnKill += OnMyEnemyKill;
             
             return enemy;
@@ -120,6 +137,16 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             enemy.OnKill -= OnMyEnemyKill;
             ObjectPool.ReturnObject(enemy);
             enemy.gameObject.SetActive(false);
+        }
+
+        private void StopSpawning()
+        {
+            _isSpawnerActive = false;
+        }
+
+        private void StartSpawning()
+        {
+            _isSpawnerActive = true;
         }
     }
 }

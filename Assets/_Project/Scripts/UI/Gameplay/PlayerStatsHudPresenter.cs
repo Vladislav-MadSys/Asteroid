@@ -91,12 +91,12 @@ namespace _Project.Scripts.UI.Gameplay
 
         private void ChangePlayerCoordinatesText(Vector2 newCoordinates)
         {
-            _view.ChangePlayerCoordinatesText("Player pos: " + newCoordinates);
+            _view.ChangePlayerCoordinatesText("Player pos: " + newCoordinates.x.ToString("F2") + " " +  newCoordinates.y.ToString("F2"));
         }
 
         private void ChangePlayerAngleText(float newAngle)
         {
-            _view.ChangePlayerAngleText("Player angle: " + newAngle);
+            _view.ChangePlayerAngleText("Player angle: " + newAngle.ToString("F2"));
         }
 
         private void ChangeLaserChargeText(int laserCharges)
@@ -106,7 +106,7 @@ namespace _Project.Scripts.UI.Gameplay
 
         private void ChangeLaserReloadText(float timer)
         {
-            _view.ChangeLaserReloadText("Laser reload: " + timer);
+            _view.ChangeLaserReloadText("Laser reload: " + timer.ToString("F2"));
         }
 
         private void ShowLosePanel(int currentPoints, int previousPoints)

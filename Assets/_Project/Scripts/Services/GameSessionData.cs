@@ -9,6 +9,7 @@ namespace _Project.Scripts.Services
     public class GameSessionData : IInitializable, IDisposable
     {
         public event Action OnPlayerKilled;
+        public event Action OnPlayerRespawned;
         public event Action OnPointsChanged;
 
         public Vector2 PlayerPosition { get; private set; }
@@ -65,6 +66,11 @@ namespace _Project.Scripts.Services
         {
             OnPlayerKilled?.Invoke();  
             _analyticsService.LogGameEnd(ShotsCount, LaserUsesCount, DestroyedAsteroids, DestroyedUfos);
+        }
+
+        public void RespawnPlayer()
+        {
+            OnPlayerRespawned?.Invoke();
         }
 
         public void AddShot()

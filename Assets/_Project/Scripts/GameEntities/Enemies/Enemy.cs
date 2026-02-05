@@ -1,6 +1,7 @@
 using System;
 using _Project.Scripts.Addressables;
 using _Project.Scripts.Config;
+using _Project.Scripts.GameEntities.Player;
 using _Project.Scripts.Services;
 using _Project.Scripts.Universal;
 using UnityEngine;
@@ -16,21 +17,24 @@ namespace _Project.Scripts.GameEntities.Enemies
         
         protected EnemyDeathListener _enemyDeathListener;
         protected GameSessionData _gameSessionData;
+        protected PlayerFactory _playerFactory;
         protected IResourcesService _resourcesService;
-        protected  ConfigData _config;
+        protected  ConfigData _configData;
         protected bool _isFromPool = false;
     
         public virtual void Initialize(
             EnemyDeathListener enemyDeathListener, 
             GameSessionData gameSessionData, 
-            IResourcesService resourcesService, 
+            IResourcesService resourcesService,
+            PlayerFactory playerFactory,
             ConfigData configData,
             bool isFromPool)
         {
             _enemyDeathListener = enemyDeathListener;
             _gameSessionData = gameSessionData;
             _resourcesService = resourcesService;
-            _config = configData;
+            _playerFactory = playerFactory;
+            _configData = configData;
             _isFromPool = isFromPool;
         }
 

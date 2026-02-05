@@ -1,5 +1,6 @@
 using _Project.Scripts.Config;
 using _Project.Scripts.GameEntities.Player;
+using _Project.Scripts.Services;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         private Transform _target;
         private Rigidbody2D _rigidbody;
 
-        public void Initialize(PlayerFactory playerFactory, ConfigData configData)
+        public void Initialize(PlayerFactory playerFactory, ConfigData configData, GameSessionData gameSessionData)
         {
             _playerFactory = playerFactory;
             if(playerFactory.PlayerShip != null)

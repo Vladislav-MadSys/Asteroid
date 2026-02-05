@@ -61,7 +61,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
                         objectPool.Initialize();
                         
                         AsteroidSpawner asteroidSpawner = new AsteroidSpawner();
-                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPool, _enemyDeathListener, _resourcesService, _gameSessionData, _configData);
+                        asteroidSpawner.Initialize(_mainCamera,spawnerSettings, objectPool, _enemyDeathListener, _resourcesService, _playerFactory, _gameSessionData, _configData);
                         _obstaclesSpawner.Add(asteroidSpawner);
                         break;
                     case SpawnerType.Ufo:

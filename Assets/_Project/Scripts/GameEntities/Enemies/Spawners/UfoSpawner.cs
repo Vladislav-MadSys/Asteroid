@@ -34,7 +34,7 @@ namespace _Project.Scripts.GameEntities.Enemies.Spawners
             Enemy obstacle = base.Spawn();
             
             UfoMovement ufoMovment = obstacle.GetComponent<UfoMovement>();
-            ufoMovment.Initialize(_playerFactory, _configData);
+            ufoMovment.Initialize(_playerFactory, _configData, _gameSessionData);
             
             
             return obstacle;

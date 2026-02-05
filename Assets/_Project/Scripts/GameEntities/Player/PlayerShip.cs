@@ -75,6 +75,7 @@ namespace _Project.Scripts.GameEntities.Player
             _machinegunWeapon.ControlEnabled = true;
             _laser.ControlEnabled = true;
             IsDead = false;
+            _gameSessionData.RespawnPlayer();
             
             _cancellationToken = new CancellationTokenSource();
             await UniTask.Delay(INVENCIBLE_TIME, cancellationToken: _cancellationToken.Token);

@@ -1,5 +1,6 @@
 using _Project.Scripts.Config;
 using _Project.Scripts.GameEntities.Player;
+using _Project.Scripts.Services;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ namespace _Project.Scripts.GameEntities.Enemies
         [SerializeField] private float _minRotationOffset = -5;
         [SerializeField] private float _maxRotationOffset = 5;
 
+        private PlayerFactory _playerFactory;
         private Transform _transform;
         private Rigidbody2D _rigidbody;
     
@@ -21,9 +23,10 @@ namespace _Project.Scripts.GameEntities.Enemies
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        public void Initialize(ConfigData configData)
+        public void Initialize(ConfigData configData, PlayerFactory playerFactory)
         {
             _speed = configData.AsteroidSpeed;
+            _playerFactory = playerFactory;
         }
 
         public void SetStartDirection()
@@ -36,6 +39,8 @@ namespace _Project.Scripts.GameEntities.Enemies
 
         private void FixedUpdate()
         {
+            if (_playerFactory.PlayerShip == null || (_playerFactory.PlayerShip != null && _playerFactory.PlayerShip.IsDead == true)) return;
+            
             _rigidbody.position = _transform.position + _transform.up * (_speed * Time.fixedDeltaTime);
         }
     }

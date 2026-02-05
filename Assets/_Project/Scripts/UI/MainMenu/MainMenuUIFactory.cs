@@ -3,6 +3,7 @@ using _Project.Scripts.Addressables;
 using _Project.Scripts.Factories;
 using _Project.Scripts.Low;
 using _Project.Scripts.Low.SceneController;
+using _Project.Scripts.Purchases;
 using _Project.Scripts.Saves;
 using UnityEngine;
 using Zenject;
@@ -14,16 +15,18 @@ namespace _Project.Scripts.UI.MainMenu
         private ISceneController _sceneController;
         private IResourcesService _resourcesService;
         private ISaveSystem _saveSystem;
+        private IPurchaser _purchaser;
         
         private MainMenuUIModel _model;
         private MainMenuUIView _view;
         private MainMenuUIPresenter _presenter;
     
-        public MainMenuUIFactory(ISceneController sceneController, IResourcesService resourcesService, ISaveSystem saveSystem)
+        public MainMenuUIFactory(ISceneController sceneController, IResourcesService resourcesService, ISaveSystem saveSystem, IPurchaser purchaser)
         {
             _sceneController = sceneController;
             _resourcesService = resourcesService;
             _saveSystem = saveSystem;
+            _purchaser = purchaser;
         }
 
         public async void Initialize()
@@ -37,7 +40,7 @@ namespace _Project.Scripts.UI.MainMenu
 
             _model.Initialize(_saveSystem);
             _view.Initialize(_presenter, _resourcesService);
-            _presenter.Initialize(_view, _model, _sceneController, _resourcesService);
+            _presenter.Initialize(_view, _model, _sceneController, _resourcesService, _purchaser);
         }
 
         public void Dispose()

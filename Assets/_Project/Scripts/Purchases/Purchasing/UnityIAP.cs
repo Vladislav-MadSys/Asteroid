@@ -37,6 +37,21 @@ namespace _Project.Scripts.Purchases.Purchasing
             _storeController.OnPurchasesFetched -= OnPurchasesFetched;
             _saveSystem.OnSaveLoaded -= OnLocalSaveDataLoaded;
         }
+
+        public void OnPurchaseButtonClicked(string productId)
+        {
+            if (string.IsNullOrEmpty(productId))
+            {
+                Debug.LogError("IAPButton productId is empty");
+                return;
+            }
+            else if (!CodelessIAPStoreListener.Instance.HasProductInCatalog(productId!))
+            {
+                Debug.LogWarning("The product catalog has no product with the ID \"" + productId + "\"");
+                return;
+            }
+            CodelessIAPStoreListener.Instance.InitiatePurchase(productId);
+        }
     
         public void OnPurchasePending(PendingOrder order)
         {
@@ -86,6 +101,7 @@ namespace _Project.Scripts.Purchases.Purchasing
         private void RemoveAds()
         {
             IsAdsRemoved = true;
+            _saveSystem.Save();
             Debug.Log("Removing Ads");
         }
 

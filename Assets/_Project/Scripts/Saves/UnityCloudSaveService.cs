@@ -16,6 +16,7 @@ namespace _Project.Scripts.Saves
         private const int SECONDS_TO_WAIT_UNITY_CLOUD_READY = 5;
         
         private SaveDataConstructor _saveDataConstructor;
+        private SaveData _cachedSaveData;
 
         private bool isReady = false;
         
@@ -35,7 +36,7 @@ namespace _Project.Scripts.Saves
         {
             if(!isReady) return;
             
-            var jsonSaveData = JsonUtility.ToJson(_saveDataConstructor.GetSaveData());
+            var jsonSaveData = JsonUtility.ToJson(_saveDataConstructor.GetSaveData(_cachedSaveData));
             var playerData = new Dictionary<string, object>{
                 {SAVE_KEY, jsonSaveData}
             };
@@ -71,7 +72,8 @@ namespace _Project.Scripts.Saves
 
                 if (saveData.TryGetValue(SAVE_KEY, out var data))
                 {
-                    return JsonUtility.FromJson<SaveData>(data.Value.GetAsString());
+                    _cachedSaveData = JsonUtility.FromJson<SaveData>(data.Value.GetAsString());
+                    return _cachedSaveData;
                 }
 
                 return null;
